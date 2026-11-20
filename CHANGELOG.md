@@ -52,6 +52,10 @@ First public release of MELUNE as an open-source repository.
   that follows the host's play/pause/seek/track.
 - Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
   roomier, aligned spacing in both READMEs.
+- API E2E: added `--forceExit` to `npm run test:e2e`. The Socket.io
+  `RoomsGateway` keeps a server handle open after Nest closes in the test
+  harness, which left Jest hanging indefinitely in CI even after every
+  suite passed. Assertions and coverage are unchanged.
 - Self-hosted the four brand fonts (Sora, Inter, Vazirmatn, Cormorant
   Garamond) as variable woff2 in `apps/web/src/fonts/` instead of
   `next/font/google`. CI's `next build` failed intermittently while parsing
