@@ -1,19 +1,15 @@
 # Normalise line endings so the same checkout works on Windows, macOS and Linux
 # (the production server runs Ubuntu; PowerShell scripts stay CRLF on purpose).
-
 * text=auto eol=lf
-
 *.sh        text eol=lf
 *.caddy     text eol=lf
 Dockerfile  text eol=lf
 *.Dockerfile text eol=lf
 *.yml       text eol=lf
 *.yaml      text eol=lf
-
 *.ps1       text eol=crlf
 *.bat       text eol=crlf
 *.cmd       text eol=crlf
-
 # Media / archives are never diffed or merged as text.
 *.png   binary
 *.jpg   binary
@@ -35,8 +31,12 @@ Dockerfile  text eol=lf
 *.woff  binary
 *.woff2 binary
 *.ttf   binary
-
 # Generated files: no noisy diffs in reviews.
 package-lock.json linguist-generated=true -diff
 pnpm-lock.yaml      linguist-generated=true -diff
 yarn.lock           linguist-generated=true -diff
+apps/web/public/audio-real/*.m4a filter=lfs diff=lfs merge=lfs -text
+apps/web/public/audio-full/*.mp3 filter=lfs diff=lfs merge=lfs -text
+apps/web/public/audio/SoundHelix-*.mp3 filter=lfs diff=lfs merge=lfs -text
+apps/web/public/covers-real/*.jpg filter=lfs diff=lfs merge=lfs -text
+apps/web/public/hero-covers/*.jpg filter=lfs diff=lfs merge=lfs -text

@@ -1,21 +1,36 @@
 ﻿<div align="center">
 
-![MELUNE — Your Music. Smarter.](docs/assets/melune-preview.png)
+![MELUNE — Your Music. Smarter.](docs/assets/melune-social-cover.png)
 
 </div>
 
 # MELUNE — Codex Music
 
-**Full-stack music streaming and discovery platform.** Persian-first web player,
-NestJS API with realtime features, PostgreSQL persistence, Redis caching, object
-storage for media, and an Expo mobile client — all in one TypeScript monorepo.
+**MELUNE — A full-stack music streaming platform built with Next.js, NestJS, PostgreSQL, Redis & HLS.**
+
+Persian-first web player with 21 themes, realtime features, an offline PWA and a
+hybrid recommendation engine — all in one TypeScript monorepo.
 
 > **Your Music. Smarter.**
 
+[![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Coverage](https://img.shields.io/badge/coverage-76%25-brightgreen)](apps/api/coverage/lcov-report/index.html)
 [![Node >= 20](https://img.shields.io/badge/Node-%3E%3D20-green.svg)](package.json)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#tech-stack)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#tech-stack)
+
+## 🎨 Visuals
+
+**All 21 themes (rendered from the real `theme-previews.html`):**
+
+![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
+
+Alternative cover concepts: [Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png) ·
+[Aurora Glass](docs/assets/melune-cover-aurora-glass.png) ·
+[Persian Noir](docs/assets/melune-cover-persian-noir.png) ·
+[Editable SVG](docs/assets/melune-social-cover.svg)
 
 ---
 

@@ -19,6 +19,7 @@ installation and a feature tour.
 | [ai.md](ai.md) | Optional FastAPI recommendation service |
 | [lockfile.md](lockfile.md) | Why `package-lock.json` is committed and how CI guards it |
 | [github-access.md](github-access.md) | Repository roles and read-only collaborator script |
+| [media.md](media.md) | Git LFS migration and moving demo media to R2 |
 | [project-analysis-fa.md](project-analysis-fa.md) | تحلیل فنی جامع مونوریپو (سند تاریخی ۲۰۲۶-۱۱-۱۸) |
 
 ## Release history

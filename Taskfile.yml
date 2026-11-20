@@ -1,0 +1,85 @@
+version: "3"
+
+vars:
+  DEFAULT_TASK: help
+
+tasks:
+  help:
+    desc: List all available tasks
+    cmds:
+      - task --list
+
+  install:
+    desc: Install all workspace dependencies
+    cmds:
+      - npm ci
+
+  dev:web:
+    desc: Start Next.js on :3000
+    cmds:
+      - npm run dev:web
+
+  dev:api:
+    desc: Start NestJS API on :4000
+    cmds:
+      - npm run dev:api
+
+  build:
+    desc: Build every workspace
+    cmds:
+      - npm run build
+
+  lint:
+    desc: Lint every workspace
+    cmds:
+      - npm run lint
+
+  typecheck:
+    desc: Type-check every workspace
+    cmds:
+      - npm run typecheck
+
+  test:
+    desc: Run all unit tests
+    cmds:
+      - npm run test
+
+  test:api:
+    desc: API unit tests with coverage
+    cmds:
+      - npm run test:cov
+
+  test:web:
+    desc: Web unit tests
+    cmds:
+      - npm run test --workspace=apps/web
+
+  test:e2e:
+    desc: API E2E tests (needs Postgres + Redis)
+    cmds:
+      - npm run test:e2e
+
+  db:generate:
+    desc: Regenerate Prisma client
+    cmds:
+      - npm run prisma:generate
+
+  db:migrate:
+    desc: Apply dev migrations
+    cmds:
+      - npm run prisma:migrate
+
+  docker:up:
+    desc: Start the development stack
+    cmds:
+      - npm run docker:up
+
+  docker:down:
+    desc: Stop the development stack
+    cmds:
+      - npm run docker:down
+
+  lockfile:check:
+    desc: Validate package-lock.json
+    cmds:
+      - npm run lockfile:check

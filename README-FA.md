@@ -2,20 +2,37 @@
 
 <div align="center">
 
-![MELUNE — Your Music. Smarter.](docs/assets/melune-preview.png)
+![MELUNE — Your Music. Smarter.](docs/assets/melune-social-cover.png)
 
 </div>
 
-**پلتفرم کامل پخش و کشف موسیقی** — پخش‌کنندهٔ وب فارسی‌محور، API مبتنی بر NestJS با قابلیت‌های
-بلادرنگ، ذخیره‌سازی در PostgreSQL، کش با Redis، ذخیره‌سازی آبجکت برای رسانه و کلاینت موبایل
-Expo؛ همه در یک مونوریپوی TypeScript.
+**MELUNE — پلتفرم فولاستک پخش موسیقی با Next.js، NestJS، PostgreSQL، Redis و HLS.**
 
-> **Your Music. Smarter.**
+پخشکنندهٔ وب فارسیمحور با ۲۱ تم، قابلیتهای بلادرنگ، PWA آفلاین و موتور پیشنهاددهی ترکیبی؛
+همه در یک مونوریپوی TypeScript. همه در یک مونوریپوی TypeScript.
 
+> **ملون — موسیقی شما، هوشمندتر.**
+
+[![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Coverage](https://img.shields.io/badge/coverage-76%25-brightgreen)](apps/api/coverage/lcov-report/index.html)
 [![Node >= 20](https://img.shields.io/badge/Node-%3E%3D20-green.svg)](package.json)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#پشتهٔ-فناوری)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#پشتهٔ-فناوری)
+
+## 🎨 نمایی از رابط کاربری
+
+**همهٔ ۲۱ تم (رندرشده از `theme-previews.html` واقعی پروژه):**
+
+![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
+
+جلدهای جایگزین: [Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png) ·
+[Aurora Glass](docs/assets/melune-cover-aurora-glass.png) ·
+[Persian Noir](docs/assets/melune-cover-persian-noir.png) ·
+[نسخهٔ قابلویر SVG](docs/assets/melune-social-cover.svg)
+
+---
 
 [English README](README.md)
 
