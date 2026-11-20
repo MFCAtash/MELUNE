@@ -25,7 +25,7 @@ import { useAmbientTheme } from "@/hooks/use-ambient-theme";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { seekBy } from "@/lib/player-utils";
 import { mockLyricsProvider, type LyricLine } from "@/lib/contracts/lyrics";
-import { SeekBar } from "./seek-bar";
+import { WaveformSeekBar } from "./waveform-seek-bar";
 import { VinylCover } from "./vinyl-cover";
 import { SonicCanvas } from "./sonic-canvas";
 import { SonicClipButton } from "./sonic-clip-button";
@@ -291,10 +291,11 @@ export function FullScreenPlayer({ onClose }: { onClose: () => void }) {
 
         {/* Controls */}
         <div className="glass-panel mt-5 flex flex-col gap-4 !rounded-3xl p-4">
-          <SeekBar
+          <WaveformSeekBar
             currentTime={currentTime}
             duration={duration}
             onSeek={seek}
+            audioUrl={track?.audioUrl ?? null}
             showRemaining
             ambientColor={ambientColor}
           />

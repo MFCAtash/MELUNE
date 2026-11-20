@@ -7,6 +7,7 @@ import { apiClient } from "@/lib/api-client";
 import { useAuthStore } from "@/store/auth-store";
 import { getOfflineObjectUrl } from "@/lib/offline-store";
 import { registerPlayerAudioElement, resumeSharedAudioContext } from "@/lib/audio-analyser-bridge";
+import { useMediaSession } from "@/hooks/use-media-session";
 
 export function PlayerEngine() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -32,6 +33,11 @@ export function PlayerEngine() {
   const setDuration = usePlayerStore((s) => s.setDuration);
   const onTrackEnded = usePlayerStore((s) => s.onTrackEnded);
   const pause = usePlayerStore((s) => s.pause);
+
+  // Lock-screen / hardware-media-key integration (Media Session API).
+  // Pure side effect: reads the store, writes OS metadata; never touches
+  // the <audio> element below.
+  useMediaSession();
 
   // Load a new source whenever the track changes. Prefers a downloaded
   // copy from IndexedDB (works fully offline, and skips the network

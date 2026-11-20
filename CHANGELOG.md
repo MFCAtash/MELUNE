@@ -20,6 +20,20 @@ First public release of MELUNE as an open-source repository.
   and a pull-request template.
 - Social preview artwork (`docs/assets/melune-preview.png`) generated from the
   real hero covers.
+- Twelve cover concepts in [`docs/assets/`](docs/assets) — including **Persian
+  Miniature** (girih geometry), **Analog Cassette**, **Spectrum Glass** and
+  **Brutalist Grid** — plus a 1280×320 feature strip and a 1080×1920 story card.
+  Every cover ships as font-embedded SVG (editable, renders identically
+  anywhere) and a PNG render.
+- Media Session integration (`apps/web/src/hooks/use-media-session.ts`): the
+  current track's artwork, title and artist appear on the OS lock screen and
+  the hardware media keys drive the in-app player.
+- Real waveform seek bar (`components/player/waveform-seek-bar.tsx` +
+  `hooks/use-track-peaks.ts`): peaks are decoded once per track, cached for the
+  tab, and fall back to the plain seek bar when Web Audio or CORS isn't
+  available.
+- [`docs/roadmap-visuals-fa.md`](docs/roadmap-visuals-fa.md) — the visual and
+  product roadmap (covers, in-app visuals, feature packages).
 - Repository access guide and a helper script for read-only collaborators.
 
 ### Changed

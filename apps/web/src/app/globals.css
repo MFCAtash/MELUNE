@@ -454,6 +454,37 @@
     background: #fff;
     box-shadow: 0 0 12px color-mix(in srgb, var(--seek-color-start, rgb(var(--halo-1))) 85%, transparent);
   }
+
+  /* Waveform seek bar (see components/player/waveform-seek-bar.tsx).
+     The SVG paints the track's real peak envelope and the played
+     fraction; the range input sits on top with its native track made
+     transparent, so only the thumb and its interaction remain. Keeps
+     the whole control accessible and RTL-safe — the visible artwork is
+     purely decorative (`aria-hidden`). */
+  .waveform-seek {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 1.5rem;
+  }
+  .waveform-seek__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .seek-range--wave {
+    position: relative;
+    z-index: 1;
+  }
+  .seek-range--wave::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+  .seek-range--wave::-moz-range-track,
+  .seek-range--wave::-moz-range-progress {
+    background: transparent;
+  }
 }
 
 /* ------------------------------------------------------------------ *

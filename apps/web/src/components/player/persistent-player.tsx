@@ -29,7 +29,7 @@ import { useAmbientTheme } from "@/hooks/use-ambient-theme";
 import { useBeatPulse } from "@/hooks/use-beat-pulse";
 import { useBeatPulseStyle } from "@/hooks/use-beat-pulse-style";
 import { isShellRoute } from "@/lib/nav";
-import { SeekBar } from "./seek-bar";
+import { WaveformSeekBar } from "./waveform-seek-bar";
 import { QueuePanel } from "./queue-panel";
 import { FullScreenPlayer } from "./full-screen-player";
 import { FocusMode } from "./focus-mode";
@@ -257,7 +257,14 @@ export function PersistentPlayer() {
               </button>
             </div>
             <div className="w-full max-w-md">
-              <SeekBar currentTime={currentTime} duration={duration} onSeek={seek} compact />
+              <WaveformSeekBar
+                currentTime={currentTime}
+                duration={duration}
+                onSeek={seek}
+                audioUrl={track.audioUrl}
+                ambientColor={ambientColor}
+                compact
+              />
             </div>
           </div>
 

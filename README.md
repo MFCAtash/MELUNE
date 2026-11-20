@@ -29,13 +29,23 @@ hybrid recommendation engine — all in one TypeScript monorepo.
 
 ### Cover concepts (click to open full size)
 
-|  |  |  |  |
+| | | | |
 |---|---|---|---|
-| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
+| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |
+| [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
 | [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
 
-All covers are 1280×640 SVG (vector, editable) + PNG renders in
-[`docs/assets/`](docs/assets). The hero above uses **Emerald Editorial**.
+**Feature strip** (drop into any README or slide deck) and **story card**
+(1080×1920, for Instagram/Telegram):
+
+[![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
+<img src="docs/assets/melune-story.png" alt="MELUNE story card" width="270" />
+
+All covers are 1280×640 SVG (vector, editable, fonts embedded as base64 so
+they render identically everywhere) + PNG renders in
+[`docs/assets/`](docs/assets). The hero above uses **Emerald Editorial**;
+**Persian Miniature** is the culturally-specific direction, and
+**Analog Cassette** matches the demo catalogue's era.
 
 ---
 

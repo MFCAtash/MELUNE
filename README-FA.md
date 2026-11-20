@@ -29,11 +29,19 @@
 
 | جلدها (برای دیدن کامل کلیک کنید) | | | |
 |---|---|---|---|
-| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
+| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |
+| [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
 | [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
 
-همهٔ جلدها ۱۲۸۰×۶۴۰ و برداری (SVG قابلویر) همراه با رندر PNG در
-[`docs/assets/`](docs/assets) قرار دارند. جلد بالای صفحه **Emerald Editorial** است.
+**نوار ویژگی‌ها** (مناسب README و اسلاید) و **کارت استوری** (۱۰۸۰×۱۹۲۰ برای اینستاگرام/تلگرام):
+
+[![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
+<img src="docs/assets/melune-story.png" alt="MELUNE story card" width="270" />
+
+همهٔ جلدها ۱۲۸۰×۶۴۰ و برداری (SVG قابلویر با فونت جاسازی‌شده) همراه با رندر PNG در
+[`docs/assets/`](docs/assets) قرار دارند. جلد بالای صفحه **Emerald Editorial** است،
+**Persian Miniature** جهت فرهنگی ایرانی و **Analog Cassette** هم‌خوان با دورهٔ
+کاتالوگ دموست.
 
 ---
 
