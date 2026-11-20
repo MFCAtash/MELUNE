@@ -120,7 +120,8 @@ infra/
                        Origin Certificate) and site.caddy (shared routes/headers)
 docs/                  architecture.md, api.md, database.md, design-system.md,
                        development.md, deployment.md, deploy-oracle-cloudflare.md,
-                       ai.md, lockfile.md
+                       deploy-oracle-cloudflare-fa.md (Persian), project-analysis-fa.md,
+                       ai.md, lockfile.md, changelog/ (phase notes)
 scripts/               Repo tooling + deployment helpers (see scripts/deploy/)
 .env.example           Development configuration template
 .env.production.example Production configuration template
@@ -317,13 +318,15 @@ NestJS, and exposes the media bucket from MinIO. Because the API, the websocket
 and the media all share one origin, there is no CORS, cross-site cookie or
 presigned-URL mismatch to manage.
 
-Longer reads:
+Longer reads (full index: [docs/README.md](docs/README.md)):
 
 - [docs/architecture.md](docs/architecture.md) — module map, request flows, realtime
 - [docs/api.md](docs/api.md) — endpoint reference and conventions
 - [docs/database.md](docs/database.md) — schema walkthrough, indexes, search
 - [docs/design-system.md](docs/design-system.md) — themes, tokens, components
 - [docs/development.md](docs/development.md) — day-to-day workflow and rules
+- [docs/deploy-oracle-cloudflare-fa.md](docs/deploy-oracle-cloudflare-fa.md) — full Persian deployment checklist
+- [docs/project-analysis-fa.md](docs/project-analysis-fa.md) — in-depth technical analysis (Persian)
 
 ---
 
@@ -332,7 +335,8 @@ Longer reads:
 Option B (documented): a single Oracle Cloud Always Free VM running
 `docker-compose.prod.yml`, with Cloudflare in front for DNS, TLS edge, CDN and WAF.
 
-- **Step-by-step checklist (Persian):** [docs/deploy-oracle-cloudflare.md](docs/deploy-oracle-cloudflare.md)
+- **Step-by-step checklist (English):** [docs/deploy-oracle-cloudflare.md](docs/deploy-oracle-cloudflare.md)
+- **راهنمای کامل فارسی:** [docs/deploy-oracle-cloudflare-fa.md](docs/deploy-oracle-cloudflare-fa.md)
 - **Environment template:** [.env.production.example](.env.production.example)
 - **CI/CD:** [.github/workflows/deploy.yml](.github/workflows/deploy.yml) deploys over SSH after CI succeeds on `main`, or on demand with a chosen ref/SHA
 - **TLS:** [infra/caddy/Caddyfile](infra/caddy/Caddyfile) (Let's Encrypt) or
@@ -369,14 +373,15 @@ Before a public launch:
 - [ ] Production-grade observability (logs, metrics, tracing)
 
 A detailed history of shipped phases is in
-[CHANGELOG.md](CHANGELOG.md); individual phase notes are the `CHANGES-*.md` files at the
-repository root.
+[CHANGELOG.md](CHANGELOG.md); individual phase notes live in
+[`docs/changelog/`](docs/changelog/README.md).
 
 ---
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) first. The short version:
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) first. The short version:
 
 1. Fork and branch from `main`.
 2. `npm ci`, then make your change with `npm run typecheck` and `npm run lint` clean.
@@ -397,8 +402,10 @@ report privately and we will triage quickly.
 
 ## Repository access
 
-This repository is **Private**. To give someone view-only access (browse and
-clone, but no push/fork/settings changes), grant the **Read** role:
+This repository is **Public** — anyone can view, clone and fork the code. No
+invitation is needed. If the owner later switches it to private, the
+[`grant-read-access.sh`](scripts/github/grant-read-access.sh) helper can give a
+collaborator the read-only `pull` role:
 
 ```bash
 ./scripts/github/grant-read-access.sh USERNAME

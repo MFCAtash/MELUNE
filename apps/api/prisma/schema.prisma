@@ -16,7 +16,11 @@ generator client {
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
-  extensions = [pg_trgm]
+  // pg_trgm is created by 20260926000000_init/migration.sql. It is
+  // deliberately not declared with `extensions = [pg_trgm]`: Prisma cannot
+  // reconstruct extension declarations from migration history, so declaring
+  // it here makes `migrate diff --from-migrations` (CI schema-drift check)
+  // report a false difference on a fresh shadow database.
 }
 
 enum Role {

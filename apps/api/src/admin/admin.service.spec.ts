@@ -61,6 +61,7 @@ describe("AdminService", () => {
 
   it("bans a user and revokes their active refresh tokens", async () => {
     prisma.user.findFirst.mockResolvedValue({ id: "user-2" });
+    prisma.user.update.mockResolvedValue({ id: "user-2", artistProfile: null });
 
     await service.banUser("admin-1", "user-2");
 

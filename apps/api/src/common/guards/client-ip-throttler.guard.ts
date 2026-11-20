@@ -17,6 +17,9 @@ import { ThrottlerGuard } from "@nestjs/throttler";
  */
 @Injectable()
 export class ClientIpThrottlerGuard extends ThrottlerGuard {
+  // The base class declares `Record<string, any>`; keeping that exact
+  // signature is required for a valid override, so the rule is waived here.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected async getTracker(req: Record<string, any>): Promise<string> {
     const cf = req.headers?.["cf-connecting-ip"];
     if (typeof cf === "string" && cf.trim()) {

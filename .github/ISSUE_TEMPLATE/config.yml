@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 Documentation
+    url: https://github.com/MFCAtash/MELUNE/tree/main/docs
+    about: Architecture, API, database, deployment and Persian guides
+  - name: 🛠️ Setup & development
+    url: https://github.com/MFCAtash/MELUNE/blob/main/docs/development.md
+    about: Local development workflow and repository conventions
+  - name: 🔒 Report a security issue privately
+    url: https://github.com/MFCAtash/MELUNE/security/advisories/new
+    about: Never open a public issue for a vulnerability
