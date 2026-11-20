@@ -1,8 +1,29 @@
 {
-  "name": "codex-music",
+  "name": "melune",
   "private": true,
-  "version": "0.1.0",
-  "description": "Codex Music — Your Music. Smarter. Full-stack music streaming & discovery platform.",
+  "version": "1.0.0",
+  "description": "MELUNE — Your Music. Smarter. Full-stack music streaming and discovery platform.",
+  "keywords": [
+    "music-streaming",
+    "nextjs",
+    "nestjs",
+    "prisma",
+    "postgresql",
+    "redis",
+    "hls",
+    "persian",
+    "rtl",
+    "pwa"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MFCAtash/MELUNE.git"
+  },
+  "homepage": "https://github.com/MFCAtash/MELUNE#readme",
+  "bugs": {
+    "url": "https://github.com/MFCAtash/MELUNE/issues"
+  },
+  "license": "MIT",
   "workspaces": [
     "apps/web",
     "apps/api",

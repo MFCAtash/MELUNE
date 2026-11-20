@@ -47,7 +47,7 @@ docker compose --env-file .env.production -f docker-compose.prod.yml config
 
 ## Checklist
 
-- [ ] I have read [CONTRIBUTING.md](/CONTRIBUTING.md)
+- [ ] I have read [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [ ] No secrets, `.env`, dumps or generated media are committed
 - [ ] Shared types were updated in `packages/types` rather than duplicated
 - [ ] Environment variables added to both `.env.example` and `.env.production.example`
