@@ -10,7 +10,10 @@
 | ۴ جلد جدید + Story + Feature Strip | ✅ انجام شد (`docs/assets/`) |
 | Media Session API (لاک‌اسکرین + کلیدهای رسانه) | ✅ انجام شد (`use-media-session.ts`) |
 | Waveform Seek Bar واقعی | ✅ انجام شد (`waveform-seek-bar.tsx` + `use-track-peaks.ts`) |
-| جلد خودکار هر تم، OG پویا، لیریک واقعی، Theme Studio، اتاق همگام | ⏳ باقی‌مانده |
+| جلد خودکار ۲۰ تم (`npm run covers:themes`) | ✅ انجام شد (`docs/assets/themes/`) |
+| Monogram kit (favicon / 192 / 512 / maskable / apple-touch) | ✅ از قبل موجود (`apps/web/public/icons/`) |
+| هدینگ شخصی‌شدهٔ خانه + رفع خطاهای E2E | ✅ انجام شد (8/8 تست مرورگر) |
+| OG پویا، لیریک واقعی، Theme Studio، اتاق همگام | ⏳ باقی‌مانده |
 
 ---
 

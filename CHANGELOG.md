@@ -34,6 +34,9 @@ First public release of MELUNE as an open-source repository.
   available.
 - [`docs/roadmap-visuals-fa.md`](docs/roadmap-visuals-fa.md) — the visual and
   product roadmap (covers, in-app visuals, feature packages).
+- `scripts/generate-theme-covers.mjs` (`npm run covers:themes`) — generates one
+  editable 1280×640 cover per theme straight from `globals.css` tokens plus an
+  HTML gallery in `docs/assets/themes/`.
 - Repository access guide and a helper script for read-only collaborators.
 
 ### Changed

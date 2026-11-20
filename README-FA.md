@@ -27,6 +27,9 @@
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
+[۲۰ جلد تم تولیدشده (SVG قابلویر، هر کدام یک پالت) →](docs/assets/themes/index.html)
+— با `npm run covers:themes` از روی `globals.css` بازتولید میشوند.
+
 | جلدها (برای دیدن کامل کلیک کنید) | | | |
 |---|---|---|---|
 | [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |

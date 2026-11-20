@@ -46,7 +46,8 @@
     "prisma:migrate": "npm run prisma:migrate --workspace=apps/api",
     "prisma:migrate:deploy": "npm run prisma:migrate:deploy --workspace=apps/api",
     "lockfile:generate": "bash scripts/bootstrap-lockfile.sh",
-    "lockfile:check": "node scripts/check-lockfile.mjs"
+    "lockfile:check": "node scripts/check-lockfile.mjs",
+    "covers:themes": "node scripts/generate-theme-covers.mjs"
   },
   "engines": {
     "node": ">=20.0.0"

@@ -27,6 +27,9 @@ hybrid recommendation engine — all in one TypeScript monorepo.
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
+[20 generated theme cover cards (editable SVG, one palette each) →](docs/assets/themes/index.html)
+— regenerated from `globals.css` with `npm run covers:themes`.
+
 ### Cover concepts (click to open full size)
 
 | | | | |
