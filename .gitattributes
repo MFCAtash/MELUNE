@@ -35,8 +35,3 @@ Dockerfile  text eol=lf
 package-lock.json linguist-generated=true -diff
 pnpm-lock.yaml      linguist-generated=true -diff
 yarn.lock           linguist-generated=true -diff
-apps/web/public/audio-real/*.m4a filter=lfs diff=lfs merge=lfs -text
-apps/web/public/audio-full/*.mp3 filter=lfs diff=lfs merge=lfs -text
-apps/web/public/audio/SoundHelix-*.mp3 filter=lfs diff=lfs merge=lfs -text
-apps/web/public/covers-real/*.jpg filter=lfs diff=lfs merge=lfs -text
-apps/web/public/hero-covers/*.jpg filter=lfs diff=lfs merge=lfs -text
