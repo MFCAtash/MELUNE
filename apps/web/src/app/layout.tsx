@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, Inter, Vazirmatn, Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { PlayerEngine } from "@/components/player/player-engine";
 import { PersistentPlayer } from "@/components/player/persistent-player";
@@ -23,37 +23,40 @@ import {
 //  - Vazirmatn → Persian body/display font used app-wide when locale = fa
 //             (RTL). Selected because it pairs cleanly with Sora's
 //             geometry and has full Farsi digit + diacritic support.
-// All three load as CSS variables so Tailwind can reference them (see
-// `fontFamily` in tailwind.config.ts) and the RTL override in
-// globals.css can swap the whole app to Vazirmatn without a JS reflow.
-const sora = Sora({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
+//  - Cormorant Garamond → poetic serif used ONLY for the wordmark.
+//
+// SELF-HOSTED (src/fonts): the Google Fonts loader in next/font/google
+// parses the CSS returned by fonts.googleapis.com at build time. When
+// that response shape changes (or the network is flaky), `next build`
+// fails with "Cannot read properties of null (reading '1')" in
+// @next/font/dist/google/loader.js — exactly what broke CI on 2026-11-20
+// while every local check passed. Variable woff2 files are committed
+// instead, so builds are offline-deterministic and byte-identical.
+const sora = localFont({
+  src: "../fonts/sora.woff2",
   variable: "--font-display",
+  weight: "100 800",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../fonts/inter.woff2",
   variable: "--font-sans",
+  weight: "100 900",
   display: "swap",
 });
 
-const vazirmatn = Vazirmatn({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700", "800"],
+const vazirmatn = localFont({
+  src: "../fonts/vazirmatn.woff2",
   variable: "--font-fa",
+  weight: "100 900",
   display: "swap",
 });
 
-// MELUNE brand voice: Cormorant Garamond is a poetic serif — high
-// contrast strokes with calligraphic details — used ONLY for the
-// wordmark and brand moments (never UI text). Light weights read as
-// engraved/luxury at the sizes a logo is shown at.
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+const cormorant = localFont({
+  src: "../fonts/cormorant.woff2",
   variable: "--font-brand",
+  weight: "300 700",
   display: "swap",
 });
 
