@@ -46,6 +46,12 @@ First public release of MELUNE as an open-source repository.
   `createUploadUrl` use `.bin` for extensionless filenames, excluded thin
   controllers from unit coverage, and removed per-file coverage thresholds
   that Windows resolved against absolute paths. 242/242 tests pass, 76% lines.
+- CI: E2E suites now run serially (`--runInBand`) so shared Postgres state
+  cannot race between suites; the Web E2E job starts and polls the Next.js
+  server in one step (a background process from a previous step is reaped by
+  GitHub Actions).
+- Added [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and an issue-template config
+  with links to docs and private security reporting; both READMEs link them.
 - Root README stated the repository was private although it is public; the
   access section now describes the actual public status.
 - Pull-request template link to `CONTRIBUTING.md` is now repo-relative.

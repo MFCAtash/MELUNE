@@ -270,20 +270,23 @@ jobs:
         working-directory: apps/web
         run: npm run build
 
-      - name: Start web (background)
+      - name: Start web and wait for readiness
         working-directory: apps/web
-        run: npm run start &
-
-      - name: Wait for web server
-        # Deterministic health check, no unpinned `npx wait-on` download
-        # (see .github/workflows/ci.yml audit item 5) — the app has no
-        # backend, so there's nothing else to wait on.
+        # A background process started in one GitHub Actions step is killed
+        # when that step ends, so start and poll in the SAME step. `nohup`
+        # plus a log file also makes failures diagnosable from the job log.
         run: |
+          nohup npm run start > /tmp/melune-web.log 2>&1 &
+          echo $! > /tmp/melune-web.pid
           for i in $(seq 1 60); do
-            curl --silent --fail http://localhost:3000 && exit 0
+            if curl --silent --fail http://localhost:3000 > /dev/null; then
+              echo "web server ready after ${i}s"
+              exit 0
+            fi
             sleep 1
           done
           echo "web server did not become ready in time" >&2
+          cat /tmp/melune-web.log
           exit 1
 
       - name: Run Playwright
