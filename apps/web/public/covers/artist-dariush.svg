@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#fcd34d" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#fcd34d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="scrim" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.66"/>
+      <stop offset="45%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <rect width="640" height="640" fill="url(#glow)"/>
+  <g stroke="#ffffff" stroke-opacity="0.10" fill="none" stroke-width="2">
+    <circle cx="320" cy="270" r="180"/>
+    <circle cx="320" cy="270" r="216"/>
+    <circle cx="320" cy="270" r="252"/>
+  </g>
+  <text x="320" y="352" text-anchor="middle" font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="240" font-weight="800" fill="#ffffff" fill-opacity="0.92">D</text>
+  <rect width="640" height="640" fill="url(#scrim)"/>
+  <text x="320" y="520" text-anchor="middle" font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="3" fill="#ffffff">Dariush</text>
+  <text x="320" y="566" text-anchor="middle" font-family="Tahoma, 'Segoe UI', sans-serif" font-size="26" fill="#ffffff" fill-opacity="0.75" direction="rtl">داریوش</text>
+</svg>

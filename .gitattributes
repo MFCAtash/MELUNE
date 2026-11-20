@@ -1,0 +1,42 @@
+# Normalise line endings so the same checkout works on Windows, macOS and Linux
+# (the production server runs Ubuntu; PowerShell scripts stay CRLF on purpose).
+
+* text=auto eol=lf
+
+*.sh        text eol=lf
+*.caddy     text eol=lf
+Dockerfile  text eol=lf
+*.Dockerfile text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+
+*.ps1       text eol=crlf
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+
+# Media / archives are never diffed or merged as text.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.svg   text
+*.mp3   binary
+*.wav   binary
+*.ogg   binary
+*.m4a   binary
+*.flac  binary
+*.zip   binary
+*.gz    binary
+*.dump  binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+
+# Generated files: no noisy diffs in reviews.
+package-lock.json linguist-generated=true -diff
+pnpm-lock.yaml      linguist-generated=true -diff
+yarn.lock           linguist-generated=true -diff

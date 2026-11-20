@@ -1,0 +1,47 @@
+# Dependencies and build output
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+dist/
+**/dist/
+coverage/
+**/coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local runtime / secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+.infra/
+.infrastructure/
+.db-backup/
+backups/
+*.dump
+*.sql.gz
+*.log
+
+# Generated media / local uploads
+apps/web/public/audio-full/*.tmp
+media/
+uploads/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Local demo artifacts that should not be published

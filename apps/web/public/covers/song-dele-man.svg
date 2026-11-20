@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="82%" cy="14%" r="55%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="scrim" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.62"/>
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <rect width="640" height="640" fill="url(#glow)"/>
+  <!-- vinyl arcs -->
+  <g stroke="#ffffff" stroke-opacity="0.10" fill="none" stroke-width="2">
+    <circle cx="-40" cy="620" r="150"/>
+    <circle cx="-40" cy="620" r="190"/>
+    <circle cx="-40" cy="620" r="230"/>
+    <circle cx="-40" cy="620" r="270"/>
+  </g>
+  <g stroke="#22d3ee" stroke-opacity="0.35" fill="none" stroke-width="3">
+    <circle cx="560" cy="120" r="70"/>
+    <circle cx="560" cy="120" r="94"/>
+  </g>
+  <!-- monogram -->
+  <text x="596" y="610" text-anchor="end" font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="300" font-weight="800" fill="#ffffff" fill-opacity="0.07">S</text>
+  <!-- scrim -->
+  <rect width="640" height="640" fill="url(#scrim)"/>
+  <!-- artist name -->
+  <text x="64" y="92" font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="7" fill="#22d3ee">SHADMEHR AGHILI</text>
+  <rect x="64" y="106" width="64" height="4" rx="2" fill="#22d3ee"/>
+  <!-- title -->
+  <g>
+      <text x="64" y="330" font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="60" font-weight="800" fill="#ffffff">Dele Man</text>
+  </g>
+  <text x="64" y="428" font-family="Tahoma, 'Segoe UI', sans-serif" font-size="26" fill="#ffffff" fill-opacity="0.82" direction="rtl">دل من</text>
+  <!-- genre / year chip -->
+  <g font-family="'Segoe UI', Tahoma, Arial, sans-serif" font-size="20" fill="#ffffff">
+    <rect x="64" y="556" rx="16" ry="16" width="151" height="32" fill="#ffffff" fill-opacity="0.14"/>
+    <text x="79" y="577" fill-opacity="0.95">Persian Pop</text>
+    <text x="242" y="577" fill-opacity="0.7">1999</text>
+  </g>
+</svg>

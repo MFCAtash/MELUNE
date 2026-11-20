@@ -1,0 +1,394 @@
+[
+  {
+    "slug": "billie-eilish",
+    "name": "Billie Eilish",
+    "nameFa": "بیلی آیلیش",
+    "bio": "خواننده و ترانه‌سرای آمریکایی؛ ستاره پاپ آلترناتیو جهان با سبک تاریک و مینیمال و چند جایزه گرامی.",
+    "imageUrl": "http://localhost:3000/covers/artist-billie-eilish.svg",
+    "album": {
+      "title": "Best of Billie Eilish",
+      "coverUrl": "http://localhost:3000/covers/album-billie-eilish.svg",
+      "releaseDate": "2021-03-29"
+    },
+    "songs": [
+      {
+        "title": "Bad Guy",
+        "titleFa": "بد گای",
+        "year": 2019,
+        "genre": "Pop",
+        "dur": 194,
+        "bpm": 135,
+        "mood": "energetic",
+        "energy": 0.85,
+        "hue": 0,
+        "slug": "bad-guy",
+        "coverUrl": "http://localhost:3000/covers/song-bad-guy.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Ocean Eyes",
+        "titleFa": "اوشن آیز",
+        "year": 2015,
+        "genre": "Pop",
+        "dur": 200,
+        "bpm": 70,
+        "mood": "dreamy",
+        "energy": 0.35,
+        "hue": 1,
+        "slug": "ocean-eyes",
+        "coverUrl": "http://localhost:3000/covers/song-ocean-eyes.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Happier Than Ever",
+        "titleFa": "خوشحال‌تر از همیشه",
+        "year": 2021,
+        "genre": "Pop",
+        "dur": 298,
+        "bpm": 75,
+        "mood": "emotional",
+        "energy": 0.6,
+        "hue": 2,
+        "slug": "happier-than-ever",
+        "coverUrl": "http://localhost:3000/covers/song-happier-than-ever.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "shakira",
+    "name": "Shakira",
+    "nameFa": "شکیرا",
+    "bio": "خواننده کلمبیایی؛ ملکه پاپ لاتین با سبک و رقص منحصربه‌فرد، فروش بیش از ۹۰ میلیون آلبوم در جهان.",
+    "imageUrl": "http://localhost:3000/covers/artist-shakira.svg",
+    "album": {
+      "title": "Best of Shakira",
+      "coverUrl": "http://localhost:3000/covers/album-shakira.svg",
+      "releaseDate": "2010-05-20"
+    },
+    "songs": [
+      {
+        "title": "Hips Don't Lie",
+        "titleFa": "هیپس دان لای",
+        "year": 2006,
+        "genre": "Latin Pop",
+        "dur": 218,
+        "bpm": 100,
+        "mood": "dance",
+        "energy": 0.9,
+        "hue": 0,
+        "slug": "hips-don-t-lie",
+        "coverUrl": "http://localhost:3000/covers/song-hips-don-t-lie.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Waka Waka",
+        "titleFa": "واکا واکا",
+        "year": 2010,
+        "genre": "Latin Pop",
+        "dur": 211,
+        "bpm": 128,
+        "mood": "energetic",
+        "energy": 0.9,
+        "hue": 1,
+        "slug": "waka-waka",
+        "coverUrl": "http://localhost:3000/covers/song-waka-waka.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Whenever, Wherever",
+        "titleFa": "ون‌اور وِیر اِوِر",
+        "year": 2001,
+        "genre": "Latin Pop",
+        "dur": 217,
+        "bpm": 106,
+        "mood": "dance",
+        "energy": 0.75,
+        "hue": 2,
+        "slug": "whenever-wherever",
+        "coverUrl": "http://localhost:3000/covers/song-whenever-wherever.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "ebi",
+    "name": "Ebi",
+    "nameFa": "ابی",
+    "bio": "ابراهیم حامدی «ابی»؛ صدای ماندگار موسیقی پاپ ایران با دهه‌ها فعالیت و میلیون‌ها طرفدار در سراسر جهان.",
+    "imageUrl": "http://localhost:3000/covers/artist-ebi.svg",
+    "album": {
+      "title": "Best of Ebi",
+      "coverUrl": "http://localhost:3000/covers/album-ebi.svg",
+      "releaseDate": "1985-06-01"
+    },
+    "songs": [
+      {
+        "title": "Parandeh-ye Mohajer",
+        "titleFa": "پرنده مهاجر",
+        "year": 1975,
+        "genre": "Persian Pop",
+        "dur": 240,
+        "bpm": 92,
+        "mood": "nostalgic",
+        "energy": 0.5,
+        "hue": 0,
+        "slug": "parandeh-ye-mohajer",
+        "coverUrl": "http://localhost:3000/covers/song-parandeh-ye-mohajer.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Doostet Daram",
+        "titleFa": "دوستت دارم",
+        "year": 1982,
+        "genre": "Persian Pop",
+        "dur": 265,
+        "bpm": 88,
+        "mood": "romantic",
+        "energy": 0.45,
+        "hue": 1,
+        "slug": "doostet-daram",
+        "coverUrl": "http://localhost:3000/covers/song-doostet-daram.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Bavar Kon",
+        "titleFa": "باور کن",
+        "year": 1985,
+        "genre": "Persian Pop",
+        "dur": 230,
+        "bpm": 96,
+        "mood": "emotional",
+        "energy": 0.55,
+        "hue": 2,
+        "slug": "bavar-kon",
+        "coverUrl": "http://localhost:3000/covers/song-bavar-kon.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "googoosh",
+    "name": "Googoosh",
+    "nameFa": "گوگوش",
+    "bio": "گوگوش؛ مهم‌ترین خواننده زن تاریخ موسیقی ایران و نماد پنجاه سال ترانه فارسی.",
+    "imageUrl": "http://localhost:3000/covers/artist-googoosh.svg",
+    "album": {
+      "title": "Best of Googoosh",
+      "coverUrl": "http://localhost:3000/covers/album-googoosh.svg",
+      "releaseDate": "1972-08-15"
+    },
+    "songs": [
+      {
+        "title": "Mordab",
+        "titleFa": "مرداب",
+        "year": 1970,
+        "genre": "Persian Pop",
+        "dur": 210,
+        "bpm": 84,
+        "mood": "nostalgic",
+        "energy": 0.4,
+        "hue": 0,
+        "slug": "mordab",
+        "coverUrl": "http://localhost:3000/covers/song-mordab.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Ghazal",
+        "titleFa": "غزل",
+        "year": 1974,
+        "genre": "Persian Pop",
+        "dur": 200,
+        "bpm": 80,
+        "mood": "romantic",
+        "energy": 0.4,
+        "hue": 1,
+        "slug": "ghazal",
+        "coverUrl": "http://localhost:3000/covers/song-ghazal.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Dokhtar-e Shah Pariyon",
+        "titleFa": "دختر شاه پریون",
+        "year": 1972,
+        "genre": "Persian Pop",
+        "dur": 245,
+        "bpm": 90,
+        "mood": "playful",
+        "energy": 0.55,
+        "hue": 2,
+        "slug": "dokhtar-e-shah-pariyon",
+        "coverUrl": "http://localhost:3000/covers/song-dokhtar-e-shah-pariyon.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "dariush",
+    "name": "Dariush",
+    "nameFa": "داریوش",
+    "bio": "داریوش رفیعی؛ صدای اعتراض و امید ایران با بیش از پنج دهه ترانه برای آزادی و انسان.",
+    "imageUrl": "http://localhost:3000/covers/artist-dariush.svg",
+    "album": {
+      "title": "Best of Dariush",
+      "coverUrl": "http://localhost:3000/covers/album-dariush.svg",
+      "releaseDate": "1977-03-01"
+    },
+    "songs": [
+      {
+        "title": "Booye Gandom",
+        "titleFa": "بوی گندم",
+        "year": 1977,
+        "genre": "Persian Pop",
+        "dur": 290,
+        "bpm": 78,
+        "mood": "hopeful",
+        "energy": 0.5,
+        "hue": 0,
+        "slug": "booye-gandom",
+        "coverUrl": "http://localhost:3000/covers/song-booye-gandom.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Marde Tanha",
+        "titleFa": "مرد تنها",
+        "year": 1975,
+        "genre": "Persian Pop",
+        "dur": 260,
+        "bpm": 76,
+        "mood": "melancholic",
+        "energy": 0.4,
+        "hue": 1,
+        "slug": "marde-tanha",
+        "coverUrl": "http://localhost:3000/covers/song-marde-tanha.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Yaraneh",
+        "titleFa": "یارانه",
+        "year": 1988,
+        "genre": "Persian Pop",
+        "dur": 250,
+        "bpm": 82,
+        "mood": "emotional",
+        "energy": 0.5,
+        "hue": 2,
+        "slug": "yaraneh",
+        "coverUrl": "http://localhost:3000/covers/song-yaraneh.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "hayedeh",
+    "name": "Hayedeh",
+    "nameFa": "هایده",
+    "bio": "هایده؛ صدای آشنای آسمان شب ایران، استاد ردیف و آواز اصیل با ترانه‌های جاودانه عاشقانه.",
+    "imageUrl": "http://localhost:3000/covers/artist-hayedeh.svg",
+    "album": {
+      "title": "Best of Hayedeh",
+      "coverUrl": "http://localhost:3000/covers/album-hayedeh.svg",
+      "releaseDate": "1975-11-01"
+    },
+    "songs": [
+      {
+        "title": "Sargozasht",
+        "titleFa": "سرگذشت",
+        "year": 1975,
+        "genre": "Persian Traditional",
+        "dur": 400,
+        "bpm": 64,
+        "mood": "sorrowful",
+        "energy": 0.35,
+        "hue": 0,
+        "slug": "sargozasht",
+        "coverUrl": "http://localhost:3000/covers/song-sargozasht.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Shah Kavir",
+        "titleFa": "شاه کاویر",
+        "year": 1978,
+        "genre": "Persian Traditional",
+        "dur": 380,
+        "bpm": 60,
+        "mood": "mystical",
+        "energy": 0.35,
+        "hue": 1,
+        "slug": "shah-kavir",
+        "coverUrl": "http://localhost:3000/covers/song-shah-kavir.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "To Kojai",
+        "titleFa": "تو کجایی",
+        "year": 1972,
+        "genre": "Persian Traditional",
+        "dur": 420,
+        "bpm": 58,
+        "mood": "melancholic",
+        "energy": 0.3,
+        "hue": 2,
+        "slug": "to-kojai",
+        "coverUrl": "http://localhost:3000/covers/song-to-kojai.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  },
+  {
+    "slug": "shadmehr-aghili",
+    "name": "Shadmehr Aghili",
+    "nameFa": "شادمهر عقیلی",
+    "bio": "شادمهر عقیلی؛ آهنگساز، نوازنده violin و خواننده محبوب نسل جدید موسیقی پاپ ایران.",
+    "imageUrl": "http://localhost:3000/covers/artist-shadmehr-aghili.svg",
+    "album": {
+      "title": "Best of Shadmehr",
+      "coverUrl": "http://localhost:3000/covers/album-shadmehr-aghili.svg",
+      "releaseDate": "2005-01-01"
+    },
+    "songs": [
+      {
+        "title": "Dele Man",
+        "titleFa": "دل من",
+        "year": 1999,
+        "genre": "Persian Pop",
+        "dur": 225,
+        "bpm": 100,
+        "mood": "romantic",
+        "energy": 0.6,
+        "hue": 0,
+        "slug": "dele-man",
+        "coverUrl": "http://localhost:3000/covers/song-dele-man.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "title": "Adama",
+        "titleFa": "آدما",
+        "year": 2005,
+        "genre": "Persian Pop",
+        "dur": 240,
+        "bpm": 104,
+        "mood": "emotional",
+        "energy": 0.65,
+        "hue": 1,
+        "slug": "adama",
+        "coverUrl": "http://localhost:3000/covers/song-adama.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        "title": "Mast",
+        "titleFa": "مست",
+        "year": 2016,
+        "genre": "Persian Pop",
+        "dur": 250,
+        "bpm": 108,
+        "mood": "passionate",
+        "energy": 0.7,
+        "hue": 2,
+        "slug": "mast",
+        "coverUrl": "http://localhost:3000/covers/song-mast.svg",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ]
+  }
+]

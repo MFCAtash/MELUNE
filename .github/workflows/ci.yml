@@ -1,0 +1,299 @@
+name: CI
+
+# Referenced by docs/database.md ("It is the only command CI
+# [.github/workflows/ci.yml] and production ever run against a
+# database.") and by CHANGES-security-hardening.md, which documented
+# this workflow as added but never actually committed it. This file
+# closes that gap.
+#
+# Scope: apps/api (NestJS + Prisma + Postgres + Redis) and apps/web
+# (Next.js). apps/mobile and services/ai are explicitly out of scope —
+# both READMEs mark them as initial skeletons, not part of this
+# pipeline (see README.md's "Testing" section).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "20"
+  # Static, CI-only secrets — never real credentials, never used outside
+  # ephemeral service containers that die with the job.
+  DATABASE_URL: postgresql://codex:codex_ci_password@localhost:5432/codex_music_test?schema=public
+  REDIS_URL: redis://localhost:6379
+  JWT_ACCESS_SECRET: ci_only_access_secret_do_not_use_in_prod
+  JWT_ACCESS_EXPIRES_IN: 15m
+  JWT_REFRESH_EXPIRES_IN: 7d
+  MAIL_FROM: noreply@codexmusic.dev
+  CORS_ORIGIN: http://localhost:3000
+  PORT: 4000
+  # Storage intentionally left unconfigured: StorageService.configured
+  # is false without access/secret keys, and every storage code path
+  # (createUploadUrl, deleteObject) is written to fail closed / no-op
+  # in that state rather than require real S3 credentials in CI — see
+  # apps/api/src/storage/storage.service.spec.ts.
+
+jobs:
+  # ---------------------------------------------------------------------
+  # Lockfile guard — `npm ci` (used by every job below and by the Docker
+  # builds) needs a committed, in-sync package-lock.json. This job fails on
+  # drift, warns when the lockfile has never been committed, and in that
+  # case uploads a freshly generated one as an artifact so it can be
+  # committed straight from any CI run (or use the "Generate lockfile"
+  # workflow). See docs/lockfile.md.
+  # ---------------------------------------------------------------------
+  lockfile:
+    name: Lockfile check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Validate package-lock.json
+        run: node scripts/check-lockfile.mjs --allow-missing
+
+      - name: Generate lockfile (only when missing)
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+
+      - name: Upload generated lockfile
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-lock-generated
+          path: package-lock.json
+          retention-days: 30
+  # ---------------------------------------------------------------------
+  # Schema drift check — guards the thing a squashed baseline migration
+  # (see docs/database.md's "Baseline migration" section) depends on for
+  # safety: schema.prisma and the committed migrations under
+  # apps/api/prisma/migrations/ must never silently diverge. Runs first
+  # and cheaply (no service containers needed) so drift fails fast.
+  # ---------------------------------------------------------------------
+  schema-drift:
+    name: Prisma schema drift check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/actions/install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Verify migrations reproduce schema.prisma exactly
+        # --exit-code makes this fail the build the moment someone edits
+        # schema.prisma without generating a matching migration (the
+        # workflow docs/database.md already tells contributors to
+        # avoid by hand). --shadow-database-url gives Prisma a scratch
+        # DB to replay the migration history into, separate from the
+        # `postgres` service container the other jobs use, so this job
+        # doesn't need one.
+        run: |
+          docker run -d --name shadow-db -p 5433:5432 \
+            -e POSTGRES_USER=codex -e POSTGRES_PASSWORD=codex_ci_password \
+            -e POSTGRES_DB=codex_music_shadow postgres:16-alpine
+          for i in $(seq 1 30); do
+            docker exec shadow-db pg_isready -U codex && break
+            sleep 1
+          done
+          npx prisma migrate diff \
+            --from-migrations ./prisma/migrations \
+            --to-schema-datamodel ./prisma/schema.prisma \
+            --shadow-database-url postgresql://codex:codex_ci_password@localhost:5433/codex_music_shadow \
+            --exit-code
+          docker rm -f shadow-db
+
+  # ---------------------------------------------------------------------
+  # API — lint, typecheck, unit tests, e2e tests, build
+  # ---------------------------------------------------------------------
+  api:
+    name: API (lint, typecheck, test, e2e, build)
+    runs-on: ubuntu-latest
+    needs: schema-drift
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: codex
+          POSTGRES_PASSWORD: codex_ci_password
+          POSTGRES_DB: codex_music_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U codex"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/actions/install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Prisma generate
+        working-directory: apps/api
+        run: npm run prisma:generate
+
+      # The only command CI ever runs against a real database — see
+      # docs/database.md's "CI and production — applying migrations".
+      # Never `prisma migrate dev`, never `db push`, here or anywhere
+      # else in this workflow.
+      - name: Apply migrations (prisma migrate deploy)
+        working-directory: apps/api
+        run: npm run prisma:migrate:deploy
+
+      - name: Lint
+        working-directory: apps/api
+        # Warnings are reported but not fatal yet: the ESLint config was only
+        # just added, so ratchet to `-- --max-warnings=0` once the first run is clean.
+        run: npm run lint
+
+      - name: Typecheck
+        working-directory: apps/api
+        run: npm run typecheck
+
+      - name: Unit tests
+        working-directory: apps/api
+        run: npm run test:cov
+
+      - name: E2E tests
+        working-directory: apps/api
+        run: npm run test:e2e
+
+      - name: Build
+        working-directory: apps/api
+        run: npm run build
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-coverage
+          path: apps/api/coverage
+          retention-days: 14
+
+  # ---------------------------------------------------------------------
+  # Web — lint, typecheck, unit tests, build
+  # ---------------------------------------------------------------------
+  web:
+    name: Web (lint, typecheck, test, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/actions/install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Lint
+        working-directory: apps/web
+        run: npm run lint
+
+      - name: Typecheck
+        working-directory: apps/web
+        run: npm run typecheck
+
+      - name: Unit tests (vitest)
+        working-directory: apps/web
+        # apps/web's "test" script is already `vitest run` (non-watch),
+        # so no extra flag needed here.
+        run: npm run test
+
+      - name: Build
+        working-directory: apps/web
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:4000
+        run: npm run build
+
+  # ---------------------------------------------------------------------
+  # Web E2E — Playwright, against the mocked API layer.
+  # These specs never talk to a real backend (see
+  # apps/web/e2e/utils/mock-api.ts and apps/web/playwright.config.ts):
+  # every request is intercepted by `page.route(`${API_ORIGIN}/api/**`)`.
+  # API_ORIGIN defaults to http://localhost:4310 — a port nothing else
+  # listens on — so the web app must be built with NEXT_PUBLIC_API_URL
+  # pointed at that same origin, or requests silently escape the mocks
+  # and hang/fail against a port with no listener. Because nothing here
+  # actually needs a database, cache, or NestJS process, this job
+  # deliberately has no postgres/redis services and never starts the API
+  # (see item 17 of the audit — don't pay for service containers a test
+  # provably never uses). Separate job from `web` above only because it
+  # needs the built app *running*, not just compiled.
+  # ---------------------------------------------------------------------
+  web-e2e:
+    name: Web E2E (Playwright)
+    runs-on: ubuntu-latest
+    needs: [web]
+    env:
+      # Must match e2e/utils/mock-api.ts's API_ORIGIN default exactly.
+      NEXT_PUBLIC_API_URL: http://localhost:4310
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ./.github/actions/install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Playwright browsers
+        working-directory: apps/web
+        run: npx playwright install --with-deps chromium
+
+      - name: Build web
+        working-directory: apps/web
+        run: npm run build
+
+      - name: Start web (background)
+        working-directory: apps/web
+        run: npm run start &
+
+      - name: Wait for web server
+        # Deterministic health check, no unpinned `npx wait-on` download
+        # (see .github/workflows/ci.yml audit item 5) — the app has no
+        # backend, so there's nothing else to wait on.
+        run: |
+          for i in $(seq 1 60); do
+            curl --silent --fail http://localhost:3000 && exit 0
+            sleep 1
+          done
+          echo "web server did not become ready in time" >&2
+          exit 1
+
+      - name: Run Playwright
+        working-directory: apps/web
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report
+          retention-days: 14

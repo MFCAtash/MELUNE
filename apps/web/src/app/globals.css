@@ -1,0 +1,837 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  :root[data-theme="dark"] {
+    --color-background: 10 10 15;
+    --color-surface: 18 18 26;
+    --color-surface-elevated: 26 26 36;
+    --color-foreground: 255 255 255;
+    --color-muted: 138 138 154;
+    --color-border-rgb: 38 38 51;
+    /* Brand + halo hooks. Signature themes (below) override these to
+       repaint gradient CTAs, headline gradients, glows and the ambient
+       halo; classic shell themes inherit the original purple/blue pair. */
+    --color-primary: 139 92 246;
+    --color-accent: 59 130 246;
+    --brand-a: 139 92 246;
+    --brand-b: 59 130 246;
+    --halo-1: 139 92 246;
+    --halo-2: 59 130 246;
+  }
+
+  /* AMOLED / true-black ambient mode. Applies only over the dark
+     palette (`ambient-theme-store.ts` forces dark the moment "amoled"
+     is selected, so this combination is the only one that matters in
+     practice) — background goes to literal 0,0,0 for maximum
+     lit-pixel savings on OLED screens, since it's by far the largest
+     painted area; surfaces stay a few steps above it rather than also
+     going pure black, so cards/panels still read as distinct layers
+     instead of the whole app flattening into one undifferentiated
+     black. Foreground/muted/border are left exactly as the regular
+     dark theme's — only the three background-ish tokens change. */
+  :root[data-theme="dark"][data-amoled="true"] {
+    --color-background: 0 0 0;
+    --color-surface: 6 6 8;
+    --color-surface-elevated: 14 14 18;
+  }
+
+  /* Light theme (Phase 6.7). Same token set, inverted for contrast.
+     Brand colors (primary/accent/ember/...) and anything painted with
+     `text-white` on a colored surface (buttons, badges, vinyl label)
+     are intentionally NOT part of this — they're fixed across themes. */
+  :root[data-theme="light"] {
+    --color-background: 248 248 251;
+    --color-surface: 255 255 255;
+    --color-surface-elevated: 241 241 247;
+    --color-foreground: 15 15 20;
+    --color-muted: 100 100 116;
+    --color-border-rgb: 210 210 224;
+  }
+
+  /* Premium shell themes (Phase 11). Deliberately dark-based: the glass
+     panels, cover scrims and glow shadows are tuned for dark shells, so
+     these palettes vary the shell's *hue* while keeping dark-mode
+     lightness — luxury/ambient looks that stay consistent with every
+     existing surface instead of fighting them. */
+  /* Royal — midnight navy with warm-tinted text; pairs with the brand
+     purple the way velvet pairs with gold. */
+  :root[data-theme="royal"] {
+    --color-background: 8 10 22;
+    --color-surface: 15 18 34;
+    --color-surface-elevated: 24 27 48;
+    --color-foreground: 244 242 236;
+    --color-muted: 148 150 172;
+    --color-border-rgb: 50 54 84;
+  }
+  /* Aurora — deep teal/cyan shell; makes album art colors pop colder. */
+  :root[data-theme="aurora"] {
+    --color-background: 5 12 16;
+    --color-surface: 10 20 25;
+    --color-surface-elevated: 16 29 36;
+    --color-foreground: 235 245 246;
+    --color-muted: 125 150 155;
+    --color-border-rgb: 38 62 70;
+  }
+  /* Noir Rose — black-cherry shell; the "wine bar" mood. */
+  :root[data-theme="noir-rose"] {
+    --color-background: 13 8 13;
+    --color-surface: 21 13 20;
+    --color-surface-elevated: 31 20 29;
+    --color-foreground: 246 238 242;
+    --color-muted: 152 132 144;
+    --color-border-rgb: 58 40 52;
+  }
+  /* Emerald — deep green shell; calm, "listening lounge" mood. */
+  :root[data-theme="emerald"] {
+    --color-background: 7 12 10;
+    --color-surface: 13 21 17;
+    --color-surface-elevated: 20 31 25;
+    --color-foreground: 236 244 238;
+    --color-muted: 128 148 134;
+    --color-border-rgb: 40 60 48;
+  }
+  /* Sunset — warm ember/dusk shell; golden-hour mood. */
+  :root[data-theme="sunset"] {
+    --color-background: 16 9 8;
+    --color-surface: 26 14 12;
+    --color-surface-elevated: 37 20 17;
+    --color-foreground: 248 240 232;
+    --color-muted: 156 132 118;
+    --color-border-rgb: 66 40 32;
+  }
+  /* Cyber — near-black with neon-lit surfaces; cyberpunk club mood. */
+  :root[data-theme="cyber"] {
+    --color-background: 4 4 10;
+    --color-surface: 9 9 20;
+    --color-surface-elevated: 16 14 32;
+    --color-foreground: 234 240 255;
+    --color-muted: 122 132 158;
+    --color-border-rgb: 40 42 78;
+  }
+  /* Champagne — black with a warm gold undertone; "gala evening" mood. */
+  :root[data-theme="champagne"] {
+    --color-background: 11 10 7;
+    --color-surface: 20 18 12;
+    --color-surface-elevated: 30 26 18;
+    --color-foreground: 246 241 230;
+    --color-muted: 150 140 120;
+    --color-border-rgb: 58 52 34;
+  }
+  /* Ice — cold glacial blue; crisp winter-club mood. */
+  :root[data-theme="ice"] {
+    --color-background: 6 10 16;
+    --color-surface: 11 18 28;
+    --color-surface-elevated: 17 26 40;
+    --color-foreground: 232 240 250;
+    --color-muted: 124 140 160;
+    --color-border-rgb: 38 54 76;
+  }
+  /* Mocha — warm coffee-brown; cozy café mood. */
+  :root[data-theme="mocha"] {
+    --color-background: 13 10 8;
+    --color-surface: 22 17 13;
+    --color-surface-elevated: 32 25 19;
+    --color-foreground: 244 238 230;
+    --color-muted: 148 134 122;
+    --color-border-rgb: 60 46 34;
+  }
+  /* Violet — deep purple-monochrome; dreamy, "synthwave night" mood. */
+  :root[data-theme="violet"] {
+    --color-background: 10 6 16;
+    --color-surface: 18 12 27;
+    --color-surface-elevated: 27 19 39;
+    --color-foreground: 242 236 250;
+    --color-muted: 146 134 160;
+    --color-border-rgb: 54 42 76;
+  }
+  /* Nowruz — spring tulip: deep green-black with warm rose-gold text;
+     Persian New Year mood. */
+  :root[data-theme="nowruz"] {
+    --color-background: 8 14 10;
+    --color-surface: 14 22 17;
+    --color-surface-elevated: 22 32 25;
+    --color-foreground: 246 240 234;
+    --color-muted: 134 148 132;
+    --color-border-rgb: 44 62 48;
+  }
+  /* Yalda — pomegranate night: near-black cherry red; the longest
+     night's reading-party mood. */
+  :root[data-theme="yalda"] {
+    --color-background: 12 5 7;
+    --color-surface: 20 9 13;
+    --color-surface-elevated: 30 14 20;
+    --color-foreground: 248 238 240;
+    --color-muted: 152 130 136;
+    --color-border-rgb: 60 36 44;
+  }
+  /* Christmas — pine & candlelight: deep evergreen with warm ivory. */
+  :root[data-theme="christmas"] {
+    --color-background: 6 12 9;
+    --color-surface: 12 20 15;
+    --color-surface-elevated: 19 29 23;
+    --color-foreground: 240 244 236;
+    --color-muted: 130 144 130;
+    --color-border-rgb: 42 58 46;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * SIGNATURE THEMES
+   * Unlike the classic shells above, these repaint the *whole* identity:
+   * surface tokens, the brand gradient (CTAs, headline text), the glow
+   * shadows and the ambient halo behind the app. Each palette was picked
+   * so white text on `primary` stays readable while the halo itself can
+   * be a brighter, more saturated version of the same hue.
+   * ------------------------------------------------------------------ */
+
+  /* Aurora Noir — cinematic midnight with a violet↔cyan aurora. */
+  :root[data-theme="aurora-noir"] {
+    --color-background: 7 11 26;
+    --color-surface: 14 21 48;
+    --color-surface-elevated: 22 32 66;
+    --color-foreground: 245 247 255;
+    --color-muted: 139 147 181;
+    --color-border-rgb: 48 58 96;
+    --color-primary: 124 92 255;
+    --color-accent: 34 211 238;
+    --brand-a: 124 92 255;
+    --brand-b: 37 99 235;
+    --halo-1: 124 92 255;
+    --halo-2: 34 211 238;
+  }
+
+  /* Neon Tokyo — cyberpunk black with magenta↔cyan neon tubes. */
+  :root[data-theme="neon-tokyo"] {
+    --color-background: 5 6 10;
+    --color-surface: 12 15 24;
+    --color-surface-elevated: 20 24 38;
+    --color-foreground: 247 248 255;
+    --color-muted: 140 144 168;
+    --color-border-rgb: 46 50 74;
+    --color-primary: 219 39 119;
+    --color-accent: 0 229 255;
+    --brand-a: 219 39 119;
+    --brand-b: 124 58 237;
+    --halo-1: 255 46 151;
+    --halo-2: 0 229 255;
+  }
+
+  /* Golden Hour — warm amber dusk, candlelight on dark wood. */
+  :root[data-theme="golden-hour"] {
+    --color-background: 18 12 8;
+    --color-surface: 28 19 12;
+    --color-surface-elevated: 40 28 18;
+    --color-foreground: 255 246 233;
+    --color-muted: 176 152 122;
+    --color-border-rgb: 70 50 32;
+    --color-primary: 180 83 9;
+    --color-accent: 245 165 36;
+    --brand-a: 217 119 6;
+    --brand-b: 180 83 9;
+    --halo-1: 245 165 36;
+    --halo-2: 255 122 69;
+  }
+
+  /* Emerald Velvet — jazz-lounge deep green with antique gold. */
+  :root[data-theme="emerald-velvet"] {
+    --color-background: 4 18 14;
+    --color-surface: 10 31 25;
+    --color-surface-elevated: 16 44 35;
+    --color-foreground: 239 255 248;
+    --color-muted: 127 163 147;
+    --color-border-rgb: 40 74 60;
+    --color-primary: 4 120 87;
+    --color-accent: 212 175 55;
+    --brand-a: 5 150 105;
+    --brand-b: 4 120 87;
+    --halo-1: 16 185 129;
+    --halo-2: 212 175 55;
+  }
+
+  /* Rose Quartz — romantic plum with pearlescent pink↔orchid. */
+  :root[data-theme="rose-quartz"] {
+    --color-background: 22 10 18;
+    --color-surface: 36 16 32;
+    --color-surface-elevated: 50 24 44;
+    --color-foreground: 255 240 246;
+    --color-muted: 176 138 160;
+    --color-border-rgb: 76 40 62;
+    --color-primary: 219 39 119;
+    --color-accent: 192 132 252;
+    --brand-a: 219 39 119;
+    --brand-b: 147 51 234;
+    --halo-1: 255 111 165;
+    --halo-2: 192 132 252;
+  }
+
+  /* Cyber Lime — futuristic black with acid-lime rim light. */
+  :root[data-theme="cyber-lime"] {
+    --color-background: 6 8 6;
+    --color-surface: 13 20 13;
+    --color-surface-elevated: 20 30 20;
+    --color-foreground: 244 255 233;
+    --color-muted: 143 163 131;
+    --color-border-rgb: 44 62 40;
+    --color-primary: 101 163 13;
+    --color-accent: 34 197 94;
+    --brand-a: 101 163 13;
+    --brand-b: 21 128 61;
+    --halo-1: 198 244 50;
+    --halo-2: 34 197 94;
+  }
+
+  html {
+    @apply bg-background text-foreground;
+  }
+
+  body {
+    @apply antialiased font-sans;
+  }
+
+  /* RTL (Persian locale): switch the whole app to Vazirmatn. Sora's Latin
+     glyphs don't cover Farsi, so headings fall back through the `display`
+     stack to `--font-fa` automatically — this rule just makes body copy
+     match instead of silently landing on the system font. */
+  html[dir="rtl"] body {
+    font-family: var(--font-fa), var(--font-sans), sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Visible keyboard focus everywhere; mouse clicks stay clean. */
+  :focus-visible {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+  }
+}
+
+
+/* ------------------------------------------------------------------ *
+ * Glass panels — the shared "liquid glass" surface (Phase 6.5).
+ * Pure CSS (no WebGL) so it stays smooth on phones. The gradient
+ * border is a masked ::before ring, so the translucent fill never
+ * shows the gradient underneath it.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .glass-panel {
+    position: relative;
+    border-radius: 1.5rem;
+    /* Theme-aware glass: tinted by the shell's own surface tokens so a
+       Golden Hour / Emerald / Rose shell never shows a purple-grey card. */
+    background: linear-gradient(
+      180deg,
+      rgb(var(--color-surface-elevated) / 0.62),
+      rgb(var(--color-surface) / 0.48)
+    );
+    box-shadow: 0 10px 40px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgb(var(--brand-a) / 0.55) 0%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgb(var(--brand-b) / 0.4) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+  }
+
+  /* Lift a panel above its siblings while one of its menus is open, so a
+     dropdown is never painted underneath the next panel. */
+  .glass-panel:focus-within,
+  .glass-panel:has([aria-expanded="true"]) {
+    z-index: 20;
+  }
+
+  .glass-panel-interactive {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .glass-panel-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 50px -14px rgb(var(--halo-1) / 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Blur is the expensive part on phones — keep it lighter there. */
+  @media (max-width: 767px) {
+    .glass-panel {
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
+      backdrop-filter: blur(10px) saturate(130%);
+    }
+  }
+
+  /* No backdrop-filter support, or the OS asks for less transparency:
+     fall back to a solid surface. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-panel {
+      background: rgb(var(--color-surface));
+    }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-panel {
+      background: rgb(var(--color-surface));
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-panel-interactive,
+    .glass-panel-interactive:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+}
+
+
+/* ------------------------------------------------------------------ *
+ * Seek bar: gradient fill up to --seek-progress, white glowing thumb.
+ * The gradient runs from --seek-color-start to --seek-color-end (both
+ * default to the static brand purple/pink) so callers with a track's
+ * ambient color — see SeekBar's `ambientColor` prop — can drive it
+ * per-song instead of the old hard-coded single purple.
+ * Forced LTR — a timeline reads left → right even in RTL locales.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .seek-range {
+    -webkit-appearance: none;
+    appearance: none;
+    direction: ltr;
+    height: 1rem;
+    background: transparent;
+    cursor: pointer;
+  }
+  .seek-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--seek-color-start, rgb(var(--halo-1))),
+      var(--seek-color-end, rgb(var(--halo-2))) var(--seek-progress, 0%),
+      rgba(255, 255, 255, 0.16) var(--seek-progress, 0%)
+    );
+  }
+  .seek-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    margin-top: -5px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--seek-color-start, rgb(var(--halo-1))) 85%, transparent);
+  }
+  .seek-range::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+  .seek-range::-moz-range-progress {
+    height: 4px;
+    border-radius: 9999px;
+    /* Firefox's ::-moz-range-progress can't paint a multi-stop gradient,
+       so it only picks up the start color; still reacts per-track. */
+    background: var(--seek-color-start, rgb(var(--halo-1)));
+  }
+  .seek-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--seek-color-start, rgb(var(--halo-1))) 85%, transparent);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Volume slider (persistent player). Same gradient-fill idea as the
+ * seek bar, sized for a compact control: the fill runs to
+ * --volume-progress (set inline by the caller) so the level is always
+ * readable at a glance, and the thumb glows in the brand purple.
+ * Forced LTR — louder-to-the-right reads the same in RTL locales.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .volume-range {
+    -webkit-appearance: none;
+    appearance: none;
+    direction: ltr;
+    height: 1rem;
+    background: transparent;
+    cursor: pointer;
+  }
+  .volume-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--volume-color-start, rgb(var(--halo-1))),
+      var(--volume-color-end, rgb(var(--brand-b))) var(--volume-progress, 80%),
+      rgba(255, 255, 255, 0.14) var(--volume-progress, 80%)
+    );
+  }
+  .volume-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 10px rgb(var(--halo-1) / 0.85);
+    transition: transform 150ms ease;
+  }
+  .volume-range:hover::-webkit-slider-thumb,
+  .volume-range:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+  }
+  .volume-range::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .volume-range::-moz-range-progress {
+    height: 4px;
+    border-radius: 9999px;
+    background: rgb(var(--halo-1));
+  }
+  .volume-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 10px rgb(var(--halo-1) / 0.85);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * App-shell aurora: two slow, blurred color blobs drifting behind the
+ * whole app (below content, above the static glow). CSS-only so it
+ * stays smooth on phones; disabled under prefers-reduced-motion.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .app-aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .app-aurora::before,
+  .app-aurora::after {
+    content: "";
+    position: absolute;
+    width: 60rem;
+    height: 60rem;
+    border-radius: 9999px;
+    filter: blur(120px);
+    opacity: 0.16;
+    will-change: transform;
+  }
+  .app-aurora::before {
+    top: -20rem;
+    right: -15rem;
+    /* --aurora-a is fed by the app shell from the current track's
+       ambient color (useAmbientTheme), so the whole background drifts
+       with what's playing; brand purple is the resting default. */
+    background: radial-gradient(closest-side, var(--aurora-a, rgb(var(--halo-1))), transparent);
+    animation: auroraDriftA 26s ease-in-out infinite;
+  }
+  .app-aurora::after {
+    bottom: -22rem;
+    left: -18rem;
+    background: radial-gradient(closest-side, var(--aurora-b, rgb(var(--halo-2))), transparent);
+    animation: auroraDriftB 32s ease-in-out infinite;
+  }
+  @keyframes auroraDriftA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-10rem, 6rem) scale(1.15); }
+  }
+  @keyframes auroraDriftB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(9rem, -7rem) scale(1.1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .app-aurora::before,
+    .app-aurora::after {
+      animation: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Home hero artwork cluster (components/home/hero-cover-fan.tsx).
+ * "Cover flow" arrangement: the five sleeves ride a shallow arc around
+ * the centre card, turning away from the viewer and dropping back in Z,
+ * with brightness falloff for depth. Each card's resting transform comes
+ * from the --fx/--fy/--ry/--tz/--br custom properties; hovering the
+ * cluster flattens the arc and lifts the centre, tinted with the active
+ * theme's halo instead of a fixed shadow color.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .hero-fan {
+    width: 284px;
+    height: 156px;
+    /* Gives the sleeves real perspective — the centre card sits closer to
+       the viewer than the outer ones instead of looking like flat tiles. */
+    perspective: 1000px;
+    /* Barely-there idle drift so the cluster reads as a physical object
+       rather than a static picture. Paused while hovered, and removed
+       entirely for reduced-motion users. */
+    animation: hero-fan-float 9s ease-in-out infinite;
+  }
+  .hero-fan:hover {
+    animation-play-state: paused;
+  }
+  @keyframes hero-fan-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .hero-fan-card {
+    width: var(--s, 86px);
+    height: var(--s, 86px);
+    margin-left: calc(var(--s, 86px) * -0.5);
+    margin-top: calc(var(--s, 86px) * -0.5);
+    transform: translate3d(var(--fx, 0px), var(--fy, 0px), var(--tz, 0px))
+      rotateY(var(--ry, 0deg)) rotate(var(--fr, 0deg));
+    transform-origin: 50% 60%;
+    transition: transform 650ms cubic-bezier(0.22, 0.9, 0.24, 1),
+      box-shadow 650ms ease, filter 650ms ease;
+    box-shadow: 0 18px 38px -16px rgba(0, 0, 0, 0.9);
+    /* Outer sleeves sit further back, so they read a little darker. */
+    filter: brightness(var(--br, 1));
+    will-change: transform;
+  }
+  /* Cover-flow arc, small/medium desktops. Index 2 is the visual anchor.
+     Outer sleeves turn away from the viewer and sit further back. */
+  .hero-fan-card[data-i="0"] { --s: 74px; --fx: -100px; --fy: 0px; --ry: -42deg; --tz: -74px; --br: 0.72; z-index: 10; }
+  .hero-fan-card[data-i="1"] { --s: 82px; --fx: -50px; --fy: 0px; --ry: -24deg; --tz: -30px; --br: 0.86; z-index: 20; }
+  .hero-fan-card[data-i="2"] { --s: 92px; --fx: 0px; --fy: -4px; --ry: 0deg; --tz: 26px; --br: 1; z-index: 30; }
+  .hero-fan-card[data-i="3"] { --s: 82px; --fx: 50px; --fy: 0px; --ry: 24deg; --tz: -30px; --br: 0.86; z-index: 20; }
+  .hero-fan-card[data-i="4"] { --s: 74px; --fx: 100px; --fy: 0px; --ry: 42deg; --tz: -74px; --br: 0.72; z-index: 10; }
+
+  .hero-fan:hover .hero-fan-card {
+    transform: translate3d(calc(var(--fx, 0px) * 1.08), calc(var(--fy, 0px) - 7px), calc(var(--tz, 0px) + 14px))
+      rotateY(calc(var(--ry, 0deg) * 0.45)) rotate(calc(var(--fr, 0deg) * 0.5)) scale(1.03);
+    box-shadow: 0 30px 64px -20px rgb(var(--halo-1) / 0.62);
+    filter: saturate(1.06) brightness(calc(var(--br, 1) * 1.08));
+  }
+  .hero-fan-glow {
+    background:
+      radial-gradient(58% 58% at 32% 30%, rgb(var(--halo-1) / 0.5), transparent 70%),
+      radial-gradient(56% 56% at 74% 72%, rgb(var(--halo-2) / 0.38), transparent 72%);
+    filter: blur(22px);
+    opacity: 0.9;
+  }
+  .hero-fan-shadow {
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 0;
+    height: 20px;
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent);
+    filter: blur(10px);
+  }
+
+  /* Wide desktops: give the carousel more presence once the hero has room. */
+  @media (min-width: 1400px) {
+    .hero-fan {
+      width: 330px;
+      height: 178px;
+    }
+    .hero-fan-card[data-i="0"] { --s: 86px; --fx: -116px; --fy: 0px; --ry: -44deg; --tz: -86px; --br: 0.72; }
+    .hero-fan-card[data-i="1"] { --s: 96px; --fx: -58px; --fy: 0px; --ry: -26deg; --tz: -36px; --br: 0.86; }
+    .hero-fan-card[data-i="2"] { --s: 108px; --fx: 0px; --fy: -5px; --ry: 0deg; --tz: 30px; --br: 1; }
+    .hero-fan-card[data-i="3"] { --s: 96px; --fx: 58px; --fy: 0px; --ry: 26deg; --tz: -36px; --br: 0.86; }
+    .hero-fan-card[data-i="4"] { --s: 86px; --fx: 116px; --fy: 0px; --ry: 44deg; --tz: -86px; --br: 0.72; }
+  }
+  @media (min-width: 1536px) {
+    .hero-fan {
+      width: 356px;
+      height: 196px;
+    }
+    .hero-fan-card[data-i="0"] { --s: 92px; --fx: -128px; --fy: 0px; --ry: -45deg; --tz: -94px; --br: 0.72; }
+    .hero-fan-card[data-i="1"] { --s: 104px; --fx: -64px; --fy: 0px; --ry: -26deg; --tz: -38px; --br: 0.86; }
+    .hero-fan-card[data-i="2"] { --s: 118px; --fx: 0px; --fy: -6px; --ry: 0deg; --tz: 34px; --br: 1; }
+    .hero-fan-card[data-i="3"] { --s: 104px; --fx: 64px; --fy: 0px; --ry: 26deg; --tz: -38px; --br: 0.86; }
+    .hero-fan-card[data-i="4"] { --s: 92px; --fx: 128px; --fy: 0px; --ry: 45deg; --tz: -94px; --br: 0.72; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fan {
+      animation: none;
+    }
+    .hero-fan-card,
+    .hero-fan:hover .hero-fan-card {
+      transition: none;
+      transform: translate3d(var(--fx, 0px), var(--fy, 0px), 0) rotateY(var(--ry, 0deg)) rotate(var(--fr, 0deg));
+    }
+    .hero-fan:hover .hero-fan-card {
+      filter: brightness(var(--br, 1));
+    }
+  }
+}
+
+/* Custom scrollbars (WebKit + Firefox) — thin, themed, quiet. */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border-rgb) / 0.9) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border-rgb) / 0.7);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--halo-1) / 0.6);
+    background-clip: content-box;
+  }
+}
+
+/* Horizontal scrollers (filter chips, carousels) without the scrollbar. */
+/* Utilities: gradient headline text + interactive card lift + glow. */
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Brand-gradient headline text (logo, page hero titles). Theme-aware:
+     picks up the active signature theme's halo pair. */
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      rgb(var(--halo-1)) 0%,
+      rgb(var(--brand-a)) 45%,
+      rgb(var(--halo-2)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* MELUNE wordmark: pearlescent gradient + soft double glow — the
+     "lighting" of the brand. Applied together with `font-brand` (the
+     poetic serif loaded in layout.tsx) via the Logo component. */
+  .brand-wordmark {
+    background: linear-gradient(
+      115deg,
+      #ffffff 0%,
+      rgb(var(--halo-1)) 30%,
+      rgb(var(--brand-a)) 62%,
+      rgb(var(--halo-2)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.24em;
+    filter: drop-shadow(0 0 12px rgb(var(--halo-1) / 0.5))
+      drop-shadow(0 0 32px rgb(var(--halo-2) / 0.28));
+  }
+  /* Halo disc that floats behind the wordmark — a moonlit ring of
+     light. Purely decorative; sits in its own stacking layer. */
+  .brand-halo {
+    background: radial-gradient(
+      closest-side,
+      rgb(var(--halo-1) / 0.35),
+      rgb(var(--halo-2) / 0.12) 55%,
+      transparent 75%
+    );
+    filter: blur(2px);
+  }
+  @keyframes brandHaloBreathe {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.12);
+    }
+  }
+  .brand-halo-breathe {
+    animation: brandHaloBreathe 7s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-halo-breathe {
+      animation: none;
+    }
+  }
+  /* Card hover: gentle lift + brand glow ring. */
+  .card-lift {
+    transition: transform 250ms ease, box-shadow 250ms ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 44px -14px rgb(var(--halo-1) / 0.5);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-lift,
+    .card-lift:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Theme-aware overrides for the fixed brand utilities. These live in
+   * `@layer utilities` *after* Tailwind's generated classes, so they win
+   * by source order without !important. Classic themes resolve to the
+   * original purple→blue values via the :root defaults, so nothing
+   * changes for them; signature themes repaint the whole identity.
+   * ------------------------------------------------------------------ */
+  .bg-codex-gradient {
+    background-image: linear-gradient(135deg, rgb(var(--brand-a)) 0%, rgb(var(--brand-b)) 100%);
+  }
+  .bg-app-glow {
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, rgb(var(--halo-1) / 0.22), transparent 60%),
+      radial-gradient(50rem 36rem at 0% 35%, rgb(var(--halo-2) / 0.14), transparent 60%);
+  }
+  .shadow-glow {
+    box-shadow: 0 0 40px -10px rgb(var(--halo-1) / 0.45);
+  }
+  .shadow-glow-sm {
+    box-shadow: 0 0 20px -6px rgb(var(--halo-1) / 0.55);
+  }
+  .shadow-glow-lg {
+    box-shadow: 0 0 70px -12px rgb(var(--halo-1) / 0.55);
+  }
+}
+
+/* Respect the OS-level reduced-motion preference across every custom
+   animation added for the player (vinyl spin, visualizer, heart burst,
+   play pulse). Tailwind's own transition utilities are left alone —
+   this only neutralizes the decorative keyframe animations. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-vinyl-spin,
+  .animate-visualizer-bar,
+  .animate-heart-burst,
+  .animate-play-pulse {
+    animation: none !important;
+  }
+}

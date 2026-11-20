@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Codex Music",
+    "slug": "codex-music-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "codexmusic",
+    "splash": {
+      "backgroundColor": "#0B0B12"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "app.codexmusic.mobile"
+    },
+    "android": {
+      "package": "app.codexmusic.mobile"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "// note": "EXPO_PUBLIC_API_URL is read directly by process.env at build/runtime (Expo's built-in EXPO_PUBLIC_ prefix support) — nothing here needs to duplicate it."
+    }
+  }
+}

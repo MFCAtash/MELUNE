@@ -1,0 +1,98 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Please do **not** include
+        credentials, tokens or personal data.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: App version, or the short commit SHA if you run from source.
+      placeholder: "0.1.0 or a1b2c3d"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web player (Next.js)
+        - API (NestJS)
+        - Auth / accounts
+        - Media / uploads / transcoding
+        - Search or recommendations
+        - Admin
+        - Mobile (Expo)
+        - Deployment / infrastructure
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Actual behaviour, including any error message or HTTP status.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Expected behaviour and why you think it is correct.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: >
+        Numbered steps, starting from a clean state. A minimal reproduction case
+        dramatically increases the chance of a fast fix.
+      placeholder: |
+        1. Start with `npm run docker:up`
+        2. Open http://localhost:3000/home
+        3. Click ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: |
+        OS: Windows 11 / macOS / Ubuntu 24.04
+        Node: v20.x
+        Browser: Chrome 131
+        Docker: 27.x
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Redact anything sensitive before pasting.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I can reproduce this on the current `main` branch
+          required: true
+        - label: This report contains no credentials or personal data
+          required: true

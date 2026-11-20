@@ -1,0 +1,40 @@
+# =============================================================================
+# MELUNE — Cloudflare Origin Certificate TLS (recommended for production)
+# =============================================================================
+# Prerequisites:
+#   1. Cloudflare dashboard -> SSL/TLS -> Origin Server -> Create Certificate.
+#      Hostnames (list both explicitly; a *.melune.app wildcard also works but
+#      is not needed and would cover unrelated hosts):
+#         music.melune.app
+#         music-media.melune.app
+#      Save the two blocks as:
+#         infra/caddy/origin.pem   (certificate)
+#         infra/caddy/origin.key   (private key)
+#      chmod 600 infra/caddy/origin.key
+#   2. Cloudflare SSL/TLS encryption mode: Full (strict).
+#   3. Cloudflare proxy (orange cloud) ON for `music` and `music-media`.
+#   4. Set CADDYFILE=Caddyfile.origin in .env.production and restart Caddy.
+#
+# Origin certificates are trusted by Cloudflare and valid for 15 years, so
+# there is no renewal job and no ACME traffic. Never expose this certificate
+# to clients directly — Cloudflare presents its own edge certificate.
+# =============================================================================
+{
+	servers {
+		trusted_proxies static private_ranges 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+	}
+}
+
+import site.caddy
+
+# The app itself (music.melune.app).
+{$DOMAIN} {
+	tls /etc/caddy/origin.pem /etc/caddy/origin.key
+	import melune_site
+}
+
+# Public object storage (music-media.melune.app).
+{$MEDIA_DOMAIN} {
+	tls /etc/caddy/origin.pem /etc/caddy/origin.key
+	import media_site
+}

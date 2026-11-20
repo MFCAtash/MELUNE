@@ -1,0 +1,323 @@
+# Production stack for MELUNE — Option B.
+#
+# Topology (single Oracle Cloud VM):
+#
+#   Internet -> Cloudflare -> Caddy :80/:443 -> web :3000  (Next.js)
+#                                            -> api :4000  (NestJS + Socket.IO)
+#                                            -> $MEDIA_DOMAIN -> MinIO :9000
+#
+# Current addresses (see .env.production.example):
+#   app    https://music.melune.app
+#   media  https://music-media.melune.app
+# The media host is a separate variable because Cloudflare Universal SSL only
+# covers first-level subdomains of the zone, not media.music.melune.app.
+#
+# Only Caddy publishes ports. Postgres, Redis, MinIO, the API, the web app and
+# the transcode worker are reachable only on the internal Docker network, which
+# is why none of them need a `ports:` entry.
+#
+# Usage (always pass the env file explicitly so `${...}` placeholders and the
+# containers' own environment come from the same file):
+#
+#   docker compose --env-file .env.production -f docker-compose.prod.yml up -d --build
+#
+# The public origin is same-origin: the browser calls `/api/*` and
+# `/socket.io/*` on the site domain and Caddy proxies them to the API. That
+# removes CORS, cross-site cookies and mixed-origin WebSocket problems.
+
+name: melune
+
+# Keep the disk from filling up on a small Always Free VM. Without this, the
+# default json-file driver grows without bound.
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-restart: &default-restart
+  restart: unless-stopped
+  logging: *default-logging
+
+services:
+  # ---------------------------------------------------------------------------
+  # Data stores (internal only)
+  # ---------------------------------------------------------------------------
+  postgres:
+    <<: *default-restart
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env.production}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.production}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env.production}
+      # Deterministic collation/encoding for backup portability.
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    command:
+      - postgres
+      - -c
+      - max_connections=100
+      - -c
+      - shared_buffers=256MB
+      - -c
+      - effective_cache_size=768MB
+      - -c
+      - work_mem=8MB
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    stop_grace_period: 60s
+    networks: [internal]
+
+  redis:
+    <<: *default-restart
+    image: redis:7-alpine
+    # AOF keeps BullMQ jobs and cached sessions across a VM reboot. `noeviction`
+    # is deliberate: Redis holds queue state here, and silently evicting jobs
+    # is worse than refusing a write.
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - noeviction
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks: [internal]
+
+  minio:
+    <<: *default-restart
+    image: minio/minio:RELEASE.2024-01-16T16-07-38Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${STORAGE_ACCESS_KEY:?set STORAGE_ACCESS_KEY in .env.production}
+      MINIO_ROOT_PASSWORD: ${STORAGE_SECRET_KEY:?set STORAGE_SECRET_KEY in .env.production}
+      # Needed by the web app's offline-download feature, which fetches audio
+      # bytes with fetch() (unlike <audio>, which does not require CORS).
+      # Comma-separated is accepted by MinIO.
+      MINIO_API_CORS_ALLOW_ORIGIN: ${WEB_APP_URL}
+    volumes:
+      - minio_data:/data
+    # No healthcheck here on purpose: the minio/minio image does not ship
+    # `mc` or `curl`, so the common `mc ready local` check never succeeds.
+    # minio-init below waits for the S3 API with its own retry loop (it runs
+    # in the minio/mc image, which definitely has `mc`).
+    networks: [internal]
+
+  # One-shot: create the bucket and make objects public-read. Every uploaded
+  # object key is a fresh UUID, so public-read + immutable caching is safe.
+  minio-init:
+    image: minio/mc:RELEASE.2024-01-16T16-06-34Z
+    logging: *default-logging
+    restart: "no"
+    depends_on:
+      minio:
+        condition: service_started
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        attempt=0
+        until mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD" >/dev/null 2>&1; do
+          attempt=$$((attempt + 1))
+          if [ "$$attempt" -ge 60 ]; then
+            echo "MinIO did not become reachable after 120s" >&2
+            exit 1
+          fi
+          sleep 2
+        done
+        mc mb --ignore-existing "local/$$STORAGE_BUCKET"
+        mc anonymous set download "local/$$STORAGE_BUCKET"
+        echo "bucket ready: $$STORAGE_BUCKET"
+    environment:
+      MINIO_ROOT_USER: ${STORAGE_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${STORAGE_SECRET_KEY}
+      STORAGE_BUCKET: ${STORAGE_BUCKET:?set STORAGE_BUCKET in .env.production}
+    networks: [internal]
+
+  # ---------------------------------------------------------------------------
+  # Schema migration (one-shot, runs before the API starts)
+  # ---------------------------------------------------------------------------
+  migrate:
+    image: melune/api:${IMAGE_TAG:-latest}
+    logging: *default-logging
+    restart: "no"
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    working_dir: /repo/apps/api
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        if [ -f /repo/apps/api/node_modules/prisma/build/index.js ]; then
+          node /repo/apps/api/node_modules/prisma/build/index.js migrate deploy
+        else
+          node /repo/node_modules/prisma/build/index.js migrate deploy
+        fi
+    networks: [internal]
+
+  # Optional one-shot: extra full-text indexes (safe to re-run, all statements
+  # are CREATE INDEX IF NOT EXISTS). Not required for correctness.
+  search-index:
+    image: postgres:16-alpine
+    logging: *default-logging
+    restart: "no"
+    env_file:
+      - .env.production
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./apps/api/prisma/sql:/sql:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        psql "$$DATABASE_URL" -v ON_ERROR_STOP=1 -f /sql/enable-search.sql
+    networks: [internal]
+
+  # ---------------------------------------------------------------------------
+  # Application containers
+  # ---------------------------------------------------------------------------
+  api:
+    <<: *default-restart
+    image: melune/api:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.production}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      CORS_ORIGIN: ${CORS_ORIGIN:?set CORS_ORIGIN in .env.production}
+      WEB_APP_URL: ${WEB_APP_URL:?set WEB_APP_URL in .env.production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+      migrate:
+        condition: service_completed_successfully
+    networks: [internal]
+
+  web:
+    <<: *default-restart
+    image: melune/web:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: infra/docker/web.Dockerfile
+      args:
+        # Same-origin: the browser must use relative `/api/*` URLs.
+        NEXT_PUBLIC_API_URL: ""
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?set NEXT_PUBLIC_SITE_URL in .env.production}
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      # Server components cannot fetch a relative URL; they talk to the API
+      # container directly over the Docker network.
+      API_INTERNAL_URL: ${API_INTERNAL_URL:-http://api:4000}
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [internal]
+
+  transcode-worker:
+    <<: *default-restart
+    image: melune/worker:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: infra/docker/worker.Dockerfile
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.production}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+      migrate:
+        condition: service_completed_successfully
+    networks: [internal]
+
+  # ---------------------------------------------------------------------------
+  # Edge: the only container with published ports
+  # ---------------------------------------------------------------------------
+  caddy:
+    <<: *default-restart
+    image: caddy:2.8-alpine
+    # CADDYFILE=Caddyfile        -> automatic Let's Encrypt (DNS-only first run)
+    # CADDYFILE=Caddyfile.origin -> Cloudflare Origin Certificate (recommended)
+    command:
+      - caddy
+      - run
+      - --config
+      - /etc/caddy/${CADDYFILE:-Caddyfile}
+      - --adapter
+      - caddyfile
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env.production}
+      # First-level host of the zone, e.g. music-media.melune.app. Kept
+      # separate from DOMAIN because Universal SSL does not cover
+      # media.<sub>.<zone> (two levels below the zone apex).
+      MEDIA_DOMAIN: ${MEDIA_DOMAIN:?set MEDIA_DOMAIN in .env.production}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@${DOMAIN}}
+      WEB_APP_URL: ${WEB_APP_URL:?set WEB_APP_URL in .env.production}
+    ports:
+      - "80:80"
+      - "443:443"
+      # HTTP/3 (QUIC). Harmless when Cloudflare terminates TLS in front.
+      - "443:443/udp"
+    volumes:
+      - ./infra/caddy:/etc/caddy:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    networks: [internal]
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  caddy_data:
+  caddy_config:

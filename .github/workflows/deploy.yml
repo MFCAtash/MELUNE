@@ -1,0 +1,199 @@
+name: Deploy production
+
+# Deploys only after the full CI workflow succeeds on main, or manually from
+# the Actions tab (pick a branch/tag/SHA to roll forward or back).
+#
+# Required repository/environment secrets:
+#   DEPLOY_SSH_KEY  private key whose public half is in the server's
+#                   ~/.ssh/authorized_keys (dedicated deploy key, no passphrase)
+#   DEPLOY_HOST     public IP or hostname of the Oracle VM
+#   DEPLOY_USER     SSH user (e.g. ubuntu)
+#   DEPLOY_PATH     absolute path to the git checkout on the server
+#                   (e.g. /opt/melune)
+# Optional:
+#   DEPLOY_PORT     SSH port (defaults to 22)
+#
+# Required repository/environment variable:
+#   PUBLIC_URL      https://music.melune.app — used for the post-deploy smoke
+#                   test and shown as the deployment URL in the Actions UI.
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag or commit SHA to deploy"
+        required: false
+        default: "main"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Oracle VM
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.PUBLIC_URL }}
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+      PUBLIC_URL: ${{ vars.PUBLIC_URL }}
+      TARGET_REF: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.event.workflow_run.head_branch }}
+      TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Validate configuration
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH PUBLIC_URL; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Missing required configuration: $name"
+              missing=1
+            fi
+          done
+          if [ -z "${{ secrets.DEPLOY_SSH_KEY }}" ]; then
+            echo "::error::Missing required secret: DEPLOY_SSH_KEY"
+            missing=1
+          fi
+          exit "$missing"
+
+      - name: Show deploy target
+        run: |
+          echo "Ref : $TARGET_REF"
+          echo "SHA : $TARGET_SHA"
+          echo "Host: $DEPLOY_HOST:$DEPLOY_PORT"
+          echo "Dir : $DEPLOY_PATH"
+
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$DEPLOY_PORT" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy over SSH
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key \
+              -p "$DEPLOY_PORT" \
+              -o IdentitiesOnly=yes \
+              -o ServerAliveInterval=30 \
+              -o ServerAliveCountMax=40 \
+              "$DEPLOY_USER@$DEPLOY_HOST" \
+              "APP_DIR='$DEPLOY_PATH' TARGET_SHA='$TARGET_SHA' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          cd "$APP_DIR"
+
+          if [ ! -f .env.production ]; then
+            echo "ERROR: $APP_DIR/.env.production is missing. Create it from .env.production.example." >&2
+            exit 1
+          fi
+
+          if [ ! -f infra/caddy/Caddyfile ]; then
+            echo "ERROR: $APP_DIR does not look like the MELUNE repository." >&2
+            exit 1
+          fi
+
+          echo "==> Fetching $TARGET_SHA"
+          git fetch --prune --tags origin
+          git -c advice.detachedHead=false checkout --force "$TARGET_SHA"
+
+          COMPOSE="docker compose --env-file .env.production -f docker-compose.prod.yml"
+
+          echo "==> Building images"
+          $COMPOSE build --pull
+
+          echo "==> Starting stack"
+          $COMPOSE up -d --remove-orphans
+
+          wait_healthy() {
+            service="$1"
+            timeout="${2:-300}"
+            deadline=$((SECONDS + timeout))
+            while [ "$SECONDS" -lt "$deadline" ]; do
+              container="$($COMPOSE ps -q "$service" 2>/dev/null | head -n1 || true)"
+              if [ -n "$container" ]; then
+                status="$(docker inspect -f '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "$container" 2>/dev/null || echo unknown)"
+                if [ "$status" = "healthy" ]; then
+                  echo "==> $service is healthy"
+                  return 0
+                fi
+              fi
+              sleep 5
+            done
+            echo "ERROR: $service did not become healthy within ${timeout}s" >&2
+            $COMPOSE ps >&2 || true
+            $COMPOSE logs --tail=120 "$service" >&2 || true
+            return 1
+          }
+
+          wait_healthy api 300
+          wait_healthy web 300
+
+          echo "==> Running containers"
+          $COMPOSE ps
+
+          # Reclaim disk from images that are no longer referenced. Volumes are
+          # never pruned automatically.
+          docker image prune -f --filter "until=168h" >/dev/null || true
+
+          echo "==> Deploy finished: $TARGET_SHA"
+          REMOTE
+
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+          echo "Waiting for $PUBLIC_URL/api/health"
+          curl --fail --silent --show-error \
+               --retry 12 --retry-delay 5 --retry-all-errors \
+               "$PUBLIC_URL/api/health"
+          echo
+          echo "Checking the landing page"
+          curl --fail --silent --show-error --location \
+               --retry 6 --retry-delay 5 --retry-all-errors \
+               --output /dev/null "$PUBLIC_URL/"
+          echo "Checking robots.txt"
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 \
+               "$PUBLIC_URL/robots.txt" >/dev/null
+          echo "Checking sitemap.xml"
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 \
+               "$PUBLIC_URL/sitemap.xml" >/dev/null
+          echo "Smoke test passed."
+
+      - name: Upload deployment logs on failure
+        if: failure()
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$DEPLOY_PORT" -o IdentitiesOnly=yes \
+              "$DEPLOY_USER@$DEPLOY_HOST" \
+              "cd '$DEPLOY_PATH' && docker compose --env-file .env.production -f docker-compose.prod.yml ps && docker compose --env-file .env.production -f docker-compose.prod.yml logs --tail=200" \
+              > deploy-failure.log 2>&1 || true
+          echo "See the workflow artifact for container logs."
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: deploy-failure-logs
+          path: deploy-failure.log
+          retention-days: 7
+          if-no-files-found: ignore

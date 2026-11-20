@@ -1,0 +1,72 @@
+# Shared site definitions for MELUNE.
+#
+# Imported by both Caddyfile (Let's Encrypt) and Caddyfile.origin (Cloudflare
+# Origin Certificate), so the routing/headers can never drift between the two
+# TLS modes.
+
+# ---------------------------------------------------------------- web + api
+(melune_site) {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		-Server
+		-X-Powered-By
+	}
+
+	# NestJS HTTP API. Trailing /* keeps the full path, same as the app expects
+	# (the API has a global /api prefix).
+	handle /api/* {
+		# Caddy already sets Host and X-Forwarded-* correctly.
+		reverse_proxy api:4000
+	}
+
+	# Socket.IO uses HTTP long-polling + WebSocket upgrade on the same path.
+	# Caddy upgrades transparently; flush_interval -1 disables response
+	# buffering so events are delivered immediately.
+	handle /socket.io/* {
+		reverse_proxy api:4000 {
+			flush_interval -1
+		}
+	}
+
+	# Everything else is the Next.js app.
+	handle {
+		reverse_proxy web:3000
+	}
+}
+
+# ------------------------------------------------------------------- media
+# Public object storage. `{$MEDIA_DOMAIN}` proxies to MinIO so audio, covers and
+# avatars are served from the same TLS/caching edge as the app. The Host header
+# must be preserved: MinIO validates presigned URLs against the host they were
+# signed for (https://music-media.melune.app). That is why this block never
+# rewrites Host, and why STORAGE_ENDPOINT must match MEDIA_DOMAIN exactly.
+(media_site) {
+	encode zstd gzip
+
+	header {
+		Access-Control-Allow-Origin "*"
+		Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+		Access-Control-Allow-Headers "Range, If-None-Match, Content-Type"
+		Access-Control-Expose-Headers "Content-Length, Content-Range, Accept-Ranges, ETag"
+		Cross-Origin-Resource-Policy "cross-origin"
+		X-Content-Type-Options "nosniff"
+		-Server
+	}
+
+	@preflight method OPTIONS
+	respond @preflight 204
+
+	# Object keys are UUIDs, so responses are safe to cache forever. Caddy has
+	# no status matcher for normal responses, so this applies to 404s too —
+	# harmless here because a UUID that 404s will never be reused.
+	header Cache-Control "public, max-age=31536000, immutable"
+
+	reverse_proxy minio:9000
+}

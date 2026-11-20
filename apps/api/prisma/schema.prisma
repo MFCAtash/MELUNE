@@ -1,0 +1,382 @@
+// Codex Music — Prisma Schema
+// Phase 1: base configuration.
+// Phase 2: authentication — refresh tokens, password reset, email verification.
+// Phase 3: catalog — Genre, Artist, Album, Song.
+// Phase 5: library — Like, Playlist, LibraryItem, ListeningHistory.
+// Phase 6: search — trigram indexes for fuzzy matching + SearchHistory.
+// Full-text ranking itself uses to_tsvector('simple', col) computed at
+// query time in SearchService's raw SQL (Prisma has no generated-column
+// support), so no tsvector column lives here — see docs/database.md.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pg_trgm]
+}
+
+enum Role {
+  USER
+  ARTIST
+  ADMIN
+}
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  username        String    @unique
+  password        String
+  role            Role      @default(USER)
+  avatarUrl       String?
+  bio             String?
+  emailVerified   Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  refreshTokens        RefreshToken[]
+  passwordResetTokens  PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  artistProfile        Artist?
+
+  likes            Like[]
+  playlists        Playlist[]
+  playlistAdds     PlaylistSong[]    @relation("PlaylistSongAddedBy")
+  libraryItems     LibraryItem[]
+  listeningHistory ListeningHistory[]
+  searchHistory    SearchHistory[]
+  notifications    Notification[]
+  pushSubscriptions PushSubscription[]
+
+  @@map("users")
+}
+
+// One row per issued refresh token (per device/session), hashed at rest,
+// so a single device can be revoked (logout) without killing every
+// session, and a stolen DB dump never yields a usable token.
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("email_verification_tokens")
+}
+
+// ---- Phase 3: Music Catalog ----
+// Follow (social graph) is intentionally still NOT here — Taste Match and
+// Friend Activity need it, but nothing in Phase 5 reads a Follow row yet,
+// so adding it now would be an unused table. It lands with the feature
+// that actually queries it.
+
+model Genre {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  songs Song[]
+
+  @@map("genres")
+}
+
+model Artist {
+  id        String   @id @default(uuid())
+  userId    String?  @unique
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name      String
+  slug      String   @unique
+  bio       String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  albums Album[]
+  songs  Song[]
+  libraryItems LibraryItem[]
+
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, map: "artists_name_trgm_idx")
+  @@map("artists")
+}
+
+model Album {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  artistId    String
+  artist      Artist    @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  coverUrl    String?
+  releaseDate DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  songs Song[]
+  libraryItems LibraryItem[]
+
+  @@index([artistId])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "albums_title_trgm_idx")
+  @@map("albums")
+}
+
+model Song {
+  id         String    @id @default(uuid())
+  title      String
+  slug       String    @unique
+  artistId   String
+  artist     Artist    @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  albumId    String?
+  album      Album?    @relation(fields: [albumId], references: [id], onDelete: SetNull)
+  genreId    String?
+  genre      Genre?    @relation(fields: [genreId], references: [id], onDelete: SetNull)
+  duration   Int // seconds
+  audioUrl   String
+  coverUrl   String?
+  // HLS/adaptive-bitrate streaming — populated asynchronously by the
+  // audio-transcode worker (see StorageService.transcodeAudio and
+  // docs/architecture.md's "Async Processing — Audio Transcode Queue"
+  // section). Null until the job finishes, or forever if it fails —
+  // by design: it's a progressive enhancement, PlayerEngine on the web
+  // app always falls back to `audioUrl` when this is unset.
+  hlsPlaylistUrl String?
+  playCount  Int       @default(0)
+  // Phase 8.2 — optional content-features for the recommendation engine
+  // (RecommendationsService). All nullable on purpose: most songs are
+  // ingested without audio analysis, and the engine falls back to
+  // genre + artist alone when bpm/mood/energy are unset for a track —
+  // see docs/ai.md. `mood` is a free-form string tag (e.g. "chill",
+  // "energetic") rather than an enum, same rationale as
+  // Notification.type: new moods never need a migration.
+  bpm        Int?
+  mood       String?
+  energy     Float? // 0..1, subjective "intensity" — optional, same fallback rule as bpm/mood
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  likes            Like[]
+  playlistEntries  PlaylistSong[]
+  listeningHistory ListeningHistory[]
+
+  @@index([artistId])
+  @@index([albumId])
+  @@index([genreId])
+  // Trigram GIN index — powers both `ILIKE '%q%'` and `similarity()`/`%`
+  // fuzzy matching in SearchService without a separate search engine.
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "songs_title_trgm_idx")
+  @@map("songs")
+}
+
+// ---- Phase 5: Library (Likes, Playlists, Saved items, History) ----
+// Powers: real Like state, user-owned playlists, a "Library" of saved
+// albums/artists/playlists, and the listening history that both the
+// personalized Home feed and any future Rewind/Taste-Match feature read.
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  songId    String
+  song      Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, songId])
+  @@index([songId])
+  @@map("likes")
+}
+
+model Playlist {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  description String?
+  coverUrl    String?
+  // Hex color (e.g. "#8B5CF6") chosen by the owner from a fixed brand
+  // palette when creating/editing the playlist. Null on playlists created
+  // before this field existed, or left "Auto" — the UI then falls back to
+  // the deterministic per-id palette (see lib/cover.ts: coverPalette).
+  accentColor String?
+  isPublic    Boolean   @default(true)
+  ownerId     String
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  items        PlaylistSong[]
+  libraryItems LibraryItem[]
+
+  @@index([ownerId])
+  // Only public playlists are ever searched (see SearchService), but the
+  // index still covers every row — Postgres has no partial trgm index
+  // syntax in Prisma's schema DSL, and the table is small enough that it
+  // doesn't matter.
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "playlists_title_trgm_idx")
+  @@map("playlists")
+}
+
+// Join table with an explicit position, so ordering survives reordering
+// and removals instead of relying on row-insertion order.
+model PlaylistSong {
+  id         String   @id @default(uuid())
+  playlistId String
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  songId     String
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  position   Int
+  addedById  String
+  addedBy    User     @relation("PlaylistSongAddedBy", fields: [addedById], references: [id], onDelete: Cascade)
+  addedAt    DateTime @default(now())
+
+  @@unique([playlistId, songId])
+  @@index([playlistId, position])
+  @@map("playlist_songs")
+}
+
+enum LibraryItemType {
+  ALBUM
+  PLAYLIST
+  ARTIST
+}
+
+// One row per "saved" album/artist/playlist. Exactly one of
+// albumId/artistId/playlistId is set per row, matching itemType —
+// enforced in SavedItemsService, not the DB (Postgres has no native
+// discriminated-union constraint without a CHECK, which Prisma can't
+// express portably), so every write path goes through one service method.
+model LibraryItem {
+  id         String          @id @default(uuid())
+  userId     String
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemType   LibraryItemType
+  albumId    String?
+  album      Album?          @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  artistId   String?
+  artist     Artist?         @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  playlistId String?
+  playlist   Playlist?       @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  createdAt  DateTime        @default(now())
+
+  @@unique([userId, albumId])
+  @@unique([userId, artistId])
+  @@unique([userId, playlistId])
+  @@index([userId, itemType])
+  @@map("library_items")
+}
+
+// One row per play. Deliberately append-only (no update/delete path) so
+// it can double as an audit trail for Home's "Recently played" and, once
+// Phase 7 Analytics exists, Rewind/Wrapped — without a schema change.
+model ListeningHistory {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  songId   String
+  song     Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  playedAt DateTime @default(now())
+
+  @@index([userId, playedAt])
+  @@index([songId])
+  @@map("listening_history")
+}
+
+// ---- Phase 6: Search ----
+
+// One row per query the user actually committed to (pressed Enter, or
+// tapped a result) — deliberately NOT one row per debounced keystroke,
+// or "recent searches" would fill up with fragments of what someone was
+// still typing. Written by SearchController.recordHistory, never by the
+// GET /search endpoint itself.
+model SearchHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  query     String
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("search_history")
+}
+
+// Placeholder health-check model kept out of the schema on purpose —
+// the /health endpoint checks DB connectivity directly via Prisma's
+// $queryRaw, so no dedicated table is needed.
+
+// ---- Notifications (in-app) ----
+// Deliberately a plain polling model (GET /me/notifications +
+// unread-count), not push/WebSocket — the frontend has no realtime
+// transport yet. `type` stays a free-form string instead of an enum so
+// new notification types (comments, follows, ...) never need a schema
+// migration, only a new string constant in NotificationsService.
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  body      String?
+  data      Json?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
+  @@map("notifications")
+}
+
+// Phase 8: Web Push (VAPID) subscriptions — one row per browser/device
+// endpoint a user has opted into. `endpoint` is globally unique because
+// it *is* the browser's push-service URL (FCM/Mozilla/etc); re-subscribing
+// the same device (e.g. after clearing permission and re-granting it)
+// upserts on that endpoint rather than piling up duplicates. p256dh/auth
+// are the subscription's encryption keys, required to encrypt payloads
+// per the Web Push protocol (RFC 8291) — see PushService.
+model PushSubscription {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}

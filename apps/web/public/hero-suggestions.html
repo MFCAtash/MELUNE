@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MELUNE — پیشنهادهای چیدمان کاورها</title>
+<style>
+  :root {
+    --ink: #f4f1ff;
+    --muted: #a9a2c9;
+    --line: rgba(255, 255, 255, .10);
+    --hero-a: #1b1440;
+    --hero-b: #45279c;
+    --hero-c: #14245e;
+    --card: #100c22;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(1000px 600px at 85% -10%, rgba(120, 80, 255, .22), transparent 60%),
+      radial-gradient(800px 500px at 0% 20%, rgba(0, 220, 160, .10), transparent 60%),
+      #08060f;
+    color: var(--ink);
+    font-family: "Segoe UI", Tahoma, system-ui, -apple-system, sans-serif;
+    padding: 34px 26px 60px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-head { max-width: 1180px; margin: 0 auto 28px; }
+  .brand {
+    font-weight: 800; letter-spacing: .34em; font-size: 15px;
+    background: linear-gradient(90deg, #d9ccff, #8fe3c2);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .page-head h1 { font-size: 26px; margin: 12px 0 8px; font-weight: 700; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.9; max-width: 780px; }
+  .hint {
+    display: inline-flex; gap: 8px; align-items: center; margin-top: 14px;
+    border: 1px solid var(--line); background: rgba(255,255,255,.04);
+    border-radius: 999px; padding: 7px 14px; font-size: 12.5px; color: #d9d2f5;
+  }
+  .hint b { color: #fff; }
+
+  .grid {
+    max-width: 1180px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px;
+  }
+  @media (max-width: 1080px) { .grid { grid-template-columns: 1fr; } }
+
+  .idea {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+    border-radius: 22px; padding: 16px 16px 18px;
+    transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .idea:hover { border-color: rgba(185,166,255,.4); box-shadow: 0 26px 60px -30px rgba(120,80,255,.9); }
+  .idea-head { display: flex; align-items: center; gap: 10px; margin: 0 4px 14px; }
+  .num {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 11px;
+    display: grid; place-items: center; font-size: 14px; font-weight: 800;
+    color: #0b0718; background: linear-gradient(135deg, #e7ddff, #9fe9cb);
+  }
+  .idea-head h2 { font-size: 15.5px; margin: 0; font-weight: 700; }
+  .idea-head p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+  .pick {
+    margin-inline-start: auto; flex: 0 0 auto;
+    font-size: 11px; font-weight: 800; letter-spacing: .02em;
+    color: #062014; background: linear-gradient(135deg, #b7f7d4, #8fe3c2);
+    border-radius: 999px; padding: 4px 11px;
+  }
+
+  /* ---------------- hero mock (same surface as the app) ---------------- */
+  .hero {
+    position: relative; direction: ltr; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    min-height: 236px; border-radius: 20px; padding: 22px 18px 22px 22px;
+    background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 55%, var(--hero-c) 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 60% at 78% 40%, rgba(255,255,255,.18), transparent 70%),
+      radial-gradient(50% 50% at 12% 90%, rgba(0,0,0,.35), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-copy { position: relative; min-width: 0; max-width: 50%; }
+  .hero-copy h3 { margin: 0; font-size: 21px; line-height: 1.25; font-weight: 800; color: #fff; }
+  .hero-copy p { margin: 8px 0 0; font-size: 11.5px; line-height: 1.7; color: rgba(255,255,255,.82); max-width: 250px; }
+  .hero-btn {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+    background: #fff; color: #140f2b; font-weight: 700; font-size: 12px;
+    border-radius: 999px; padding: 9px 16px;
+  }
+  .hero-btn i {
+    width: 0; height: 0; border-left: 8px solid #140f2b;
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+  }
+
+  .art { position: relative; flex: 0 0 auto; perspective: 900px; }
+  .art img {
+    position: absolute; left: 50%; top: 50%;
+    width: 74px; height: 74px; border-radius: 13px; object-fit: cover;
+    box-shadow: 0 20px 38px -16px rgba(0, 0, 0, .95), 0 3px 10px rgba(0,0,0,.4);
+    outline: 1px solid rgba(255, 255, 255, .22); outline-offset: -1px;
+    transform: translate(-50%, -50%);
+    transition: transform .6s cubic-bezier(.2,.9,.25,1), box-shadow .6s ease, filter .4s ease;
+    will-change: transform;
+  }
+  .idea:hover .art img { filter: saturate(1.06) brightness(1.04); }
+
+  /* 1 — classic 3D fan */
+  .v1 { width: 246px; height: 152px; }
+  .v1 img:nth-child(1) { width: 62px; height: 62px; z-index: 1; transform: translate(-50%,-50%) translate3d(-86px, 16px, -34px) rotateY(26deg) rotate(-17deg); }
+  .v1 img:nth-child(2) { width: 76px; height: 76px; z-index: 2; transform: translate(-50%,-50%) translate3d(-44px, 4px, -10px) rotateY(13deg) rotate(-8deg); }
+  .v1 img:nth-child(3) { width: 90px; height: 90px; z-index: 3; transform: translate(-50%,-50%) translate3d(0, -9px, 28px); }
+  .v1 img:nth-child(4) { width: 76px; height: 76px; z-index: 2; transform: translate(-50%,-50%) translate3d(44px, 4px, -10px) rotateY(-13deg) rotate(8deg); }
+  .v1 img:nth-child(5) { width: 62px; height: 62px; z-index: 1; transform: translate(-50%,-50%) translate3d(86px, 16px, -34px) rotateY(-26deg) rotate(17deg); }
+  .idea:hover .v1 img:nth-child(3) { transform: translate(-50%,-50%) translate3d(0,-16px,40px) scale(1.04); }
+
+  /* 2 — cover-flow carousel */
+  .v2 { width: 268px; height: 160px; perspective: 1100px; }
+  .v2 img:nth-child(1) { width: 74px; height: 74px; z-index: 1; transform: translate(-50%,-50%) translate3d(-116px, 0, -78px) rotateY(46deg); filter: brightness(.72); }
+  .v2 img:nth-child(2) { width: 82px; height: 82px; z-index: 2; transform: translate(-50%,-50%) translate3d(-60px, 0, -34px) rotateY(27deg); filter: brightness(.86); }
+  .v2 img:nth-child(3) { width: 92px; height: 92px; z-index: 3; transform: translate(-50%,-50%) translate3d(0, -4px, 26px); }
+  .v2 img:nth-child(4) { width: 82px; height: 82px; z-index: 2; transform: translate(-50%,-50%) translate3d(60px, 0, -34px) rotateY(-27deg); filter: brightness(.86); }
+  .v2 img:nth-child(5) { width: 74px; height: 74px; z-index: 1; transform: translate(-50%,-50%) translate3d(116px, 0, -78px) rotateY(-46deg); filter: brightness(.72); }
+  .idea:hover .v2 img:nth-child(3) { transform: translate(-50%,-50%) translate3d(0,-8px,44px) scale(1.03); }
+
+  /* 3 — isometric deck */
+  .v3 { width: 232px; height: 168px; }
+  .v3 img { width: 88px; height: 88px; }
+  .v3 img:nth-child(1) { z-index: 5; transform: translate(-50%,-50%) translate3d(-46px, 24px, 30px) rotateY(-16deg) rotate(-7deg); }
+  .v3 img:nth-child(2) { z-index: 4; transform: translate(-50%,-50%) translate3d(-24px, 10px, 14px) rotateY(-16deg) rotate(-7deg); }
+  .v3 img:nth-child(3) { z-index: 3; transform: translate(-50%,-50%) translate3d(-2px, -4px, -2px) rotateY(-16deg) rotate(-7deg); }
+  .v3 img:nth-child(4) { z-index: 2; transform: translate(-50%,-50%) translate3d(20px, -18px, -18px) rotateY(-16deg) rotate(-7deg); }
+  .v3 img:nth-child(5) { z-index: 1; transform: translate(-50%,-50%) translate3d(42px, -32px, -34px) rotateY(-16deg) rotate(-7deg); }
+  .idea:hover .v3 img:nth-child(1) { transform: translate(-50%,-50%) translate3d(-46px, 18px, 46px) rotateY(-16deg) rotate(-7deg) scale(1.04); }
+
+  /* 4 — floating mosaic */
+  .v4 { width: 250px; height: 176px; }
+  .v4 img:nth-child(1) { width: 104px; height: 104px; z-index: 3; transform: translate(-50%,-50%) translate3d(-62px, 10px, 18px) rotate(-6deg); }
+  .v4 img:nth-child(2) { width: 88px; height: 88px; z-index: 2; transform: translate(-50%,-50%) translate3d(40px, -22px, 6px) rotate(5deg); }
+  .v4 img:nth-child(3) { width: 52px; height: 52px; z-index: 1; transform: translate(-50%,-50%) translate3d(14px, -62px, -14px) rotate(8deg); }
+  .v4 img:nth-child(4) { width: 58px; height: 58px; z-index: 1; transform: translate(-50%,-50%) translate3d(-24px, 62px, -6px) rotate(-5deg); }
+  .v4 img:nth-child(5) { width: 48px; height: 48px; z-index: 0; transform: translate(-50%,-50%) translate3d(78px, 50px, -22px) rotate(11deg); }
+  .idea:hover .v4 img:nth-child(1) { transform: translate(-50%,-50%) translate3d(-62px, 6px, 30px) rotate(-4deg) scale(1.02); }
+
+  /* 5 — orbit */
+  .v5 { width: 248px; height: 180px; perspective: 1000px; }
+  .v5 img { width: 58px; height: 58px; }
+  .v5 img:nth-child(1) { z-index: 1; transform: translate(-50%,-50%) translate3d(-88px, 6px, -18px) rotateY(26deg) rotate(-6deg); filter: brightness(.8); }
+  .v5 img:nth-child(2) { z-index: 2; transform: translate(-50%,-50%) translate3d(-38px, -58px, -6px) rotateY(12deg) rotate(-4deg); filter: brightness(.9); }
+  .v5 img:nth-child(3) { width: 100px; height: 100px; z-index: 5; transform: translate(-50%,-50%) translate3d(0, 8px, 32px); }
+  .v5 img:nth-child(4) { z-index: 2; transform: translate(-50%,-50%) translate3d(74px, -36px, -6px) rotateY(-12deg) rotate(4deg); filter: brightness(.9); }
+  .v5 img:nth-child(5) { z-index: 1; transform: translate(-50%,-50%) translate3d(64px, 62px, -18px) rotateY(-26deg) rotate(6deg); filter: brightness(.8); }
+  .idea:hover .v5 img:nth-child(3) { transform: translate(-50%,-50%) translate3d(0, 2px, 46px) scale(1.03); }
+
+  /* 6 — diagonal ribbon */
+  .v6 { width: 256px; height: 168px; perspective: 900px; margin-right: 14px; }
+  .v6 img { width: 78px; height: 78px; border-radius: 12px; }
+  .v6 img:nth-child(1) { z-index: 1; transform: translate(-50%,-50%) translate3d(-104px, 42px, -34px) rotate(-14deg) rotateY(18deg); filter: brightness(.78); }
+  .v6 img:nth-child(2) { z-index: 2; transform: translate(-50%,-50%) translate3d(-52px, 18px, -16px) rotate(-11deg) rotateY(10deg); filter: brightness(.9); }
+  .v6 img:nth-child(3) { width: 88px; height: 88px; z-index: 4; transform: translate(-50%,-50%) translate3d(0, -6px, 22px) rotate(-7deg); }
+  .v6 img:nth-child(4) { z-index: 2; transform: translate(-50%,-50%) translate3d(52px, -30px, -16px) rotate(-4deg) rotateY(-10deg); filter: brightness(.9); }
+  .v6 img:nth-child(5) { z-index: 1; transform: translate(-50%,-50%) translate3d(104px, -54px, -34px) rotate(0deg) rotateY(-18deg); filter: brightness(.78); }
+  .idea:hover .v6 img:nth-child(3) { transform: translate(-50%,-50%) translate3d(0,-14px,36px) rotate(-5deg) scale(1.03); }
+
+  /* 7 — minimal overlapping strip */
+  .v7 {
+    width: 292px; height: 130px; perspective: 800px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .v7 img {
+    position: static; left: auto; top: auto;
+    width: 64px; height: 64px; border-radius: 12px;
+    transition: transform .55s cubic-bezier(.2,.9,.25,1), filter .4s ease;
+  }
+  .v7 img + img { margin-left: -13px; }
+  .v7 img:nth-child(1) { z-index: 1; transform: translateY(9px) rotate(-5deg); }
+  .v7 img:nth-child(2) { z-index: 2; transform: translateY(2px) rotate(-2.5deg); }
+  .v7 img:nth-child(3) { z-index: 5; width: 78px; height: 78px; transform: translateY(-6px); }
+  .v7 img:nth-child(4) { z-index: 2; transform: translateY(2px) rotate(2.5deg); }
+  .v7 img:nth-child(5) { z-index: 1; transform: translateY(9px) rotate(5deg); }
+  .idea:hover .v7 img:nth-child(3) { transform: translateY(-16px) scale(1.06); }
+
+  footer { max-width: 1180px; margin: 34px auto 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+  footer b { color: #fff; }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <div class="brand">MELUNE</div>
+  <h1>هفت چیدمان برای پنج کاور بخش «Trending right now»</h1>
+  <p>
+    همهٔ پیشنهادها با همان تصاویر واقعی پروژه و روی همان کارت هیرو ساخته شده‌اند؛
+    فقط چینش، عمق و زاویهٔ سه‌بعدی عوض شده است. رنگ‌ها هم از تم فعال پیروی می‌کنند
+    (اینجا یک پس‌زمینهٔ بنفش تیره برای مقایسهٔ بهتر انتخاب شده). روی هر کارت که
+    موس را ببرید، حالت هاور آن را هم می‌بینید.
+  </p>
+  <div class="hint">شمارهٔ طرحی که می‌پسندید را بگویید: <b>۱</b> تا <b>۷</b> — همان را در اپ اعمال می‌کنم.</div>
+</header>
+
+<main class="grid">
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۱</span>
+      <div><h2>فن سه‌بعدی (طرح فعلی)</h2><p>قوس متقارن، کارت مرکزی جلوتر و بزرگ‌تر</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v1">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۲</span>
+      <div><h2>چرخ‌فلک سه‌بعدی</h2><p>مثل Cover Flow؛ کاورها دور محور می‌چرخند و عقب می‌روند</p></div>
+      <span class="pick">انتخاب شما — اعمال شد</span>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v2">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۳</span>
+      <div><h2>دسته‌کارت مورب</h2><p>پنج کاور روی هم، با شیب ایزومتریک و عمق پله‌ای</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v3">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۴</span>
+      <div><h2>کلاژ شناور</h2><p>دو کاور بزرگ + سه کاور کوچک در عمق‌های مختلف</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v4">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۵</span>
+      <div><h2>مدار دایره‌ای</h2><p>یک کاور اصلی در مرکز و چهار کاور روی مدار</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v5">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۶</span>
+      <div><h2>روبان مورب</h2><p>پنج کاور روی یک خط اریب، مثل نوار فیلم</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v6">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="idea">
+    <div class="idea-head">
+      <span class="num">۰۷</span>
+      <div><h2>ردیف مینیمال</h2><p>پنج کاور هم‌اندازه با هم‌پوشانی کم و شیب ملایم</p></div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <h3>Trending right now</h3>
+        <p>Play a few songs and we’ll build a mix from what you like.</p>
+        <span class="hero-btn"><i></i>Play mix</span>
+      </div>
+      <div class="art v7">
+        <img src="/hero-covers/googoosh.jpg" alt="">
+        <img src="/hero-covers/ebi.jpg" alt="">
+        <img src="/hero-covers/bi-ehsas.jpg" alt="">
+        <img src="/hero-covers/hayedeh.jpg" alt="">
+        <img src="/hero-covers/tarafdar.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  نکته: این صفحه فقط برای مقایسه است و روی اپ اصلی اثری ندارد.
+  بعد از انتخاب، چیدمان دلخواه را دقیقاً با همان تصاویر در هیروی Home پیاده می‌کنم
+  (با نسخهٔ موبایل، هاور سه‌بعدی و هماهنگی کامل با شش تم).
+</footer>
+
+</body>
+</html>

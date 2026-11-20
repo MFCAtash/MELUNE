@@ -1,0 +1,62 @@
+name: Feature request
+description: Propose new functionality or a meaningful change
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Features that fit the product direction (music discovery, listening
+        quality, theme system, performance) are welcome. Please describe the
+        problem first, then the solution you have in mind.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web player (Next.js)
+        - API (NestJS)
+        - Player / playback
+        - Search or recommendations
+        - Themes / design system
+        - Media / uploads / transcoding
+        - Admin / analytics
+        - Mobile (Expo)
+        - Deployment / infrastructure
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do and what is stopping you?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Sketch the behaviour, UI or API shape you have in mind.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Anything else you tried or thought about.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to implement this and open a pull request
+          required: false
+        - label: This would be a breaking change to existing behaviour
+          required: false

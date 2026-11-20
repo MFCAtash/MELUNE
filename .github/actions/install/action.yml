@@ -1,0 +1,47 @@
+name: Install dependencies
+description: >
+  Sets up Node and installs the monorepo with `npm ci` (reproducible, requires
+  package-lock.json). If the lockfile has not been committed yet it degrades to
+  `npm install` with a visible warning instead of failing every job; if the
+  lockfile exists but is out of sync with any package.json, it fails fast with
+  an actionable message. See docs/lockfile.md.
+
+inputs:
+  node-version:
+    description: Node.js major version
+    default: "20"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node (with npm cache)
+      if: ${{ hashFiles('package-lock.json') != '' }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: npm
+        cache-dependency-path: package-lock.json
+
+    # setup-node's `cache: npm` hard-fails when no lockfile exists, so the
+    # no-lockfile path sets up Node without caching.
+    - name: Setup Node (no lockfile → no cache)
+      if: ${{ hashFiles('package-lock.json') == '' }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Validate lockfile
+      shell: bash
+      run: node scripts/check-lockfile.mjs --allow-missing
+
+    - name: Install (npm ci)
+      if: ${{ hashFiles('package-lock.json') != '' }}
+      shell: bash
+      run: npm ci --no-audit --no-fund
+
+    - name: Install (fallback — lockfile not committed yet)
+      if: ${{ hashFiles('package-lock.json') == '' }}
+      shell: bash
+      run: |
+        echo "::warning title=No package-lock.json::Falling back to 'npm install' — builds are NOT reproducible. Commit a lockfile (docs/lockfile.md)."
+        npm install --no-audit --no-fund

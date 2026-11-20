@@ -1,0 +1,8 @@
+# INITIAL SKELETON (see services/ai/README.md). Only what /health and the
+# /recommend proxy actually need — no pandas/numpy/scikit-learn/PyTorch
+# yet, despite the root README's tech-stack table naming them as the
+# eventual stack once real collaborative filtering lands (Phase 8/9).
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+httpx==0.27.2
+pydantic-settings==2.5.2
