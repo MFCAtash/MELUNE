@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { useAmbientThemeStore } from "@/store/ambient-theme-store";
 import { useMediaQuery } from "./use-media-query";
 import { resolveAmbientColor } from "@/lib/ambient-color-utils";

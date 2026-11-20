@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ListPlus } from "lucide-react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { useTranslation } from "@/hooks/use-translation";
 

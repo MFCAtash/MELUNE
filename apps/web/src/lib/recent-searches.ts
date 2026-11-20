@@ -1,4 +1,4 @@
-const STORAGE_KEY = "codex-music:recent-searches";
+const STORAGE_KEY = "melune:recent-searches";
 const MAX_ENTRIES = 8;
 
 /**

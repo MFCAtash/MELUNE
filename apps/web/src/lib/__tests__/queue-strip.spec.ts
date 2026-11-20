@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import {
   buildQueueStrip,
   segmentWeight,

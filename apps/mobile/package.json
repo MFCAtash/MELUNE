@@ -1,5 +1,5 @@
 {
-  "name": "@codex-music/mobile",
+  "name": "@melune/mobile",
   "version": "0.1.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codex-music/api-client": "*",
-    "@codex-music/types": "*",
+    "@melune/api-client": "*",
+    "@melune/types": "*",
     "expo": "~51.0.0",
     "expo-av": "~14.0.0",
     "expo-secure-store": "~13.0.0",

@@ -1,4 +1,4 @@
-# @codex-music/api-client
+# @melune/api-client
 
 Typed HTTP client shared by the Next.js web app and the Expo mobile app.
 
@@ -12,7 +12,7 @@ export class ApiClient { /* catalog, library, auth, search, uploads */ }
 
 Payload shapes for writes are exported as `SongWritePayload`, `AlbumWritePayload`,
 `ArtistWritePayload` and `GenreWritePayload`; responses use the types from
-[`@codex-music/types`](../types).
+[`@melune/types`](../types).
 
 ## Design rules
 
@@ -20,14 +20,14 @@ Payload shapes for writes are exported as `SongWritePayload`, `AlbumWritePayload
 - **Same-origin first.** When no `baseUrl` is supplied, requests go to relative
   paths so production traffic stays on one origin (no CORS, no cross-site cookies).
 - **Errors are values.** Non-2xx responses throw `ApiError` carrying the HTTP
-  status and parsed body, which matches `ApiErrorBody` from `@codex-music/types`.
+  status and parsed body, which matches `ApiErrorBody` from `@melune/types`.
 - **No React/DOM dependencies** except through the injected `fetch`, so the same
   client works under Expo, Next.js server components and tests.
 
 ## Usage
 
 ```ts
-import { ApiClient } from "@codex-music/api-client";
+import { ApiClient } from "@melune/api-client";
 
 const api = new ApiClient({ baseUrl: process.env.NEXT_PUBLIC_API_URL || "" });
 
@@ -41,6 +41,6 @@ package. Both consume the identical types.
 
 ## Adding an endpoint
 
-1. Add/extend the response type in [`@codex-music/types`](../types) if needed.
+1. Add/extend the response type in [`@melune/types`](../types) if needed.
 2. Add the method here with a named parameter object and a documented return type.
 3. Use it from every consumer — do not hand-roll `fetch` in a component.

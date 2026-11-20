@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { FocusMode } from "../focus-mode";
 

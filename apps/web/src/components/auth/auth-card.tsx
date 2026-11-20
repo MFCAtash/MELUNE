@@ -73,7 +73,7 @@ export function AuthSubmitButton({
     <button
       type="submit"
       disabled={isLoading}
-      className="bg-codex-gradient w-full rounded-xl py-2.5 font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+      className="bg-melune-gradient w-full rounded-xl py-2.5 font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-60"
     >
       {isLoading ? "Please wait…" : children}
     </button>

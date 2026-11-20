@@ -50,7 +50,7 @@ async function bootstrap() {
   const port = config.get<number>("PORT", 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`🎵 Codex Music API running on http://localhost:${port}/api`);
+  console.log(`🎵 MELUNE API running on http://localhost:${port}/api`);
 }
 
 bootstrap();

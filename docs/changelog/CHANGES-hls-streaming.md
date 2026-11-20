@@ -11,7 +11,7 @@ adds it, fully optional/graceful on top of the existing direct-file path.
 ### Schema
 - `Song.hlsPlaylistUrl String?` — nullable HLS master-playlist URL.
   Migration: `apps/api/prisma/migrations/20260926010000_add_song_hls_playlist_url/`.
-- `@codex-music/types`'s `Song` interface gained the matching optional field.
+- `@melune/types`'s `Song` interface gained the matching optional field.
 
 ### API — queues the job, never runs ffmpeg itself
 - `apps/api/src/queue/` (new): `queue.constants.ts` (queue/job names,

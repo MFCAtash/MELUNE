@@ -54,7 +54,7 @@ export default function LandingPage() {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               href="/register"
-              className="bg-codex-gradient rounded-xl px-6 py-3 font-medium text-white shadow-glow"
+              className="bg-melune-gradient rounded-xl px-6 py-3 font-medium text-white shadow-glow"
             >
               Create free account
             </Link>

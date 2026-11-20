@@ -20,7 +20,7 @@ import {
   Command,
 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import type { PlaylistSummary, SearchAlbum, SearchArtist, Song } from "@codex-music/types";
+import type { PlaylistSummary, SearchAlbum, SearchArtist, Song } from "@melune/types";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useTranslation } from "@/hooks/use-translation";
 import { apiClient } from "@/lib/api-client";

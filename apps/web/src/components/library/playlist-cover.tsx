@@ -1,4 +1,4 @@
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { Cover } from "@/components/ui/cover";
 
 /** 2×2 mosaic of the first four songs' artwork, or a single tile when the

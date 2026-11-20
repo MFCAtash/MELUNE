@@ -25,7 +25,7 @@ whole screen, so it's now parametrized:
   player, via the existing `useAmbientColor` hook — when the track
   changes, the whole app's background tint now drifts along with it,
   not just the player's. No track playing → falls back to the hook's
-  own deterministic hash color (seed `"codex-app-ambient"`), same
+  own deterministic hash color (seed `"melune-app-ambient"`), same
   pattern the full-screen player already uses for "no track"
   gracefully.
 - The accessibility guardrails from 8.1 are unchanged and apply to

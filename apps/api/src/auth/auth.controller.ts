@@ -19,7 +19,7 @@ import { ForgotPasswordDto } from "./dto/forgot-password.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { VerifyEmailDto } from "./dto/verify-email.dto";
 
-const REFRESH_COOKIE_NAME = "codex_refresh_token";
+const REFRESH_COOKIE_NAME = "melune_refresh_token";
 
 @Controller("auth")
 export class AuthController {

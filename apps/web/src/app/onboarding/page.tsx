@@ -211,7 +211,7 @@ export default function OnboardingPage() {
                 type="button"
                 onClick={() => commit("like")}
                 aria-label={`Like ${currentGenre?.name ?? "genre"}`}
-                className="bg-codex-gradient flex h-14 w-14 items-center justify-center rounded-full text-white shadow-glow transition-transform hover:scale-105"
+                className="bg-melune-gradient flex h-14 w-14 items-center justify-center rounded-full text-white shadow-glow transition-transform hover:scale-105"
               >
                 <Heart size={22} fill="white" />
               </button>
@@ -257,7 +257,7 @@ export default function OnboardingPage() {
           <button
             onClick={finish}
             disabled={!canContinue}
-            className="bg-codex-gradient w-full max-w-xs rounded-xl py-3 text-center font-medium text-white shadow-glow disabled:cursor-not-allowed disabled:opacity-40"
+            className="bg-melune-gradient w-full max-w-xs rounded-xl py-3 text-center font-medium text-white shadow-glow disabled:cursor-not-allowed disabled:opacity-40"
           >
             Continue{selected.size > 0 ? ` (${selected.size})` : ""}
           </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { useTranslation } from "@/hooks/use-translation";
 import { useHomeFeed, useOnboardingSeedSongs } from "@/lib/queries";

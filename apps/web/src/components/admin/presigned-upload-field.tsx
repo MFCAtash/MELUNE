@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { Upload, X } from "lucide-react";
-import type { UploadKind } from "@codex-music/types";
+import type { UploadKind } from "@melune/types";
 import { usePresignedUpload } from "@/hooks/use-presigned-upload";
 import { useTranslation } from "@/hooks/use-translation";
 import { inputClass } from "@/components/admin/modal";
@@ -104,7 +104,7 @@ export function PresignedUploadField({
         <div className="space-y-1">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-surfaceElevated">
             <div
-              className="h-full bg-codex-gradient transition-all"
+              className="h-full bg-melune-gradient transition-all"
               style={{ width: `${status === "uploading" ? progress : 8}%` }}
             />
           </div>

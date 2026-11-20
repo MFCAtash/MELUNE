@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Album } from "@codex-music/types";
-import { ApiError } from "@codex-music/api-client";
+import type { Album } from "@melune/types";
+import { ApiError } from "@melune/api-client";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { DataTable } from "@/components/admin/data-table";
 import { AlbumFormDialog } from "@/components/admin/album-form-dialog";
@@ -98,7 +98,7 @@ export default function AdminAlbumsPage() {
         <button
           type="button"
           onClick={() => setDialog({ open: true })}
-          className="bg-codex-gradient flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-white"
+          className="bg-melune-gradient flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-white"
         >
           <Plus size={15} />
           {t("admin.albums.newAlbum")}

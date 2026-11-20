@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { apiClient } from "@/lib/api-client";
 import { AuthCard, AuthField, AuthSubmitButton } from "@/components/auth/auth-card";
 

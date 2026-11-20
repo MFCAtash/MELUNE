@@ -8,7 +8,7 @@
 - globals.css: body defaults to `font-sans`; `html[dir="rtl"] body` swaps
   to Vazirmatn; h1–h4 and `.font-display` use the display font everywhere
   automatically, no per-component class needed except the two literal
-  "CODEX MUSIC" wordmarks (sidebar, landing header).
+  "MELUNE MUSIC" wordmarks (sidebar, landing header).
 
 ## next/image
 - next.config.js: `remotePatterns` widened to `{ protocol: "https",

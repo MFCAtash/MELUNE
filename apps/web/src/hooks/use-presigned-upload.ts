@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { ApiError } from "@codex-music/api-client";
-import type { UploadKind } from "@codex-music/types";
+import { ApiError } from "@melune/api-client";
+import type { UploadKind } from "@melune/types";
 import { apiClient } from "@/lib/api-client";
 
 export type PresignedUploadStatus = "idle" | "presigning" | "uploading" | "success" | "error";

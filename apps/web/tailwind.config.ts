@@ -87,7 +87,7 @@ const config: Config = {
         skip: "80", // app-shell.tsx's skip-to-content link
       },
       backgroundImage: {
-        "codex-gradient": "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)",
+        "melune-gradient": "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)",
         // Soft ambient light behind the whole app shell (fixed, decorative).
         "app-glow":
           "radial-gradient(60rem 40rem at 85% -10%, rgba(139, 92, 246, 0.22), transparent 60%), radial-gradient(50rem 36rem at 0% 35%, rgba(59, 130, 246, 0.14), transparent 60%)",

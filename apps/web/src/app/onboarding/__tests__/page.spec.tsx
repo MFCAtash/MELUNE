@@ -64,7 +64,7 @@ describe("OnboardingPage (Tinder-style swipe deck)", () => {
     fireEvent.click(screen.getByRole("button", { name: /Skip Jazz/ }));
     fireEvent.click(screen.getByRole("button", { name: /Continue \(3\)/ }));
 
-    const stored = JSON.parse(localStorage.getItem("codex-onboarding-genres") ?? "[]");
+    const stored = JSON.parse(localStorage.getItem("melune-onboarding-genres") ?? "[]");
     expect(stored).toEqual(["g1", "g2", "g3"]);
     expect(push).toHaveBeenCalledWith("/home");
   });
@@ -73,7 +73,7 @@ describe("OnboardingPage (Tinder-style swipe deck)", () => {
     render(<OnboardingPage />);
     fireEvent.click(screen.getByRole("button", { name: "Skip for now" }));
 
-    expect(localStorage.getItem("codex-onboarding-genres")).toBe("[]");
+    expect(localStorage.getItem("melune-onboarding-genres")).toBe("[]");
     expect(push).toHaveBeenCalledWith("/home");
   });
 

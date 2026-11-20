@@ -1,5 +1,5 @@
 {
-  "name": "@codex-music/web",
+  "name": "@melune/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,8 +12,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@codex-music/api-client": "*",
-    "@codex-music/types": "*",
+    "@melune/api-client": "*",
+    "@melune/types": "*",
     "@hookform/resolvers": "^3.9.0",
     "@next/env": "14.2.13",
     "@swc/helpers": "0.5.5",

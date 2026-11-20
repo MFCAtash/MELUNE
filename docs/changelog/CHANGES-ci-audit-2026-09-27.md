@@ -67,7 +67,7 @@ Checked by hand, not by running tooling:
 - No `any`-typed declarations (`: any`, `<any>`, `as any`) in either
   app's `src/`.
 - No hardcoded real secrets/keys; `.env.example` values are clearly
-  placeholder/dev-only (`codex_dev_password`, `change_me_dev_only`, etc.),
+  placeholder/dev-only (`melune_dev_password`, `change_me_dev_only`, etc.),
   matching `ci.yml`'s own comment that its inline env values are
   CI-only and never real credentials.
 - Recommendation/analytics/notification services that looked at first

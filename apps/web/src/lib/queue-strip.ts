@@ -1,4 +1,4 @@
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 
 /**
  * Pure model behind the queue color strip: which queue entries appear as

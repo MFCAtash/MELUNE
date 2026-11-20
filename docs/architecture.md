@@ -2,11 +2,11 @@
 
 ## Overview
 
-Codex Music is a monorepo containing independently deployable apps and
+MELUNE is a monorepo containing independently deployable apps and
 services that share typed contracts through internal packages.
 
 ```
-codex-music/
+melune/
 ├── apps/
 │   ├── web/        Next.js 14 (App Router) — customer-facing web app          [Implemented]
 │   ├── api/         NestJS — REST API, auth, business logic                  [Implemented]
@@ -38,9 +38,9 @@ codex-music/
   (`@nestjs/throttler`), global `/api` prefix.
 - `GET /api/health` — Terminus-based health check that verifies the
   Postgres connection through Prisma.
-- Next.js base app: App Router, Tailwind with the Codex Music dark/purple
+- Next.js base app: App Router, Tailwind with the MELUNE dark/purple
   design tokens, a placeholder bootstrap page.
-- Shared `@codex-music/types` package consumed by the web app (and later
+- Shared `@melune/types` package consumed by the web app (and later
   the API and mobile app).
 - Jest unit + e2e test scaffolding for the API, including a passing
   `/api/health` e2e test.
@@ -62,7 +62,7 @@ as a claim that they're built:
 
 - **`apps/mobile`** is an initial skeleton (Expo + React Native): a login
   screen and a screen that plays one sample song via `expo-av`, both
-  calling the real `@codex-music/api-client`/`@codex-music/types`
+  calling the real `@melune/api-client`/`@melune/types`
   packages against the real API. The access token now persists across
   restarts via `expo-secure-store` (re-validated with `GET /users/me`
   on launch), but there is still no refresh token, so a session only
@@ -197,7 +197,7 @@ Two design choices worth calling out:
   can't drift apart. This also means the table is already
   Rewind/Wrapped-ready for Phase 7 without a schema change.
 
-The web app calls all of this through `@codex-music/api-client`'s
+The web app calls all of this through `@melune/api-client`'s
 `ApiClient` (the same authenticated client Phase 2 built for auth —
 despite the stale "Reserved for Phase 6" note that used to be in this
 file; it's been the real fetch client since Phase 2 and now carries

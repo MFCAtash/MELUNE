@@ -43,7 +43,7 @@ export class StorageService {
     const region = this.config.get<string>("STORAGE_REGION") || "auto";
     const accessKeyId = this.config.get<string>("STORAGE_ACCESS_KEY") || "";
     const secretAccessKey = this.config.get<string>("STORAGE_SECRET_KEY") || "";
-    this.bucket = this.config.get<string>("STORAGE_BUCKET", "codex-music");
+    this.bucket = this.config.get<string>("STORAGE_BUCKET", "melune");
 
     this.configured = Boolean(accessKeyId && secretAccessKey);
     if (!this.configured) {

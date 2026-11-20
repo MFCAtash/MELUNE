@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ApiError } from "@codex-music/api-client";
-import type { Song } from "@codex-music/types";
+import { ApiError } from "@melune/api-client";
+import type { Song } from "@melune/types";
 import { Field, Modal, inputClass } from "@/components/admin/modal";
 import { PresignedUploadField } from "@/components/admin/presigned-upload-field";
 import { useAdminArtists, useAdminCreateSong, useAdminGenres, useAdminUpdateSong } from "@/lib/admin-queries";
@@ -193,7 +193,7 @@ export function SongFormDialog({
           <button
             type="submit"
             disabled={busy}
-            className="bg-codex-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+            className="bg-melune-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
             {busy ? t("admin.songs.saving") : isEdit ? t("admin.songs.saveChanges") : t("admin.songs.createSong")}
           </button>

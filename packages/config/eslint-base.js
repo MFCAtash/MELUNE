@@ -1,4 +1,4 @@
-/** Shared base ESLint config for Codex Music workspaces. */
+/** Shared base ESLint config for MELUNE workspaces. */
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",

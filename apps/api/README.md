@@ -1,8 +1,8 @@
-# @codex-music/api
+# @melune/api
 
 The MELUNE backend: NestJS 10 + Prisma + PostgreSQL, JWT authentication, Socket.IO
 for realtime presence, BullMQ for transcoding work, S3-compatible storage for media
-and a typed REST surface shared with web and mobile through `@codex-music/types`.
+and a typed REST surface shared with web and mobile through `@melune/types`.
 
 ## Modules
 

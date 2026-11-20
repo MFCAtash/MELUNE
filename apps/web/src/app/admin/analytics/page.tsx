@@ -53,7 +53,7 @@ export default function AdminAnalyticsPage() {
               key={days}
               onClick={() => setRangeDays(days)}
               className={`rounded-full px-3 py-1 text-xs transition-colors ${
-                rangeDays === days ? "bg-codex-gradient text-white" : "text-muted hover:text-foreground"
+                rangeDays === days ? "bg-melune-gradient text-white" : "text-muted hover:text-foreground"
               }`}
             >
               {t("admin.analytics.rangeDaysLabel", { count: days.toLocaleString("fa-IR") })}
@@ -318,7 +318,7 @@ function RetentionCohortPanel({
 
           <div className="h-2 w-full overflow-hidden rounded-full bg-surfaceElevated">
             <div
-              className="h-full bg-codex-gradient"
+              className="h-full bg-melune-gradient"
               style={{ width: `${(data.retentionRate ?? 0) * 100}%` }}
             />
           </div>

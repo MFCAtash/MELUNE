@@ -92,7 +92,7 @@ export function ShareCardButton({ title, artist }: { title: string; artist: stri
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `${title.toLowerCase().replace(/\s+/g, "-")}-codex-music.png`;
+      link.download = `${title.toLowerCase().replace(/\s+/g, "-")}-melune.png`;
       link.click();
       URL.revokeObjectURL(url);
     } finally {

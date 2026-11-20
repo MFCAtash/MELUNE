@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ApiError } from "@codex-music/api-client";
-import type { Artist, Genre } from "@codex-music/types";
+import { ApiError } from "@melune/api-client";
+import type { Artist, Genre } from "@melune/types";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { GlassPanel, PanelHeader } from "@/components/ui/glass-panel";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -86,7 +86,7 @@ function ArtistsPanel() {
             type="button"
             onClick={() => openDialog()}
             aria-label={t("admin.catalog.newArtistAria")}
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-codex-gradient text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-melune-gradient text-white"
           >
             <Plus size={15} />
           </button>
@@ -151,7 +151,7 @@ function ArtistsPanel() {
             <button
               type="submit"
               disabled={create.isPending || update.isPending}
-              className="bg-codex-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+              className="bg-melune-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
             >
               {t("common.save")}
             </button>
@@ -216,7 +216,7 @@ function GenresPanel() {
             type="button"
             onClick={() => openDialog()}
             aria-label={t("admin.catalog.newGenreAria")}
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-codex-gradient text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-melune-gradient text-white"
           >
             <Plus size={15} />
           </button>
@@ -281,7 +281,7 @@ function GenresPanel() {
             <button
               type="submit"
               disabled={create.isPending || update.isPending}
-              className="bg-codex-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+              className="bg-melune-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
             >
               {t("common.save")}
             </button>

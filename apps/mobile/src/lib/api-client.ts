@@ -1,10 +1,10 @@
-import { ApiClient } from "@codex-music/api-client";
+import { ApiClient } from "@melune/api-client";
 import * as SecureStore from "expo-secure-store";
 
 /**
  * INITIAL SKELETON — see apps/mobile/README.md.
  *
- * Wires the same `@codex-music/api-client` the web app uses to a
+ * Wires the same `@melune/api-client` the web app uses to a
  * module-level access token, now backed by `expo-secure-store` so it
  * survives an app restart (Phase 10 "next step" #2 — done). This is
  * still NOT a full auth solution:
@@ -14,7 +14,7 @@ import * as SecureStore from "expo-secure-store";
  *    cookie the way the web app's browser does, and React Native has
  *    no cookie jar by default, so `onTokenRefreshed`/silent refresh is
  *    still a no-op past the initial login (see `ApiClient`'s class
- *    comment in `@codex-music/api-client`).
+ *    comment in `@melune/api-client`).
  *  - Practical effect: once the (short-lived) access token expires,
  *    the persisted value stops working and the app falls back to
  *    `LoginScreen` — same as a first launch, just delayed until
@@ -25,7 +25,7 @@ import * as SecureStore from "expo-secure-store";
  *    token in the response body — not decided, not started.
  */
 
-const ACCESS_TOKEN_KEY = "codex-music.accessToken";
+const ACCESS_TOKEN_KEY = "melune.accessToken";
 
 let accessToken: string | null = null;
 
@@ -46,7 +46,7 @@ export const apiClient = new ApiClient({
 function persistToken(token: string | null): void {
   const op = token ? SecureStore.setItemAsync(ACCESS_TOKEN_KEY, token) : SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
   op.catch((err) => {
-    console.warn("codex-music: failed to persist access token", err);
+    console.warn("melune: failed to persist access token", err);
   });
 }
 

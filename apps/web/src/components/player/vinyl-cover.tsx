@@ -30,7 +30,7 @@ export function VinylCover({ title, coverUrl, isPlaying, size = "lg" }: VinylCov
         />
       ) : (
         <div
-          className={`bg-codex-gradient flex h-full w-full items-center justify-center rounded-full font-bold text-white ring-4 ring-black/40 ${textSize}`}
+          className={`bg-melune-gradient flex h-full w-full items-center justify-center rounded-full font-bold text-white ring-4 ring-black/40 ${textSize}`}
         >
           {title.charAt(0).toUpperCase()}
         </div>

@@ -16,7 +16,7 @@ export function EmptyState({
   illustration?: React.ReactNode;
 }) {
   const buttonClass =
-    "bg-codex-gradient mt-5 inline-flex rounded-xl px-5 py-2.5 text-sm font-medium text-white";
+    "bg-melune-gradient mt-5 inline-flex rounded-xl px-5 py-2.5 text-sm font-medium text-white";
   return (
     <div className="flex flex-col items-center rounded-2xl border border-dashed border-border px-6 py-14 text-center">
       {illustration}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Play, Pause } from "lucide-react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { LikeButton } from "@/components/library/like-button";
 import { Cover } from "@/components/ui/cover";

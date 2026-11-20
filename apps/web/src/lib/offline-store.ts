@@ -14,7 +14,7 @@
  * this file.
  */
 
-export const OFFLINE_DB_NAME = "codex-offline";
+export const OFFLINE_DB_NAME = "melune-offline";
 export const OFFLINE_DB_VERSION = 1;
 export const OFFLINE_STORE = "tracks";
 
@@ -32,7 +32,7 @@ export interface OfflineTrackRecord {
 
 export type OfflineTrackMeta = Omit<OfflineTrackRecord, "blob">;
 
-/** Minimal shape this module needs from a track — matches @codex-music/types Song. */
+/** Minimal shape this module needs from a track — matches @melune/types Song. */
 export interface DownloadableTrack {
   id: string;
   title: string;

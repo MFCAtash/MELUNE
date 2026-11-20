@@ -20,7 +20,7 @@ PlayerEngine code was touched.
 - `components/shell/logo.tsx` — new shared wordmark. Removes the
   duplicated className between `sidebar.tsx` and `topbar.tsx` and adds the
   pulse (brightness + slight scale). Side effect worth knowing: the
-  topbar's mobile "CODEX" text now gets `font-display` like the sidebar's
+  topbar's mobile "MELUNE" text now gets `font-display` like the sidebar's
   (it previously didn't).
 - `persistent-player.tsx` — mobile and desktop play buttons pulse
   (glow in the ambient color + slight scale).

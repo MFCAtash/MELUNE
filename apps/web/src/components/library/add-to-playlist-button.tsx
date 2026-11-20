@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ListPlus, Check } from "lucide-react";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { flatItems, useAddSongToPlaylist, useMyPlaylists } from "@/lib/queries";
 import { useAuthStore } from "@/store/auth-store";
 

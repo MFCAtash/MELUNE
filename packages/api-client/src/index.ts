@@ -27,7 +27,7 @@ import type {
   UploadKind,
   User,
   UserStats,
-} from "@codex-music/types";
+} from "@melune/types";
 
 export interface ApiClientOptions {
   baseUrl: string;

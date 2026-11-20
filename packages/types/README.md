@@ -1,4 +1,4 @@
-# @codex-music/types
+# @melune/types
 
 The single source of truth for domain and transport types shared by the web app,
 the mobile app and (where useful) the API.
@@ -32,13 +32,13 @@ the mobile app and (where useful) the API.
 ## Usage
 
 ```ts
-import type { Song, Paginated } from "@codex-music/types";
+import type { Song, Paginated } from "@melune/types";
 
 const res: Paginated<Song> = await fetchSongs();
 ```
 
 ## Related packages
 
-- [`@codex-music/api-client`](../api-client) — the typed fetch wrapper built on
+- [`@melune/api-client`](../api-client) — the typed fetch wrapper built on
   these types.
 - [`packages/config/eslint-base.js`](../config/eslint-base.js) — shared lint preset.

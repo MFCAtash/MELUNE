@@ -1,21 +1,21 @@
 {
   "expo": {
-    "name": "Codex Music",
-    "slug": "codex-music-mobile",
+    "name": "MELUNE",
+    "slug": "melune-mobile",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "scheme": "codexmusic",
+    "scheme": "melunemusic",
     "splash": {
       "backgroundColor": "#0B0B12"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "app.codexmusic.mobile"
+      "bundleIdentifier": "app.melunemusic.mobile"
     },
     "android": {
-      "package": "app.codexmusic.mobile"
+      "package": "app.melunemusic.mobile"
     },
     "web": {
       "bundler": "metro"

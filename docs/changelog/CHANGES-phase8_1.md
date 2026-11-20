@@ -40,7 +40,7 @@ stays out of scope for this pass, same as noted in
 ### Offline downloads
 - `lib/offline-store.ts`: IndexedDB (not localStorage — see the
   file's own doc comment for why) cache of downloaded tracks. DB
-  `codex-offline`, store `tracks`, keyed by song id, storing the whole
+  `melune-offline`, store `tracks`, keyed by song id, storing the whole
   audio `Blob` plus small metadata (title/artist/cover/size/cachedAt).
   Exposes `downloadTrackOffline` (streams the fetch with a progress
   callback), `deleteTrackOffline`, `isTrackDownloaded`,

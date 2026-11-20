@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-      <p className="bg-codex-gradient bg-clip-text text-6xl font-bold text-transparent">
+      <p className="bg-melune-gradient bg-clip-text text-6xl font-bold text-transparent">
         404
       </p>
       <p className="text-muted">This page doesn&apos;t exist.</p>

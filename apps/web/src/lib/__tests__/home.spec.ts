@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import type { Song } from "@codex-music/types";
-import type { HomeFeed } from "@codex-music/types";
+import type { Song } from "@melune/types";
+import type { HomeFeed } from "@melune/types";
 import { greetingPeriod, homeSections, pickGenreMixes, pickTopArtists } from "../home";
 import { seekBy } from "../player-utils";
 import { formatCount } from "../format";

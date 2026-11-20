@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { Audio, type AVPlaybackStatus } from "expo-av";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { apiClient, setAccessToken } from "../lib/api-client";
 
 /**

@@ -68,6 +68,6 @@ export const useAmbientThemeStore = create<AmbientThemeState>()(
         get().setMode(next);
       },
     }),
-    { name: "codex-ambient-mode" },
+    { name: "melune-ambient-mode" },
   ),
 );

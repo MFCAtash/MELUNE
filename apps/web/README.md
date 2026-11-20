@@ -1,4 +1,4 @@
-# @codex-music/web
+# @melune/web
 
 The MELUNE web client: a Next.js 14 App Router application with the theme system,
 catalog browsing, library features and the queue-based player.

@@ -32,7 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const track = usePlayerStore((s) => s.queue[s.currentIndex] ?? null);
   const { color: ambientColor } = useAmbientTheme(
     track?.coverUrl,
-    track ? `${track.title}-${track.artist.name}` : "codex-app-ambient",
+    track ? `${track.title}-${track.artist.name}` : "melune-app-ambient",
   );
 
   return (

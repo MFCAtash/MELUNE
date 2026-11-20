@@ -16,5 +16,5 @@ const { publicKey, privateKey } = webpush.generateVAPIDKeys();
 console.log("Add these to apps/api/.env (and NEXT_PUBLIC_VAPID_PUBLIC_KEY to apps/web/.env):\n");
 console.log(`VAPID_PUBLIC_KEY=${publicKey}`);
 console.log(`VAPID_PRIVATE_KEY=${privateKey}`);
-console.log(`VAPID_SUBJECT=mailto:support@codexmusic.app`);
+console.log(`VAPID_SUBJECT=mailto:support@melunemusic.app`);
 console.log(`\nNEXT_PUBLIC_VAPID_PUBLIC_KEY=${publicKey}`);

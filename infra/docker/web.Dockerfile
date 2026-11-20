@@ -2,9 +2,9 @@
 # Requires a committed package-lock.json — see docs/lockfile.md.
 
 # --- Dependencies -------------------------------------------------------
-# apps/web depends on the @codex-music/* workspace packages, so they must be
+# apps/web depends on the @melune/* workspace packages, so they must be
 # present (previously they were not copied, so npm tried to download
-# non-existent "@codex-music/types" from the public registry).
+# non-existent "@melune/types" from the public registry).
 FROM node:20-alpine AS deps
 WORKDIR /repo
 COPY package.json package-lock.json ./

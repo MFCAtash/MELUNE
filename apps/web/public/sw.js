@@ -12,7 +12,7 @@
  * Phase 8 adds two things:
  *
  * 1. Offline audio playback. Downloaded tracks live in IndexedDB
- *    (db "codex-offline", store "tracks", keyPath "id" — see
+ *    (db "melune-offline", store "tracks", keyPath "id" — see
  *    src/lib/offline-store.ts, which is this SW's source of truth for
  *    the schema). The player itself already prefers a cached blob over
  *    the network when the app is open (see player-engine.tsx), so this
@@ -29,10 +29,10 @@
  *    focuses an existing tab or opens a new one at the payload's `url`.
  */
 
-const CACHE = "codex-shell-v2";
+const CACHE = "melune-shell-v2";
 const OFFLINE_URL = "/offline.html";
 
-const OFFLINE_DB_NAME = "codex-offline";
+const OFFLINE_DB_NAME = "melune-offline";
 const OFFLINE_DB_VERSION = 1;
 const OFFLINE_STORE = "tracks";
 
@@ -161,10 +161,10 @@ self.addEventListener("push", (event) => {
   try {
     payload = event.data.json();
   } catch {
-    payload = { title: "Codex Music", body: event.data.text() };
+    payload = { title: "MELUNE", body: event.data.text() };
   }
 
-  const title = payload.title || "Codex Music";
+  const title = payload.title || "MELUNE";
   const options = {
     body: payload.body,
     icon: "/icons/icon-192.png",

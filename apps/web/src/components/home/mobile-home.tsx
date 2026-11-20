@@ -11,7 +11,7 @@ import {
   ListMusic,
   FolderOpen,
 } from "lucide-react";
-import type { HomeFeed, Song } from "@codex-music/types";
+import type { HomeFeed, Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { filesToTracks } from "@/lib/local-audio";
 import { useUiStore } from "@/store/ui-store";
@@ -190,7 +190,7 @@ function DiscoverMenu() {
         aria-label={t("search.openHint")}
         className="group relative flex h-12 w-full items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 text-start text-sm text-muted transition-colors hover:border-primary/60 hover:text-foreground focus-visible:border-primary focus-visible:outline-none"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-codex-gradient text-white shadow-glow-sm">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-melune-gradient text-white shadow-glow-sm">
           <Search size={16} aria-hidden />
         </span>
         <span className="flex-1 truncate">{t("search.placeholder")}</span>

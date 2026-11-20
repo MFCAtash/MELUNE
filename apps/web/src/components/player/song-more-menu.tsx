@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Disc3, Download, ListEnd, ListPlus, Loader2, MoreHorizontal, Radio, Trash2, UserRound } from "lucide-react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { useTranslation } from "@/hooks/use-translation";
 import { useOfflineTrack } from "@/hooks/use-offline-track";

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { AdminUser } from "@codex-music/types";
+import type { AdminUser } from "@melune/types";
 import { useLocaleStore } from "@/store/locale-store";
 
 const mocks = vi.hoisted(() => ({

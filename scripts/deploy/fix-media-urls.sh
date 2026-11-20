@@ -5,7 +5,7 @@
 # Demo/seeded rows store absolute URLs like:
 #   http://localhost:3000/audio-real/bad-guy.m4a
 #   http://localhost:3000/covers-real/bad-guy.jpg
-#   http://localhost:9000/codex-music/audio/<uuid>.mp3
+#   http://localhost:9000/melune/audio/<uuid>.mp3
 #
 # After restoring a local dump onto the server those hosts are unreachable, so
 # every audio/cover/avatar reference must point at the public origin (web
@@ -20,7 +20,7 @@
 #   NEW_WEB   (default https://$DOMAIN from .env.production)
 #   OLD_MEDIA (default http://localhost:9000)
 #   NEW_MEDIA (default https://media.$DOMAIN)
-#   OLD_BUCKET/NEW_BUCKET (default codex-music -> STORAGE_BUCKET)
+#   OLD_BUCKET/NEW_BUCKET (default melune -> STORAGE_BUCKET)
 # =============================================================================
 set -euo pipefail
 
@@ -40,7 +40,7 @@ OLD_MEDIA="${OLD_MEDIA:-http://localhost:9000}"
 # MEDIA_DOMAIN is a separate variable because the media host is not always
 # media.<DOMAIN> (e.g. music.melune.app -> music-media.melune.app).
 NEW_MEDIA="${NEW_MEDIA:-https://${MEDIA_DOMAIN:-media.${DOMAIN}}}"
-OLD_BUCKET="${OLD_BUCKET:-codex-music}"
+OLD_BUCKET="${OLD_BUCKET:-melune}"
 NEW_BUCKET="${NEW_BUCKET:-${BUCKET:-melune-music}}"
 
 COMPOSE=(docker compose --env-file .env.production -f docker-compose.prod.yml)

@@ -106,7 +106,7 @@ export function FullScreenPlayer({ onClose }: { onClose: () => void }) {
   // Canvas below.
   const { color: ambientColor } = useAmbientTheme(
     track?.coverUrl,
-    track ? `${track.title}-${track.artist.name}` : "codex",
+    track ? `${track.title}-${track.artist.name}` : "melune",
   );
 
   useEffect(() => {

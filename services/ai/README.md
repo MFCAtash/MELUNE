@@ -12,7 +12,7 @@ future machine-learning features without pretending to run a model today.
 | Method | Path | Behaviour |
 | --- | --- | --- |
 | `GET` | `/health` | Liveness only (`{"status":"ok","mode":"skeleton"}`). Does **not** check upstream reachability. |
-| `GET` | `/recommend?limit=1..100` | Forwards the caller's `Authorization` header to `GET {CODEX_API_URL}/recommendations/for-you` and returns that response unchanged. |
+| `GET` | `/recommend?limit=1..100` | Forwards the caller's `Authorization` header to `GET {MELUNE_API_URL}/recommendations/for-you` and returns that response unchanged. |
 
 The idea: callers are written against these routes now, so a real
 collaborative-filtering model can be dropped behind `/recommend` later without
@@ -30,7 +30,7 @@ already implements hybrid content + collaborative scoring in
 Copy `.env.example` → `.env`:
 
 ```
-CODEX_API_URL=http://localhost:4000/api
+MELUNE_API_URL=http://localhost:4000/api
 REQUEST_TIMEOUT_SECONDS=5.0
 ```
 

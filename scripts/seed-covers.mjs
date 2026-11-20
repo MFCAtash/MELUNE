@@ -1,5 +1,5 @@
 /**
- * Generates professional SVG cover art for the Codex Music demo catalog:
+ * Generates professional SVG cover art for the MELUNE demo catalog:
  *   - 7 artist avatars        -> apps/web/public/covers/artist-<slug>.svg
  *   - 7 "Best of" album covers-> apps/web/public/covers/album-<slug>.svg
  *   - 21 song covers          -> apps/web/public/covers/song-<slug>.svg

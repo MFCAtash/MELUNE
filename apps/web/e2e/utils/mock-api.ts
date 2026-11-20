@@ -12,7 +12,7 @@ import type { Page, Route } from "@playwright/test";
 export const API_ORIGIN = process.env.PLAYWRIGHT_API_URL ?? "http://localhost:4310";
 
 // ---------------------------------------------------------------- types
-// Minimal shapes mirroring @codex-music/types — duplicated (not imported)
+// Minimal shapes mirroring @melune/types — duplicated (not imported)
 // so this file has zero build-time dependency on the workspace package
 // graph and can't drift the *shape* of a mock out of sync silently; the
 // e2e specs are the check that the real UI still understands them.

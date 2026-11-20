@@ -13,7 +13,7 @@ import type {
   Paginated,
   Playlist,
   SearchType,
-} from "@codex-music/types";
+} from "@melune/types";
 import { apiClient } from "@/lib/api-client";
 import { catalog } from "@/lib/catalog";
 import { useAuthStore } from "@/store/auth-store";

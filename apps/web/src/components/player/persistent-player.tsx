@@ -83,7 +83,7 @@ export function PersistentPlayer() {
   // early return), same as app-shell.tsx's identical call.
   const { color: ambientColor } = useAmbientTheme(
     track?.coverUrl,
-    track ? `${track.title}-${track.artist.name}` : "codex-mini-player",
+    track ? `${track.title}-${track.artist.name}` : "melune-mini-player",
   );
 
   // Tempo-Reactive UI — same beat-onset detection driving the logo
@@ -189,7 +189,7 @@ export function PersistentPlayer() {
           </div>
           <div aria-hidden className="h-0.5 bg-white/10">
             <div
-              className="bg-codex-gradient h-full"
+              className="bg-melune-gradient h-full"
               style={{ width: `${duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0}%` }}
             />
           </div>

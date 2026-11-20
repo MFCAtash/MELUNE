@@ -189,8 +189,8 @@ npm run docker:up
 
 | ایمیل | رمز عبور | نقش |
 | --- | --- | --- |
-| `admin@codexmusic.dev` | `codex12345` | مدیر |
-| `demo@codexmusic.dev` | `codex12345` | کاربر |
+| `admin@melune.app` | `melune12345` | مدیر |
+| `demo@melune.app` | `melune12345` | کاربر |
 
 > این حساب‌ها را پیش از هر انتشار عمومی حذف کنید.
 
@@ -313,8 +313,8 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --bui
   عمومی و کش تغییرناپذیر (`Cache-Control: max-age=31536000, immutable`).
 - **بازیابی پایگاه‌دادهٔ نمونه:**
   ```powershell
-  .\.infra\pgsql16\bin\pg_restore.exe -h localhost -p 5432 -U codex `
-    -d codex_music --clean --if-exists .\.db-backup\melune.dump
+  .\.infra\pgsql16\bin\pg_restore.exe -h localhost -p 5432 -U melune `
+    -d melune_music --clean --if-exists .\.db-backup\melune.dump
   ```
   سپس بازنویسی آدرس‌ها: `./scripts/deploy/fix-media-urls.sh --apply`
 

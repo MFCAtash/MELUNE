@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { apiClient, setAccessToken } from "../lib/api-client";
 
 /**
  * INITIAL SKELETON — see apps/mobile/README.md.
  * One screen, plain <TextInput>/<Pressable> — no form library, no design
  * system, no validation beyond "non-empty". Calls the real
- * `POST /auth/login` through the shared @codex-music/api-client.
+ * `POST /auth/login` through the shared @melune/api-client.
  */
 export function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", padding: 24, backgroundColor: "#0B0B12" }}>
       <Text style={{ color: "#fff", fontSize: 28, fontWeight: "700", marginBottom: 24 }}>
-        Codex Music
+        MELUNE
       </Text>
 
       <TextInput

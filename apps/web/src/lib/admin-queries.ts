@@ -8,13 +8,13 @@ import type {
   Genre,
   Role,
   Song,
-} from "@codex-music/types";
+} from "@melune/types";
 import type {
   AlbumWritePayload,
   ArtistWritePayload,
   GenreWritePayload,
   SongWritePayload,
-} from "@codex-music/api-client";
+} from "@melune/api-client";
 import { apiClient } from "@/lib/api-client";
 
 /** Query-key factory for the admin section — kept separate from `qk` in

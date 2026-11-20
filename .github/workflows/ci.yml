@@ -29,12 +29,12 @@ env:
   NODE_VERSION: "20"
   # Static, CI-only secrets — never real credentials, never used outside
   # ephemeral service containers that die with the job.
-  DATABASE_URL: postgresql://codex:codex_ci_password@localhost:5432/codex_music_test?schema=public
+  DATABASE_URL: postgresql://melune:melune_ci_password@localhost:5432/melune_music_test?schema=public
   REDIS_URL: redis://localhost:6379
   JWT_ACCESS_SECRET: ci_only_access_secret_do_not_use_in_prod
   JWT_ACCESS_EXPIRES_IN: 15m
   JWT_REFRESH_EXPIRES_IN: 7d
-  MAIL_FROM: noreply@codexmusic.dev
+  MAIL_FROM: noreply@melune.app
   CORS_ORIGIN: http://localhost:3000
   PORT: 4000
   # Storage intentionally left unconfigured: StorageService.configured
@@ -107,16 +107,16 @@ jobs:
         # doesn't need one.
         run: |
           docker run -d --name shadow-db -p 5433:5432 \
-            -e POSTGRES_USER=codex -e POSTGRES_PASSWORD=codex_ci_password \
-            -e POSTGRES_DB=codex_music_shadow postgres:16-alpine
+            -e POSTGRES_USER=melune -e POSTGRES_PASSWORD=melune_ci_password \
+            -e POSTGRES_DB=melune_music_shadow postgres:16-alpine
           for i in $(seq 1 30); do
-            docker exec shadow-db pg_isready -U codex && break
+            docker exec shadow-db pg_isready -U melune && break
             sleep 1
           done
           npx prisma migrate diff \
             --from-migrations ./prisma/migrations \
             --to-schema-datamodel ./prisma/schema.prisma \
-            --shadow-database-url postgresql://codex:codex_ci_password@localhost:5433/codex_music_shadow \
+            --shadow-database-url postgresql://melune:melune_ci_password@localhost:5433/melune_music_shadow \
             --exit-code
           docker rm -f shadow-db
 
@@ -131,12 +131,12 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: codex
-          POSTGRES_PASSWORD: codex_ci_password
-          POSTGRES_DB: codex_music_test
+          POSTGRES_USER: melune
+          POSTGRES_PASSWORD: melune_ci_password
+          POSTGRES_DB: melune_music_test
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U codex"
+          --health-cmd "pg_isready -U melune"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10

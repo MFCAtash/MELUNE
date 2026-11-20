@@ -9,7 +9,7 @@ interface LocaleState {
 
 /**
  * Persisted client-side language preference. The no-flash inline script in
- * the root layout reads the same "codex-locale" localStorage key before
+ * the root layout reads the same "melune-locale" localStorage key before
  * hydration to set `<html lang/dir>` synchronously — see layout.tsx.
  */
 export const useLocaleStore = create<LocaleState>()(
@@ -24,6 +24,6 @@ export const useLocaleStore = create<LocaleState>()(
         }
       },
     }),
-    { name: "codex-locale" },
+    { name: "melune-locale" },
   ),
 );

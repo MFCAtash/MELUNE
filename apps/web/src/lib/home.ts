@@ -1,4 +1,4 @@
-import type { ArtistSummary, Genre, HomeFeed, Song } from "@codex-music/types";
+import type { ArtistSummary, Genre, HomeFeed, Song } from "@melune/types";
 
 export interface TopArtist {
   artist: ArtistSummary;

@@ -24,7 +24,7 @@ Body: `{ email, password }`.
 ```json
 { "user": { "id", "email", "username", "role", ... }, "accessToken": "<jwt>" }
 ```
-Also sets `codex_refresh_token` as an httpOnly, `SameSite=Lax` cookie
+Also sets `melune_refresh_token` as an httpOnly, `SameSite=Lax` cookie
 scoped to `/api/auth`.
 
 ### `POST /api/auth/refresh`

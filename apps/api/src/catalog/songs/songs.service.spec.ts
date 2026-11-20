@@ -162,14 +162,14 @@ describe("SongsService", () => {
       prisma.song.create.mockResolvedValue({
         id: "song-1",
         title: "New Song",
-        audioUrl: "https://cdn.example.com/codex-music/audio/artist-1/a.mp3",
+        audioUrl: "https://cdn.example.com/melune/audio/artist-1/a.mp3",
       });
       storage.keyFromPublicUrl.mockReturnValue("audio/artist-1/a.mp3");
 
       await service.createForUser("user-1", {
         title: "New Song",
         duration: 120,
-        audioUrl: "https://cdn.example.com/codex-music/audio/artist-1/a.mp3",
+        audioUrl: "https://cdn.example.com/melune/audio/artist-1/a.mp3",
       } as never);
 
       expect(storage.transcodeAudio).toHaveBeenCalledWith("song-1", "audio/artist-1/a.mp3");

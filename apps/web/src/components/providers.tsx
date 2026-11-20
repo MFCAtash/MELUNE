@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { apiClient } from "@/lib/api-client";
 import { useAuthStore } from "@/store/auth-store";
 import { useNotificationsSocket } from "@/hooks/use-notifications-socket";

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { registerSchema, RegisterFormValues } from "@/lib/auth-schemas";
 import { apiClient } from "@/lib/api-client";
 import { safeRedirect } from "@/lib/nav";

@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search as SearchIcon, X } from "lucide-react";
-import type { SearchType, Song } from "@codex-music/types";
+import type { SearchType, Song } from "@melune/types";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useAuthStore } from "@/store/auth-store";
 import {
@@ -236,7 +236,7 @@ function SearchPageContent() {
       <div className="relative">
         {/* Gradient focus ring: the input sits on a brand-gradient plate
             revealed as a glowing ring when focused. */}
-        <div className="rounded-2xl bg-codex-gradient p-[1.5px] shadow-glow-sm transition-shadow focus-within:shadow-glow">
+        <div className="rounded-2xl bg-melune-gradient p-[1.5px] shadow-glow-sm transition-shadow focus-within:shadow-glow">
           <SearchIcon
             size={18}
             className="absolute start-4 top-1/2 z-10 -translate-y-1/2 text-muted"

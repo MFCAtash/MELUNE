@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import type { LibraryItem, PlaylistSummary } from "@codex-music/types";
+import type { LibraryItem, PlaylistSummary } from "@melune/types";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { flatItems, useMyLibrary, useMyLikes, useMyPlaylists } from "@/lib/queries";
 import { MediaCard, mediaGridClass } from "@/components/library/media-card";

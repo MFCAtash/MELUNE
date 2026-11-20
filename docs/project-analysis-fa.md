@@ -129,7 +129,7 @@ MELUNE/
 3.1 فریمورک و معماری
   • Next.js 14.2.13 با App Router و React Server/Client Components
   • reactStrictMode فعال
-  • transpilePackages برای پکیج‌های داخلی (@codex-music/types, api-client)
+  • transpilePackages برای پکیج‌های داخلی (@melune/types, api-client)
   • next/image با remotePatterns باز (https + localhost) و optimizer مبتنی بر sharp
   • ساختار پوشه‌ها: src/app (روتینگ)، src/components، src/lib،
     src/store، src/hooks، src/types، src/styles
@@ -243,7 +243,7 @@ MELUNE/
 3.10 PWA و آفلاین
   • manifest.webmanifest: name/short_name = MELUNE، start_url=/home،
     display=standalone، theme/background = #0A0A0F، آیکن ۱۹۲/۵۱۲
-  • Service Worker دستی: public/sw.js با کش codex-shell-v2
+  • Service Worker دستی: public/sw.js با کش melune-shell-v2
       - پیش‌کش پوسته و صفحه آفلاین
       - stale-while-revalidate برای assets
       - fallback به IndexedDB برای درخواست‌های صوتی
@@ -478,7 +478,7 @@ MELUNE/
 --------------------------------------------------------------------------------
 ## 9) زیرساخت و DevOps
 --------------------------------------------------------------------------------
-9.1 docker-compose.yml — ۸ سرویس روی شبکه codex-network
+9.1 docker-compose.yml — ۸ سرویس روی شبکه melune-network
   postgres        ← postgres:16-alpine، پورت 5432، volume، healthcheck
   redis           ← redis:7-alpine، پورت 6379، volume، healthcheck
   minio           ← ذخیره‌سازی S3-compatible (نسخه pin شده)
@@ -510,7 +510,7 @@ MELUNE/
   پورت‌های فعال: 5432 (DB) · 6379 (Redis) · 4000 (API) · 3000 (Web)
 
 9.4 پیکربندی محیط (.env.example)
-  DATABASE_URL=postgresql://codex:codex_dev_password@localhost:5432/codex_music
+  DATABASE_URL=postgresql://melune:melune_dev_password@localhost:5432/melune_music
   POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB
   REDIS_URL=redis://localhost:6379
   JWT_ACCESS_SECRET (≥32 char) / JWT_ACCESS_EXPIRES_IN=15m /
@@ -751,11 +751,11 @@ docs/ (۸ سند تخصصی):
 دیتابیس:
   npm run prisma:migrate:deploy
   npm run prisma:generate
-  بازیابی بکاپ: pg_restore -d codex_music .db-backup/melune.dump
+  بازیابی بکاپ: pg_restore -d melune_music .db-backup/melune.dump
 
 حساب دمو:
-  email    : demo@codexmusic.dev
-  password : codex12345
+  email    : demo@melune.app
+  password : melune12345
   (دکمه Quick demo login نیز در صفحه ورود موجود است)
 
 تست:

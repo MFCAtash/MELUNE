@@ -1,7 +1,7 @@
 import { validateEnv } from "../env.validation";
 
 const VALID = {
-  DATABASE_URL: "postgresql://user:pass@localhost:5432/codex",
+  DATABASE_URL: "postgresql://user:pass@localhost:5432/melune",
   REDIS_URL: "redis://localhost:6379",
   JWT_ACCESS_SECRET: "a".repeat(32),
 };
@@ -108,21 +108,21 @@ describe("validateEnv", () => {
   it("rejects a malformed WEB_APP_URL but allows it to be absent", () => {
     expect(() => validateEnv({ ...VALID, WEB_APP_URL: "not a url" })).toThrow(/WEB_APP_URL/);
     expect(() => validateEnv({ ...VALID })).not.toThrow();
-    expect(() => validateEnv({ ...VALID, WEB_APP_URL: "https://codexmusic.app" })).not.toThrow();
+    expect(() => validateEnv({ ...VALID, WEB_APP_URL: "https://melunemusic.app" })).not.toThrow();
   });
 
   it("accepts a single CORS_ORIGIN and defaults it when unset", () => {
     expect(validateEnv({ ...VALID }).CORS_ORIGIN).toBe("http://localhost:3000");
     expect(
-      validateEnv({ ...VALID, CORS_ORIGIN: "https://app.codexmusic.example" }).CORS_ORIGIN,
-    ).toBe("https://app.codexmusic.example");
+      validateEnv({ ...VALID, CORS_ORIGIN: "https://app.melunemusic.example" }).CORS_ORIGIN,
+    ).toBe("https://app.melunemusic.example");
   });
 
   it("accepts a comma-separated CORS_ORIGIN list where every entry is a valid URL", () => {
     expect(() =>
       validateEnv({
         ...VALID,
-        CORS_ORIGIN: "https://app.codexmusic.example, https://staging.codexmusic.example",
+        CORS_ORIGIN: "https://app.melunemusic.example, https://staging.melunemusic.example",
       }),
     ).not.toThrow();
   });

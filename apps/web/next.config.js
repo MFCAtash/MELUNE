@@ -7,7 +7,7 @@ const nextConfig = {
   // Workspace packages ship raw TypeScript (`main: src/index.ts`), so Next
   // must compile them itself — required for `next build` in a clean checkout
   // and inside the Docker image.
-  transpilePackages: ["@codex-music/types", "@codex-music/api-client"],
+  transpilePackages: ["@melune/types", "@melune/api-client"],
   images: {
     // Song/album/artist artwork is a free-form URL (see songs/albums DTOs)
     // — there is no fixed storage domain yet (Storage phase not built), so

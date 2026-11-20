@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 
 export type RepeatMode = "off" | "all" | "one";
 

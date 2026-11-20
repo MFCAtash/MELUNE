@@ -10,7 +10,7 @@
  * as a *fallback* — never overwriting real history-based results —
  * closes that gap without touching the backend contract.
  */
-const KEY = "codex-onboarding-genres";
+const KEY = "melune-onboarding-genres";
 
 export function getOnboardingGenreIds(): string[] {
   if (typeof window === "undefined") return [];

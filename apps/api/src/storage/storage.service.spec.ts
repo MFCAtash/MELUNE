@@ -26,8 +26,8 @@ function makeConfig(overrides: Record<string, string> = {}) {
   const values: Record<string, string> = {
     STORAGE_ACCESS_KEY: "access-key",
     STORAGE_SECRET_KEY: "secret-key",
-    STORAGE_BUCKET: "codex-music",
-    STORAGE_PUBLIC_URL: "https://cdn.example.com/codex-music",
+    STORAGE_BUCKET: "melune",
+    STORAGE_PUBLIC_URL: "https://cdn.example.com/melune",
     ...overrides,
   };
   return {
@@ -139,7 +139,7 @@ describe("StorageService", () => {
       );
 
       expect(result.key).toBe("audio/user-42/fixed-uuid.mp3");
-      expect(result.publicUrl).toBe("https://cdn.example.com/codex-music/audio/user-42/fixed-uuid.mp3");
+      expect(result.publicUrl).toBe("https://cdn.example.com/melune/audio/user-42/fixed-uuid.mp3");
     });
 
     it("falls back to a .bin extension when the filename has none matchable", async () => {
@@ -186,7 +186,7 @@ describe("StorageService", () => {
   describe("keyFromPublicUrl", () => {
     it("extracts the key when the URL matches our public base", () => {
       const service = new StorageService(makeConfig(), makeQueueMock());
-      expect(service.keyFromPublicUrl("https://cdn.example.com/codex-music/audio/x.mp3")).toBe(
+      expect(service.keyFromPublicUrl("https://cdn.example.com/melune/audio/x.mp3")).toBe(
         "audio/x.mp3",
       );
     });

@@ -1,4 +1,4 @@
-import type { Album, Artist, Genre, Paginated, Song } from "@codex-music/types";
+import type { Album, Artist, Genre, Paginated, Song } from "@melune/types";
 
 /**
  * Server-side catalog fetches (React Server Components).

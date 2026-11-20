@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ApiError } from "@codex-music/api-client";
-import type { PlaylistSummary } from "@codex-music/types";
+import { ApiError } from "@melune/api-client";
+import type { PlaylistSummary } from "@melune/types";
 import { useCreatePlaylist, useUpdatePlaylist } from "@/lib/queries";
 import { ACCENT_COLORS } from "@/lib/cover";
 
@@ -187,7 +187,7 @@ export function PlaylistFormDialog({
           <button
             type="submit"
             disabled={busy}
-            className="bg-codex-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+            className="bg-melune-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
             {busy ? "Saving…" : isEdit ? "Save changes" : "Create playlist"}
           </button>

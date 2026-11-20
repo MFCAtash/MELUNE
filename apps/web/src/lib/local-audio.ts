@@ -1,4 +1,4 @@
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 
 /**
  * Local audio import — the "play my own full-length files" path.

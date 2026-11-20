@@ -1,4 +1,4 @@
-import { ApiClient } from "@codex-music/api-client";
+import { ApiClient } from "@melune/api-client";
 import { useAuthStore } from "../store/auth-store";
 
 /**

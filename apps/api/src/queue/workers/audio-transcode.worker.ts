@@ -48,7 +48,7 @@ const STORAGE_ENDPOINT = process.env.STORAGE_ENDPOINT || undefined;
 const STORAGE_REGION = process.env.STORAGE_REGION || "auto";
 const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY || "";
 const STORAGE_SECRET_KEY = process.env.STORAGE_SECRET_KEY || "";
-const STORAGE_BUCKET = process.env.STORAGE_BUCKET || "codex-music";
+const STORAGE_BUCKET = process.env.STORAGE_BUCKET || "melune";
 const STORAGE_PUBLIC_URL =
   process.env.STORAGE_PUBLIC_URL ||
   (STORAGE_ENDPOINT

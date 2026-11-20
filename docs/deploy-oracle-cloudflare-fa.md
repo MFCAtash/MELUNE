@@ -394,7 +394,7 @@ APP_DIR=/opt/melune ./scripts/deploy/restore-postgres.sh --yes /tmp/melune.dump
 `fix-media-urls.sh` این تبدیل‌ها را انجام می‌دهد:
 
 - `http://localhost:3000/...` → `https://music.melune.app/...`
-- `http://localhost:9000/codex-music/...` → `https://music-media.melune.app/melune-music/...`
+- `http://localhost:9000/melune/...` → `https://music-media.melune.app/melune-music/...`
 
 بعد از restore، API و worker را restart کنید:
 
@@ -404,11 +404,11 @@ docker compose --env-file .env.production -f docker-compose.prod.yml restart api
 
 ### حساب مدیر
 
-حساب‌های دمو (`admin@codexmusic.dev` / `codex12345` و `demo@codexmusic.dev`) را قبل از عمومی شدن حذف یا ایمن کنید:
+حساب‌های دمو (`admin@melune.app` / `melune12345` و `demo@melune.app`) را قبل از عمومی شدن حذف یا ایمن کنید:
 
 ```bash
 docker compose --env-file .env.production -f docker-compose.prod.yml exec -T postgres \
-  psql -U melune -d melune -c "DELETE FROM users WHERE email IN ('admin@codexmusic.dev','demo@codexmusic.dev');"
+  psql -U melune -d melune -c "DELETE FROM users WHERE email IN ('admin@melune.app','demo@melune.app');"
 ```
 
 سپس در سایت ثبت‌نام کنید و حساب خودتان را مدیر کنید:
@@ -435,7 +435,7 @@ docker compose --env-file .env.production -f docker-compose.prod.yml exec -T pos
 ### API و اپ
 
 - [ ] `GET https://music.melune.app/api/health` پاسخ `{"status":"ok",...}` می‌دهد.
-- [ ] ثبت‌نام و ورود کار می‌کند و کوکی `codex_refresh_token` با `Secure` ست می‌شود.
+- [ ] ثبت‌نام و ورود کار می‌کند و کوکی `melune_refresh_token` با `Secure` ست می‌شود.
 - [ ] در DevTools → Network، درخواست‌ها به `https://music.melune.app/api/...` می‌روند (نه `localhost:4000`).
 - [ ] اعلان‌های realtime: در Console مرورگر اتصال `/socket.io/?EIO=4&transport=websocket` با وضعیت `101 Switching Protocols` دیده می‌شود.
 - [ ] پخش صدا و دانلود آفلاین کار می‌کند (CORS روی `music-media` درست است).

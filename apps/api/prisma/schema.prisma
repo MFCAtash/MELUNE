@@ -1,4 +1,4 @@
-// Codex Music — Prisma Schema
+// MELUNE — Prisma Schema
 // Phase 1: base configuration.
 // Phase 2: authentication — refresh tokens, password reset, email verification.
 // Phase 3: catalog — Genre, Artist, Album, Song.

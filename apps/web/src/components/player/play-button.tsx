@@ -1,7 +1,7 @@
 "use client";
 
 import { Play, Pause } from "lucide-react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 
 export function PlayButton({
@@ -36,7 +36,7 @@ export function PlayButton({
       onClick={handleClick}
       disabled={tracks.length === 0}
       className={`flex w-fit items-center gap-2 rounded-xl px-5 py-2.5 font-medium disabled:cursor-not-allowed disabled:opacity-50 ${
-        variant === "light" ? "bg-white text-background" : "bg-codex-gradient text-white"
+        variant === "light" ? "bg-white text-background" : "bg-melune-gradient text-white"
       }`}
     >
       {showPause ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}

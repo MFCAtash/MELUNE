@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { AdminUser, Role } from "@codex-music/types";
-import { ApiError } from "@codex-music/api-client";
+import type { AdminUser, Role } from "@melune/types";
+import { ApiError } from "@melune/api-client";
 import { ShieldBan, ShieldCheck } from "lucide-react";
 import { DataTable } from "@/components/admin/data-table";
 import { useDebounce } from "@/hooks/use-debounce";

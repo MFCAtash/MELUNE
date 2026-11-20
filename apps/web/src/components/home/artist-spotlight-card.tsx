@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ArtistSummary } from "@codex-music/types";
+import type { ArtistSummary } from "@melune/types";
 import { useTranslation } from "@/hooks/use-translation";
 import { formatCount } from "@/lib/format";
 import { FollowArtistButton } from "@/components/library/follow-artist-button";

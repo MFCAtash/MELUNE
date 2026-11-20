@@ -19,7 +19,7 @@ export function VinylHero() {
               "conic-gradient(from 20deg, transparent 0 18%, rgba(255,255,255,0.10) 25%, transparent 32% 68%, rgba(255,255,255,0.10) 75%, transparent 82%)",
           }}
         />
-        <div className="bg-codex-gradient absolute inset-[33%] rounded-full ring-4 ring-black/40" />
+        <div className="bg-melune-gradient absolute inset-[33%] rounded-full ring-4 ring-black/40" />
         <div className="absolute inset-[48.5%] rounded-full bg-background ring-2 ring-black/60" />
       </div>
     </div>

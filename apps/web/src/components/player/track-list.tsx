@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Clock, GripVertical, Headphones, Play, Pause } from "lucide-react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { formatCount, formatDuration } from "@/lib/format";
 import { useTranslation } from "@/hooks/use-translation";

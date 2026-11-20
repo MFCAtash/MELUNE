@@ -50,7 +50,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </Link>
 
         <div className="mb-4 px-2">
-          <span className="bg-codex-gradient bg-clip-text text-lg font-bold tracking-wide text-transparent">
+          <span className="bg-melune-gradient bg-clip-text text-lg font-bold tracking-wide text-transparent">
             {t("admin.nav.panelTitle")}
           </span>
         </div>
@@ -64,7 +64,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 href={href}
                 className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
                   active
-                    ? "bg-codex-gradient text-white"
+                    ? "bg-melune-gradient text-white"
                     : "text-muted hover:bg-surfaceElevated hover:text-foreground"
                 }`}
               >
@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               key={href}
               href={href}
               className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs ${
-                active ? "bg-codex-gradient text-white" : "text-muted"
+                active ? "bg-melune-gradient text-white" : "text-muted"
               }`}
             >
               <Icon size={14} />

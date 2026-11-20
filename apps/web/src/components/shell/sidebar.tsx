@@ -195,7 +195,7 @@ export function Sidebar({ onCreatePlaylist }: { onCreatePlaylist: () => void }) 
             </p>
             <Link
               href="/login"
-              className="bg-codex-gradient mt-3 block rounded-lg py-2 text-center text-sm font-medium text-white"
+              className="bg-melune-gradient mt-3 block rounded-lg py-2 text-center text-sm font-medium text-white"
             >
               {t("nav.logIn")}
             </Link>

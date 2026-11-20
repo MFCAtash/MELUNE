@@ -36,7 +36,7 @@ boots the bundled Postgres and Redis from `.infra/`.
 - **TypeScript everywhere**, strict mode, no `any` unless it is justified in a
   comment and reviewed.
 - **Types shared across apps live in `packages/types`.** Web and mobile consume
-  the same types through `@codex-music/api-client`; never redeclare API shapes
+  the same types through `@melune/api-client`; never redeclare API shapes
   locally.
 - API controllers are thin; business logic belongs in services. Validation uses
   DTOs with `class-validator` (`ValidationPipe` is global).

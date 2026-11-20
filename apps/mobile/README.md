@@ -1,7 +1,7 @@
-# @codex-music/mobile
+# @melune/mobile
 
 The MELUNE Expo / React Native client. It shares the typed contract with the web
-app through `@codex-music/types` and `@codex-music/api-client`, so API shapes
+app through `@melune/types` and `@melune/api-client`, so API shapes
 cannot drift between platforms.
 
 ## Stack
@@ -9,14 +9,14 @@ cannot drift between platforms.
 - Expo SDK 51, React Native 0.74, React 18.2
 - `expo-av` for playback
 - `expo-secure-store` for the access/refresh tokens (never plain AsyncStorage)
-- Metro bundler; deep link scheme `codexmusic://`
+- Metro bundler; deep link scheme `melunemusic://`
 
 ## Layout
 
 ```
 src/lib/        api-client wiring, auth token storage, player helpers
 src/screens/    one file per screen (auth, home/search, library, player, ...)
-app.json        Expo config: bundle id app.codexmusic.mobile, dark UI only
+app.json        Expo config: bundle id app.melunemusic.mobile, dark UI only
 ```
 
 ## Running
@@ -39,7 +39,7 @@ client so a deployment change touches one place.
 
 ## Notes for contributors
 
-- Keep screens presentational; data fetching goes through `@codex-music/api-client`.
+- Keep screens presentational; data fetching goes through `@melune/api-client`.
 - Token handling must keep using `expo-secure-store`; adding plain storage is a
   security regression.
 - RTL/Persian behaviour must match the web app.

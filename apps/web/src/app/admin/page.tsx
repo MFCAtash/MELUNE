@@ -88,7 +88,7 @@ export default function AdminDashboardPage() {
                 return (
                   <div key={d.date} className="flex flex-1 flex-col items-center gap-1">
                     <div
-                      className="w-full rounded-t bg-codex-gradient"
+                      className="w-full rounded-t bg-melune-gradient"
                       style={{ height: `${Math.max((d.count / max) * 56, 4)}px` }}
                       title={`${d.date}: ${d.count}`}
                     />

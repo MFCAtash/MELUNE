@@ -37,7 +37,7 @@ export class PushService {
   ) {
     const publicKey = this.config.get<string>("VAPID_PUBLIC_KEY");
     const privateKey = this.config.get<string>("VAPID_PRIVATE_KEY");
-    const subject = this.config.get<string>("VAPID_SUBJECT") || "mailto:support@codexmusic.app";
+    const subject = this.config.get<string>("VAPID_SUBJECT") || "mailto:support@melunemusic.app";
 
     this.configured = Boolean(publicKey && privateKey);
     this.publicKey = publicKey;

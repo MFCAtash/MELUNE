@@ -95,7 +95,7 @@ export class NotificationsService {
       await this.create(
         userId,
         NotificationType.WELCOME,
-        `Welcome to Codex Music, ${username}!`,
+        `Welcome to MELUNE, ${username}!`,
         "Start by liking a few songs so we can personalize your Home feed.",
         undefined,
         "/home",

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ApiError } from "@codex-music/api-client";
-import type { Album } from "@codex-music/types";
+import { ApiError } from "@melune/api-client";
+import type { Album } from "@melune/types";
 import { Field, Modal, inputClass } from "@/components/admin/modal";
 import { PresignedUploadField } from "@/components/admin/presigned-upload-field";
 import { useAdminArtists, useAdminCreateAlbum, useAdminUpdateAlbum } from "@/lib/admin-queries";
@@ -125,7 +125,7 @@ export function AlbumFormDialog({
           <button
             type="submit"
             disabled={busy}
-            className="bg-codex-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+            className="bg-melune-gradient rounded-xl px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
             {busy ? t("admin.albums.saving") : isEdit ? t("admin.albums.saveChanges") : t("admin.albums.createAlbum")}
           </button>

@@ -15,7 +15,7 @@ function makeConfig(overrides: Record<string, string | undefined> = {}) {
   const values: Record<string, string | undefined> = {
     VAPID_PUBLIC_KEY: "public-key",
     VAPID_PRIVATE_KEY: "private-key",
-    VAPID_SUBJECT: "mailto:support@codexmusic.app",
+    VAPID_SUBJECT: "mailto:support@melunemusic.app",
     ...overrides,
   };
   return {
@@ -81,7 +81,7 @@ describe("PushService", () => {
       new PushService(makeConfig(), prisma as unknown as PrismaService);
 
       expect(setVapidDetailsMock).toHaveBeenCalledWith(
-        "mailto:support@codexmusic.app",
+        "mailto:support@melunemusic.app",
         "public-key",
         "private-key",
       );

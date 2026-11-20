@@ -99,7 +99,7 @@ export function SonicClipButton({
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `${title.toLowerCase().replace(/\s+/g, "-")}-codex-music-clip.webm`;
+        link.download = `${title.toLowerCase().replace(/\s+/g, "-")}-melune-clip.webm`;
         link.click();
         URL.revokeObjectURL(url);
       };

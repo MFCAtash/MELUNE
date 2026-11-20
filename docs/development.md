@@ -42,7 +42,7 @@ curl http://localhost:4000/api/health
 # -> {"status":"ok","info":{"database":{"status":"up"}}, ...}
 ```
 
-Open http://localhost:3000 — you should see the Codex Music bootstrap
+Open http://localhost:3000 — you should see the MELUNE bootstrap
 page with the gradient wordmark.
 
 ## Verifying Phase 2
@@ -54,7 +54,7 @@ npm run prisma:migrate --workspace=apps/api -- --name add_auth
 # Register
 curl -i -c cookies.txt -X POST http://localhost:4000/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"email":"demo@codex.music","username":"demo","password":"supersecret"}'
+  -d '{"email":"demo@melune.music","username":"demo","password":"supersecret"}'
 
 # Get current user with the returned accessToken
 curl http://localhost:4000/api/users/me \

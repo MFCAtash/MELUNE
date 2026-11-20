@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Codex Music — Phase 6: Search Preview</title>
+<title>MELUNE — Phase 6: Search Preview</title>
 <style>
   :root {
     --background: #0A0A0F;
@@ -167,7 +167,7 @@
   <aside class="sidebar">
     <div class="brand">
       <div class="logo">C</div>
-      <span>Codex Music</span>
+      <span>MELUNE</span>
     </div>
     <nav class="nav">
       <a>
@@ -258,7 +258,7 @@ const ALBUMS = [
   { id: "al4", title: "Afterglow", artist: "Moonside", color: "#8B5CF6" },
 ];
 const PLAYLISTS = [
-  { id: "p1", title: "Late Night Drive", owner: "codexradio", color: "#3B82F6" },
+  { id: "p1", title: "Late Night Drive", owner: "meluneradio", color: "#3B82F6" },
   { id: "p2", title: "Static & Sunsets", owner: "lena.fm", color: "#FF6A3D" },
   { id: "p3", title: "Afterglow Mix", owner: "moonside_official", color: "#8B5CF6" },
 ];
@@ -307,7 +307,7 @@ function search(q, limit) {
 // ---------------------------------------------------------------------
 // Recent searches — localStorage, mirrors lib/recent-searches.ts
 // ---------------------------------------------------------------------
-const RECENT_KEY = "codex-music-preview:recent-searches";
+const RECENT_KEY = "melune-preview:recent-searches";
 function getRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY) || "[]"); } catch { return []; } }
 function addRecent(q) {
   q = q.trim(); if (!q) return;

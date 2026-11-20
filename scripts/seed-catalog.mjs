@@ -31,7 +31,7 @@ async function api(path, { method = "GET", token, body } = {}) {
 
 const login = await api("/auth/login", {
   method: "POST",
-  body: { email: "admin@codexmusic.dev", password: "codex12345" },
+  body: { email: "admin@melune.app", password: "melune12345" },
 });
 const token = login.accessToken;
 console.log("admin logged in");

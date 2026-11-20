@@ -30,8 +30,8 @@ against synthetic valid/drifted/bad-host lockfiles) were executed.
 ## Related defects found and fixed
 1. **No `.gitignore`** — `node_modules`, `.env`, `.next`, `dist` were committable. Added (lockfile deliberately not ignored). Also `.dockerignore`, `.nvmrc` (20), `.npmrc`.
 2. **ESLint never worked**: `apps/web` had no `.eslintrc` (`next lint` prompts/fails in CI) and `apps/api` had no ESLint config *or* eslint/@typescript-eslint/prettier dev-dependencies although `lint` calls `eslint`. Added `apps/web/.eslintrc.json`, `apps/api/.eslintrc.js` (extends `packages/config/eslint-base.js`) and the missing devDependencies. **Adding devDependencies changes the lockfile requirement — generate the lockfile after this change.**
-3. **Docker images were broken under npm workspaces**: web image never copied `packages/*` (would try to download `@codex-music/types` from the registry); runtime stages copied only `apps/*/node_modules` although workspaces hoist to `/repo/node_modules`; no lockfile use. Rewrote api/web/worker Dockerfiles (`npm ci`, all manifests copied, hoisted `node_modules` shipped). Not built here (no Docker).
-4. **`next build` and workspace TS packages**: `@codex-music/*` export raw `src/index.ts`; added `transpilePackages` to `next.config.js`.
+3. **Docker images were broken under npm workspaces**: web image never copied `packages/*` (would try to download `@melune/types` from the registry); runtime stages copied only `apps/*/node_modules` although workspaces hoist to `/repo/node_modules`; no lockfile use. Rewrote api/web/worker Dockerfiles (`npm ci`, all manifests copied, hoisted `node_modules` shipped). Not built here (no Docker).
+4. **`next build` and workspace TS packages**: `@melune/*` export raw `src/index.ts`; added `transpilePackages` to `next.config.js`.
 5. Dependabot config (npm groups, actions, docker).
 
 ## Still to do by you (once)

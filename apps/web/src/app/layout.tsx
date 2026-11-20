@@ -184,11 +184,11 @@ export const viewport: Viewport = {
 // Reads the persisted locale synchronously, before React hydrates, and
 // applies `lang`/`dir` immediately — the same "no flash" trick theme
 // switchers use. Keep this in lockstep with locale-store's storage key
-// ("codex-locale") and RTL_LOCALES in lib/i18n/config.ts.
+// ("melune-locale") and RTL_LOCALES in lib/i18n/config.ts.
 const NO_FLASH_LOCALE_SCRIPT = `
 (function () {
   try {
-    var raw = localStorage.getItem("codex-locale");
+    var raw = localStorage.getItem("melune-locale");
     var locale = raw ? JSON.parse(raw).state.locale : "en";
     var dir = locale === "fa" ? "rtl" : "ltr";
     document.documentElement.lang = locale;
@@ -198,13 +198,13 @@ const NO_FLASH_LOCALE_SCRIPT = `
 `;
 
 // Same trick for the light/dark preference (Phase 6.7). Keep the storage
-// key in lockstep with theme-store.ts ("codex-theme"). Runs before the
+// key in lockstep with theme-store.ts ("melune-theme"). Runs before the
 // CSS variables in globals.css are applied by the browser, so there's no
 // flash of the wrong theme on load.
 const NO_FLASH_THEME_SCRIPT = `
 (function () {
   try {
-    var raw = localStorage.getItem("codex-theme");
+    var raw = localStorage.getItem("melune-theme");
     var theme = raw ? JSON.parse(raw).state.theme : "dark";
     document.documentElement.dataset.theme = theme;
   } catch (e) {}
@@ -212,7 +212,7 @@ const NO_FLASH_THEME_SCRIPT = `
 `;
 
 // Same trick for the AMOLED ambient mode — reads the persisted key
-// `ambient-theme-store.ts` writes ("codex-ambient-mode"). Runs *after*
+// `ambient-theme-store.ts` writes ("melune-ambient-mode"). Runs *after*
 // the theme script above, since selecting "amoled" also forces dark —
 // without this, a page reload while amoled+dark is active would paint
 // the regular dark background for one frame before React hydrates and
@@ -221,7 +221,7 @@ const NO_FLASH_THEME_SCRIPT = `
 const NO_FLASH_AMOLED_SCRIPT = `
 (function () {
   try {
-    var raw = localStorage.getItem("codex-ambient-mode");
+    var raw = localStorage.getItem("melune-ambient-mode");
     var mode = raw ? JSON.parse(raw).state.mode : "dynamic";
     if (mode === "amoled") {
       document.documentElement.dataset.theme = "dark";

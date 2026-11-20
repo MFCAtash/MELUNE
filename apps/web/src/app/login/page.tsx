@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ApiError } from "@codex-music/api-client";
+import { ApiError } from "@melune/api-client";
 import { loginSchema, LoginFormValues } from "@/lib/auth-schemas";
 import { apiClient } from "@/lib/api-client";
 import { safeRedirect } from "@/lib/nav";
@@ -13,8 +13,8 @@ import { useAuthStore } from "@/store/auth-store";
 import { AuthCard, AuthField, AuthSubmitButton } from "@/components/auth/auth-card";
 
 /** Seeded account from the demo dataset (see README). */
-const DEMO_EMAIL = "demo@codexmusic.dev";
-const DEMO_PASSWORD = "codex12345";
+const DEMO_EMAIL = "demo@melune.app";
+const DEMO_PASSWORD = "melune12345";
 
 export default function LoginPage() {
   const router = useRouter();

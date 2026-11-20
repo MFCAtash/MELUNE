@@ -65,7 +65,7 @@ These are not vulnerabilities but they matter for a production deployment:
 
 - `MailService` is currently a stub that logs messages. Password reset is
   unusable until a real provider is connected.
-- Demo accounts (`admin@codexmusic.dev` / `demo@codexmusic.dev`) must be removed
+- Demo accounts (`admin@melune.app` / `demo@melune.app`) must be removed
   before the service is opened to the public.
 - Cloudflare Free limits request bodies to 100 MB; the upload rule matches that
   ceiling exactly.

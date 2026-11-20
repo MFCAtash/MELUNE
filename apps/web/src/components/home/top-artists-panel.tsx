@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { useTranslation } from "@/hooks/use-translation";
 import { formatCount } from "@/lib/format";
 import { pickTopArtists } from "@/lib/home";

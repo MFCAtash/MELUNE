@@ -4,7 +4,7 @@
 
 </div>
 
-# MELUNE — Codex Music
+# MELUNE
 
 **MELUNE — A full-stack music streaming platform built with Next.js, NestJS, PostgreSQL, Redis & HLS.**
 
@@ -186,8 +186,8 @@ To stop it: `.\stop-melune.ps1`.
 
 | Email | Password | Role |
 | --- | --- | --- |
-| `admin@codexmusic.dev` | `codex12345` | admin |
-| `demo@codexmusic.dev` | `codex12345` | user |
+| `admin@melune.app` | `melune12345` | admin |
+| `demo@melune.app` | `melune12345` | user |
 
 > Delete these accounts before any public launch.
 
@@ -308,8 +308,8 @@ secrets fail fast instead of silently booting with broken behaviour.
   immutable-cached (`Cache-Control: max-age=31536000, immutable`).
 - **Restore demo database:**
   ```powershell
-  .\.infra\pgsql16\bin\pg_restore.exe -h localhost -p 5432 -U codex `
-    -d codex_music --clean --if-exists .\.db-backup\melune.dump
+  .\.infra\pgsql16\bin\pg_restore.exe -h localhost -p 5432 -U melune `
+    -d melune_music --clean --if-exists .\.db-backup\melune.dump
   ```
   Then rewrite stored URLs:
   `./scripts/deploy/fix-media-urls.sh --apply`
@@ -385,7 +385,7 @@ implemented and wired together.
 
 Before a public launch:
 
-- [ ] Replace demo/demo accounts (`admin@codexmusic.dev`, `demo@codexmusic.dev`)
+- [ ] Replace demo/demo accounts (`admin@melune.app`, `demo@melune.app`)
 - [ ] Connect a real email provider — `MailService` currently logs reset/verification emails
 - [ ] Swap licensed sample media for properly licensed content
 - [ ] Keep uploads below the Cloudflare Free limit (100 MB) or move media to R2

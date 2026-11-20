@@ -55,6 +55,6 @@ if (-not (Test-Port 3000)) {
 
 Write-Host ""
 Write-Host "MELUNE is ready: http://localhost:3000" -ForegroundColor Green
-Write-Host "Demo login: demo@codexmusic.dev / codex12345"
+Write-Host "Demo login: demo@melune.app / melune12345"
 Start-Sleep -Seconds 2
 Start-Process "http://localhost:3000"

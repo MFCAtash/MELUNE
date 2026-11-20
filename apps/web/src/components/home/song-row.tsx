@@ -2,7 +2,7 @@
 
 import { Clock, Headphones, Pause, Play } from "lucide-react";
 import { motion } from "framer-motion";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { usePlayerStore } from "@/store/player-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useTranslation } from "@/hooks/use-translation";

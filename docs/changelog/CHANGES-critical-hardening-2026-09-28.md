@@ -50,7 +50,7 @@ verification section for how they were run without `npm install`.
 
 `infra/docker/api.Dockerfile`, `web.Dockerfile`, `worker.Dockerfile`,
 `services/ai/Dockerfile`:
-- Added `USER node` (Node images) / a dedicated unprivileged `codexai`
+- Added `USER node` (Node images) / a dedicated unprivileged `meluneai`
   user (the Python image, which has no built-in non-root user) before
   `CMD`, after `chown -R` on the app's own directory so that user can
   still read what root's build stages copied in. Nothing in any of these

@@ -1,5 +1,5 @@
 {
-  "name": "@codex-music/types",
+  "name": "@melune/types",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",

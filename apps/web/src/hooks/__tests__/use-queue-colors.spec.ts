@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import type { Song } from "@codex-music/types";
+import type { Song } from "@melune/types";
 import { useQueueColors } from "../use-queue-colors";
 import { useAmbientThemeStore } from "@/store/ambient-theme-store";
 import { clearTrackColorCache } from "@/lib/track-color";

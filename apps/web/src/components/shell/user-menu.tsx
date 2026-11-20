@@ -44,7 +44,7 @@ export function UserMenu() {
         </Link>
         <Link
           href="/register"
-          className="bg-codex-gradient rounded-full px-4 py-2 text-sm font-medium text-white"
+          className="bg-melune-gradient rounded-full px-4 py-2 text-sm font-medium text-white"
         >
           {t("nav.signUp")}
         </Link>
