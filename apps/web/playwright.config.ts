@@ -26,10 +26,22 @@ export default defineConfig({
     baseURL,
     trace: "on-first-retry",
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    // Video is a CI-only debugging aid: it needs Playwright's bundled
+    // ffmpeg, which `PLAYWRIGHT_CHANNEL=msedge` runs (no downloaded
+    // browsers/ffmpeg) deliberately don't have.
+    video: process.env.CI ? "retain-on-failure" : "off",
   },
 
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  // `PLAYWRIGHT_CHANNEL=msedge` (or `chrome`) runs the suite against an
+  // already-installed browser instead of Playwright's downloaded
+  // Chromium — the escape hatch for environments where
+  // `playwright install` is blocked (corporate proxies, some regions).
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"], ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}) },
+    },
+  ],
 
   // CI starts the app itself (`next build && next start &`) before
   // invoking `playwright test`, so it disables this block and just

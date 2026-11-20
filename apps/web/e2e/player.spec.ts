@@ -29,27 +29,27 @@ test.describe("player", () => {
     // is the only place the title renders as a link (rather than inside
     // a row's play/pause button), so this uniquely targets it.
     await expect(page.getByRole("link", { name: SONG_TITLE, exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Pause" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pause", exact: true })).toBeVisible();
   });
 
   test("pauses and resumes from the mini-player", async ({ page }) => {
     await loginAndGoHome(page);
     await page.getByRole("button", { name: `Play ${SONG_TITLE}` }).click();
 
-    const toggle = page.getByRole("button", { name: "Pause" });
+    const toggle = page.getByRole("button", { name: "Pause", exact: true });
     await expect(toggle).toBeVisible();
     await toggle.click();
 
-    await expect(page.getByRole("button", { name: "Play" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Play", exact: true })).toBeVisible();
 
-    await page.getByRole("button", { name: "Play" }).click();
-    await expect(page.getByRole("button", { name: "Pause" })).toBeVisible();
+    await page.getByRole("button", { name: "Play", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Pause", exact: true })).toBeVisible();
   });
 
   test("moves the seek bar", async ({ page }) => {
     await loginAndGoHome(page);
     await page.getByRole("button", { name: `Play ${SONG_TITLE}` }).click();
-    await expect(page.getByRole("button", { name: "Pause" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Pause", exact: true })).toBeVisible();
 
     const seekBar = page.getByLabel("Seek");
     await expect(seekBar).toHaveValue("0");

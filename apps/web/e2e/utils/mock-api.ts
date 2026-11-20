@@ -176,12 +176,43 @@ function indexPlaylist(state: MockApiState, playlist: MockPlaylist) {
   state.playlistDetails.set(playlist.slug, playlist);
 }
 
+/**
+ * CORS for the fake backend.
+ *
+ * The app runs on http://localhost:3000 while these mocks answer on
+ * `API_ORIGIN` (http://localhost:4310) — a *different* origin. The
+ * real API sends CORS headers, and `ApiClient` fetches with
+ * `credentials: "include"`, so a fulfilled response without
+ * `Access-Control-Allow-Origin` is rejected by the browser even though
+ * Playwright did intercept it: the page then behaves exactly as if the
+ * backend were down (login never resolves, lists stay empty). Echoing
+ * the request's Origin is required because `*` is illegal together
+ * with credentialed requests.
+ */
+function corsHeaders(route: Route): Record<string, string> {
+  const origin = route.request().headers()["origin"] ?? "*";
+  return {
+    "access-control-allow-origin": origin,
+    "access-control-allow-credentials": "true",
+    "access-control-allow-methods": "GET,POST,PATCH,PUT,DELETE,OPTIONS",
+    "access-control-allow-headers": "content-type,authorization",
+    "access-control-max-age": "600",
+    vary: "Origin",
+  };
+}
+
 async function json(route: Route, status: number, body?: unknown) {
+  const headers = corsHeaders(route);
   if (body === undefined) {
-    await route.fulfill({ status, contentType: "application/json", body: "" });
+    await route.fulfill({ status, headers, contentType: "application/json", body: "" });
     return;
   }
-  await route.fulfill({ status, contentType: "application/json", body: JSON.stringify(body) });
+  await route.fulfill({
+    status,
+    headers,
+    contentType: "application/json",
+    body: JSON.stringify(body),
+  });
 }
 
 /**
@@ -202,6 +233,12 @@ export async function installApiMocks(page: Page, initial: Partial<MockApiState>
     const url = new URL(req.url());
     const path = url.pathname.replace(/^\/api/, "");
     const method = req.method();
+
+    // CORS preflight — answered for *every* path before routing, since a
+    // failed preflight means the real request is never even attempted.
+    if (method === "OPTIONS") {
+      return json(route, 204);
+    }
 
     // ---- auth ----
     if (path === "/auth/login" && method === "POST") {
@@ -293,6 +330,15 @@ export async function installApiMocks(page: Page, initial: Partial<MockApiState>
         playlist.items = playlist.items.filter((i) => i.song.id !== removeSongMatch[2]);
       }
       return json(route, 204);
+    }
+
+    // ---- search history ----
+    // `GET /search/history` returns a plain SearchHistoryEntry[] in the
+    // real API (see api-client.listSearchHistory), NOT a paginated
+    // envelope. The generic fallback below would make the command
+    // palette crash on `data.map(...)` the moment a user is signed in.
+    if (path === "/search/history") {
+      return json(route, method === "GET" ? 200 : 204, method === "GET" ? [] : undefined);
     }
 
     // ---- anything else the shell/panels touch: answer with a safe,

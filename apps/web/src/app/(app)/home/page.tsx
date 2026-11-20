@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { Song } from "@melune/types";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { useTranslation } from "@/hooks/use-translation";
@@ -76,6 +77,17 @@ function FeaturedMix({
   );
 }
 
+/** Personal greeting for Home. Keys already exist in en.ts/fa.ts — the
+ *  heading had gone missing from the page, which is why the E2E suite
+ *  (which asserts the greeting) kept failing. Resolved after mount so
+ *  the server's UTC hour can't cause a hydration mismatch. */
+function greetingKeyForHour(hour: number): "home.greetNight" | "home.greetMorning" | "home.greetAfternoon" | "home.greetEvening" {
+  if (hour < 5) return "home.greetNight";
+  if (hour < 12) return "home.greetMorning";
+  if (hour < 18) return "home.greetAfternoon";
+  return "home.greetEvening";
+}
+
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-6 lg:gap-8">
@@ -96,6 +108,10 @@ export default function HomePage() {
   const { user, isChecking } = useRequireAuth();
   const feed = useHomeFeed();
   const { t } = useTranslation();
+  const [greeting, setGreeting] = useState<ReturnType<typeof greetingKeyForHour> | null>(null);
+  useEffect(() => {
+    setGreeting(greetingKeyForHour(new Date().getHours()));
+  }, []);
   const data = feed.data;
 
   const apiMadeForYou = data?.madeForYou ?? [];
@@ -119,6 +135,16 @@ export default function HomePage() {
 
   return (
     <main className="mx-auto flex max-w-7xl flex-col gap-6 py-6 lg:gap-8">
+      {!isChecking && greeting && user && (
+        <header className="flex flex-wrap items-end justify-between gap-2">
+          <h1 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            {t(greeting)}
+            {user.username ? `, ${user.username}` : ""}
+          </h1>
+          <p className="text-sm text-muted">{t("home.nowTrending")}</p>
+        </header>
+      )}
+
       {(isChecking || feed.isLoading) && <HomeSkeleton />}
 
       {!isChecking && feed.isError && (

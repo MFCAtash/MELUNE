@@ -135,6 +135,18 @@ export function PlayerEngine() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track?.id]);
 
+  // The catalog already knows each track's duration. Seed the store with
+  // it as soon as a track is selected instead of waiting for the audio
+  // element's `loadedmetadata` — metadata never arrives for offline or
+  // blocked sources, and until then the seek bar is stuck at max=1 with
+  // a meaningless 0:00 duration. Real metadata still overrides this in
+  // `onLoadedMetadata` below when it does arrive.
+  useEffect(() => {
+    if (track && Number.isFinite(track.duration) && track.duration > 0) {
+      setDuration(track.duration);
+    }
+  }, [track?.id, track?.duration, setDuration]);
+
   // Revoke the last offline object URL and tear down hls.js on unmount.
   useEffect(() => {
     return () => {
