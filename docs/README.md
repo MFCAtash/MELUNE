@@ -21,6 +21,13 @@ installation and a feature tour.
 | [github-access.md](github-access.md) | Repository roles and read-only collaborator script |
 | [media.md](media.md) | Git LFS migration and moving demo media to R2 |
 | [project-analysis-fa.md](project-analysis-fa.md) | تحلیل فنی جامع مونوریپو (سند تاریخی ۲۰۲۶-۱۱-۱۸) |
+| [roadmap-visuals-fa.md](roadmap-visuals-fa.md) | نقشهٔ راه جلدها، هویت بصری و قابلیت‌های نمایشی |
+
+## Visual assets
+
+All covers, screenshots and the social preview live in
+[`assets/`](assets). Each cover ships as an editable SVG plus a PNG render at
+1280×640. The hero cover used in both READMEs is **Emerald Editorial**.
 
 ## Release history
 
