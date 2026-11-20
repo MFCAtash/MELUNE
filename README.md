@@ -27,10 +27,15 @@ hybrid recommendation engine — all in one TypeScript monorepo.
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
-Alternative cover concepts: [Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png) ·
-[Aurora Glass](docs/assets/melune-cover-aurora-glass.png) ·
-[Persian Noir](docs/assets/melune-cover-persian-noir.png) ·
-[Editable SVG](docs/assets/melune-social-cover.svg)
+### Cover concepts (click to open full size)
+
+|  |  |  |  |
+|---|---|---|---|
+| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
+| [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
+
+All covers are 1280×640 SVG (vector, editable) + PNG renders in
+[`docs/assets/`](docs/assets). The hero above uses **Emerald Editorial**.
 
 ---
 

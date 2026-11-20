@@ -27,10 +27,13 @@
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
-جلدهای جایگزین: [Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png) ·
-[Aurora Glass](docs/assets/melune-cover-aurora-glass.png) ·
-[Persian Noir](docs/assets/melune-cover-persian-noir.png) ·
-[نسخهٔ قابلویر SVG](docs/assets/melune-social-cover.svg)
+| جلدها (برای دیدن کامل کلیک کنید) | | | |
+|---|---|---|---|
+| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
+| [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
+
+همهٔ جلدها ۱۲۸۰×۶۴۰ و برداری (SVG قابلویر) همراه با رندر PNG در
+[`docs/assets/`](docs/assets) قرار دارند. جلد بالای صفحه **Emerald Editorial** است.
 
 ---
 
