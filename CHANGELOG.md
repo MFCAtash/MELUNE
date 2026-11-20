@@ -52,6 +52,9 @@ First public release of MELUNE as an open-source repository.
   that follows the host's play/pause/seek/track.
 - Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
   roomier, aligned spacing in both READMEs.
+- API E2E: `discover.e2e-spec.ts` now proves the history row was written and
+  polls the home feed briefly before asserting, removing a flaky single-frame
+  snapshot failure that was reproducible only on CI.
 - API E2E: added `--forceExit` to `npm run test:e2e`. The Socket.io
   `RoomsGateway` keeps a server handle open after Nest closes in the test
   harness, which left Jest hanging indefinitely in CI even after every

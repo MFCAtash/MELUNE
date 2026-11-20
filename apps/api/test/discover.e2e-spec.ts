@@ -15,6 +15,7 @@ describe("Discover (e2e)", () => {
   const artistUser = { email: `discoverartist-${stamp}@example.com`, username: `discoverartist${stamp}`, password: "supersecret123" };
 
   let listenerToken: string;
+  let listenerId: string;
   let artistToken: string;
   let songId: string;
   let genreId: string;
@@ -33,8 +34,8 @@ describe("Discover (e2e)", () => {
     prisma = moduleFixture.get(PrismaService);
 
     const listenerRes = await request(http).post("/api/auth/register").send(listener).expect(201);
+    listenerId = listenerRes.body.user.id;
     listenerToken = (await request(http).post("/api/auth/login").send(listener).expect(200)).body.accessToken;
-    void listenerRes;
 
     const artistRes = await request(http).post("/api/auth/register").send(artistUser).expect(201);
     // Promote straight to ADMIN too, so this one account can create both
@@ -93,12 +94,28 @@ describe("Discover (e2e)", () => {
       .set("Authorization", `Bearer ${listenerToken}`)
       .expect(204);
 
-    const res = await request(http)
-      .get("/api/discover/home")
-      .set("Authorization", `Bearer ${listenerToken}`)
-      .expect(200);
+    // First prove the write actually landed. If it didn't, the failure is
+    // in POST /me/history — far easier to diagnose than an empty feed.
+    const written = await prisma.listeningHistory.findFirst({ where: { userId: listenerId, songId } });
+    expect(written).not.toBeNull();
 
-    expect(res.body.recentlyPlayed.some((s: { id: string }) => s.id === songId)).toBe(true);
+    // Recently-played is read from a different query than the one that
+    // served the anonymous GET in the previous test. Poll briefly instead
+    // of asserting on the very first frame — the API is eventually
+    // consistent across its cache/history layers in CI, and a single
+    // snapshot made this suite flaky.
+    let recent: Array<{ id: string }> = [];
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      const res = await request(http)
+        .get("/api/discover/home")
+        .set("Authorization", `Bearer ${listenerToken}`)
+        .expect(200);
+      recent = res.body.recentlyPlayed;
+      if (recent.some((s) => s.id === songId)) break;
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+
+    expect(recent.some((s) => s.id === songId)).toBe(true);
     // madeForYou excludes songs already played, and there's only one song
     // in this genre (the one just played), so it correctly comes back empty
     // rather than null — the user *does* have genre signal now.
