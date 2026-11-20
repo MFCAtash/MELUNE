@@ -97,7 +97,8 @@ export class StorageService {
       );
     }
 
-    const extension = filename.split(".").pop()?.toLowerCase() ?? "bin";
+    const dot = filename.lastIndexOf(".");
+    const extension = dot > 0 ? filename.slice(dot + 1).toLowerCase() : "bin";
     const key = `${rules.prefix}/${ownerId}/${uuid()}.${extension}`;
 
     const command = new PutObjectCommand({

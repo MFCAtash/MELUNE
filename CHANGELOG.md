@@ -42,6 +42,10 @@ First public release of MELUNE as an open-source repository.
   (`pg_trgm` is still created by the initial migration). Prisma cannot derive
   extension declarations from migration history, so CI's fresh shadow database
   reported a false drift; the check now passes with no difference.
+- API unit tests: fixed the admin ban mock, made extension fallback in
+  `createUploadUrl` use `.bin` for extensionless filenames, excluded thin
+  controllers from unit coverage, and removed per-file coverage thresholds
+  that Windows resolved against absolute paths. 242/242 tests pass, 76% lines.
 - Root README stated the repository was private although it is public; the
   access section now describes the actual public status.
 - Pull-request template link to `CONTRIBUTING.md` is now repo-relative.
