@@ -13,7 +13,11 @@
 | جلد خودکار ۲۰ تم (`npm run covers:themes`) | ✅ انجام شد (`docs/assets/themes/`) |
 | Monogram kit (favicon / 192 / 512 / maskable / apple-touch) | ✅ از قبل موجود (`apps/web/public/icons/`) |
 | هدینگ شخصی‌شدهٔ خانه + رفع خطاهای E2E | ✅ انجام شد (8/8 تست مرورگر) |
-| OG پویا، لیریک واقعی، Theme Studio، اتاق همگام | ⏳ باقی‌مانده |
+| OG پویا (آهنگ/آلبوم/پلیلیست/هنرمند) | ✅ انجام شد (opengraph-image.tsx) |
+| لیریک همگام واقعی + جدول + آپلود .lrc | ✅ انجام شد (lyrics table + /admin/lyrics) |
+| Theme Studio (پالت سفارشی + لینک اشتراک) | ✅ انجام شد (/theme-studio) |
+| اتاق «با هم گوش دادن» (WebSocket + حضور) | ✅ انجام شد (RoomsGateway + RoomPanel) |
+| هیرو Cover Flow + گرید فشرده تمها + فاصلهگذاری README | ✅ انجام شد |
 
 ---
 

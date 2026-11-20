@@ -4,6 +4,12 @@
 
 </div>
 
+<br />
+
+<p align="center"><sub>Cover Flow — the actual album and artist artwork shipped with MELUNE</sub></p>
+
+<br />
+
 # MELUNE
 
 **MELUNE — Your Music. Smarter.**
@@ -17,6 +23,10 @@ The artwork above is the **real catalogue shipped with the project** (Googoosh,
 Ebi, Shadmehr Aghili, Hayedeh…), arranged exactly like the app's Cover Flow.
 The screenshots below are from the running product — not mockups.
 
+<br />
+
+<p align="center">
+
 [![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -24,6 +34,10 @@ The screenshots below are from the running product — not mockups.
 [![Node >= 20](https://img.shields.io/badge/Node-%3E%3D20-green.svg)](package.json)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#tech-stack)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#tech-stack)
+
+</p>
+
+<br />
 
 ## 🖼 MELUNE in pictures
 
@@ -33,10 +47,15 @@ halos and glows — while the per-track ambient color follows the artwork being
 played. The full-screen player adds an audio-reactive Sonic Canvas, synced
 lyrics, a real waveform seek bar, focus mode, sleep timer and a share card.
 
-![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
+<p align="center">
+  <img src="docs/assets/melune-themes-grid.png" alt="MELUNE — 20 generated theme covers" width="100%" />
+</p>
+<p align="center"><sub>Twenty theme palettes, generated from <code>globals.css</code> · <a href="docs/assets/melune-themes-all.png">full 21-theme screenshot</a></sub></p>
 
-[Open the 20 generated theme cover cards →](docs/assets/themes/index.html)
-(editable SVG, generated from `globals.css` tokens with `npm run covers:themes`).
+<p align="center">
+  <a href="docs/assets/themes/index.html">Open the 20 editable theme cover cards →</a>
+  <sub>(regenerate with <code>npm run covers:themes</code>)</sub>
+</p>
 
 ## 🎨 Cover gallery
 
@@ -45,18 +64,56 @@ MELUNE's public face is a set of twelve 1280×640 cover concepts. The hero uses
 direction; **Analog Cassette** matches the era of the demo catalogue. Every
 card is an editable SVG with embedded fonts plus a PNG render.
 
-| | | | |
-|---|---|---|---|
-| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |
-| [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
-| [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
+<table>
+<tr>
+<td align="center"><a href="docs/assets/melune-social-cover.svg"><img src="docs/assets/melune-social-cover.png" alt="Emerald Editorial" width="100%" /></a><br /><sub><b>Emerald Editorial</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-persian-miniature.svg"><img src="docs/assets/melune-cover-persian-miniature.png" alt="Persian Miniature" width="100%" /></a><br /><sub><b>Persian Miniature</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-analog-cassette.svg"><img src="docs/assets/melune-cover-analog-cassette.png" alt="Analog Cassette" width="100%" /></a><br /><sub><b>Analog Cassette</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-spectrum-glass.svg"><img src="docs/assets/melune-cover-spectrum-glass.png" alt="Spectrum Glass" width="100%" /></a><br /><sub><b>Spectrum Glass</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-brutalist-grid.svg"><img src="docs/assets/melune-cover-brutalist-grid.png" alt="Brutalist Grid" width="100%" /></a><br /><sub><b>Brutalist Grid</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-neon-vinyl.png"><img src="docs/assets/melune-cover-neon-vinyl.png" alt="Neon Vinyl" width="100%" /></a><br /><sub><b>Neon Vinyl</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-aurora-glass.png"><img src="docs/assets/melune-cover-aurora-glass.png" alt="Aurora Glass" width="100%" /></a><br /><sub><b>Aurora Glass</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-persian-noir.png"><img src="docs/assets/melune-cover-persian-noir.png" alt="Persian Noir" width="100%" /></a><br /><sub><b>Persian Noir</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-golden-hour.svg"><img src="docs/assets/melune-cover-golden-hour.png" alt="Golden Hour" width="100%" /></a><br /><sub><b>Golden Hour</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-cyber-lime.svg"><img src="docs/assets/melune-cover-cyber-lime.png" alt="Cyber Lime" width="100%" /></a><br /><sub><b>Cyber Lime</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-sonic-canvas.svg"><img src="docs/assets/melune-cover-sonic-canvas.png" alt="Sonic Canvas" width="100%" /></a><br /><sub><b>Sonic Canvas</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-type-stack.svg"><img src="docs/assets/melune-cover-type-stack.png" alt="Type Stack" width="100%" /></a><br /><sub><b>Type Stack</b></sub></td>
+</tr>
+</table>
+
+<br />
 
 **Feature strip** and **1080×1920 story card** for reuse in slides and social
 posts:
 
-[![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
-&nbsp;
-<a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="220" /></a>
+<br />
+
+<p align="center">
+  <a href="docs/assets/melune-feature-strip.svg"><img src="docs/assets/melune-feature-strip.png" alt="MELUNE feature strip" width="80%" /></a>
+</p>
+
+<br />
+
+<p align="center">
+  <a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="230" /></a>
+</p>
+
+<br />
 
 ---
 

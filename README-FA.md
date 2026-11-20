@@ -4,6 +4,12 @@
 
 </div>
 
+<br />
+
+<p align="center"><sub>Cover Flow — کاور آلبومها و خوانندگانی که واقعاً در MELUNE هستند</sub></p>
+
+<br />
+
 # MELUNE — موسیقی شما، هوشمندتر
 
 **MELUNE — پلتفرم فولاستک پخش و کشف موسیقی، فارسیمحور و RTL.**
@@ -16,6 +22,10 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 و دقیقاً همان Cover Flow را نشان میدهد که در اپلیکیشن در حال اجرا است. تصاویر پایین هم
 از خود نرمافزارند، نه ماکت.
 
+<br />
+
+<p align="center">
+
 [![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -24,6 +34,10 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#پشتهٔ-فناوری)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#پشتهٔ-فناوری)
 
+</p>
+
+<br />
+
 ## 🖼 MELUNE تصویر به تصویر
 
 پیش از جزئیات فنی، ببینید محصول واقعاً چگونه است. **۲۱ تم** تمام پوسته را رنگ میکنند —
@@ -31,10 +45,15 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 پلیر تمامصفحه دارای Sonic Canvas واکنشپذیر به صوت، متن آهنگ، نوار جستجوی موجی واقعی،
 حالت تمرکز، تایمر خواب و کارت اشتراک است.
 
-![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
+<p align="center">
+  <img src="docs/assets/melune-themes-grid.png" alt="MELUNE — 20 generated theme covers" width="100%" />
+</p>
+<p align="center"><sub>۲۰ پالت تم، تولیدشده از <code>globals.css</code> · <a href="docs/assets/melune-themes-all.png">اسکرینشات کامل ۲۱ تم</a></sub></p>
 
-[۲۰ جلد تم تولیدشده را ببینید →](docs/assets/themes/index.html)
-(SVG قابلویر، تولیدشده از توکنهای `globals.css` با `npm run covers:themes`).
+<p align="center">
+  <a href="docs/assets/themes/index.html">۲۰ جلد تم قابلویر را ببینید →</a>
+  <sub>(با <code>npm run covers:themes</code> بازتولید میشوند)</sub>
+</p>
 
 ## 🎨 گالری جلدها
 
@@ -42,17 +61,55 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 **Persian Miniature** جهت فرهنگی ایرانی و **Analog Cassette** همخوان با دورهٔ کاتالوگ
 دموست. هر جلد هم SVG قابلویر (با فونت جاسازیشده) و هم رندر PNG دارد.
 
-| | | | |
-|---|---|---|---|
-| [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |
-| [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
-| [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
+<table>
+<tr>
+<td align="center"><a href="docs/assets/melune-social-cover.svg"><img src="docs/assets/melune-social-cover.png" alt="Emerald Editorial" width="100%" /></a><br /><sub><b>Emerald Editorial</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-persian-miniature.svg"><img src="docs/assets/melune-cover-persian-miniature.png" alt="Persian Miniature" width="100%" /></a><br /><sub><b>Persian Miniature</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-analog-cassette.svg"><img src="docs/assets/melune-cover-analog-cassette.png" alt="Analog Cassette" width="100%" /></a><br /><sub><b>Analog Cassette</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-spectrum-glass.svg"><img src="docs/assets/melune-cover-spectrum-glass.png" alt="Spectrum Glass" width="100%" /></a><br /><sub><b>Spectrum Glass</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-brutalist-grid.svg"><img src="docs/assets/melune-cover-brutalist-grid.png" alt="Brutalist Grid" width="100%" /></a><br /><sub><b>Brutalist Grid</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-neon-vinyl.png"><img src="docs/assets/melune-cover-neon-vinyl.png" alt="Neon Vinyl" width="100%" /></a><br /><sub><b>Neon Vinyl</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-aurora-glass.png"><img src="docs/assets/melune-cover-aurora-glass.png" alt="Aurora Glass" width="100%" /></a><br /><sub><b>Aurora Glass</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-persian-noir.png"><img src="docs/assets/melune-cover-persian-noir.png" alt="Persian Noir" width="100%" /></a><br /><sub><b>Persian Noir</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-golden-hour.svg"><img src="docs/assets/melune-cover-golden-hour.png" alt="Golden Hour" width="100%" /></a><br /><sub><b>Golden Hour</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-cyber-lime.svg"><img src="docs/assets/melune-cover-cyber-lime.png" alt="Cyber Lime" width="100%" /></a><br /><sub><b>Cyber Lime</b></sub></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td align="center"><a href="docs/assets/melune-cover-sonic-canvas.svg"><img src="docs/assets/melune-cover-sonic-canvas.png" alt="Sonic Canvas" width="100%" /></a><br /><sub><b>Sonic Canvas</b></sub></td>
+<td align="center"><a href="docs/assets/melune-cover-type-stack.svg"><img src="docs/assets/melune-cover-type-stack.png" alt="Type Stack" width="100%" /></a><br /><sub><b>Type Stack</b></sub></td>
+</tr>
+</table>
+
+<br />
 
 **نوار ویژگیها** و **کارت استوری ۱۰۸۰×۱۹۲۰** برای اسلاید و شبکههای اجتماعی:
 
-[![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
-&nbsp;
-<a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="220" /></a>
+<br />
+
+<p align="center">
+  <a href="docs/assets/melune-feature-strip.svg"><img src="docs/assets/melune-feature-strip.png" alt="MELUNE feature strip" width="80%" /></a>
+</p>
+
+<br />
+
+<p align="center">
+  <a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="230" /></a>
+</p>
+
+<br />
 
 ---
 

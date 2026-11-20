@@ -197,6 +197,10 @@ model Song {
   likes            Like[]
   playlistEntries  PlaylistSong[]
   listeningHistory ListeningHistory[]
+  // Real synced lyrics (LRC) — one optional document per song. Kept in a
+  // separate table so the (potentially large) source text never inflates
+  // song list queries. See catalog/lyrics/.
+  lyrics           Lyric?
 
   @@index([artistId])
   @@index([albumId])
@@ -205,6 +209,24 @@ model Song {
   // fuzzy matching in SearchService without a separate search engine.
   @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "songs_title_trgm_idx")
   @@map("songs")
+}
+
+// ---- Synced lyrics (LRC) ----
+// One document per song. `lines` is a JSON array of
+// { timeSeconds: number, text: string } so the web player can consume it
+// without parsing LRC in the browser; `content` keeps the original upload
+// verbatim for re-parsing/re-export later.
+model Lyric {
+  id        String   @id @default(uuid())
+  songId    String   @unique
+  song      Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  content   String   @db.Text
+  lines     Json
+  language  String   @default("und")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("lyrics")
 }
 
 // ---- Phase 5: Library (Likes, Playlists, Saved items, History) ----

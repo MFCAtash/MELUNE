@@ -37,6 +37,21 @@ First public release of MELUNE as an open-source repository.
 - `scripts/generate-theme-covers.mjs` (`npm run covers:themes`) — generates one
   editable 1280×640 cover per theme straight from `globals.css` tokens plus an
   HTML gallery in `docs/assets/themes/`.
+- Dynamic OpenGraph images for track, album, playlist and artist pages
+  (`opengraph-image.tsx` per route, shared `lib/og-card.tsx`), with a
+  graceful generic card when the API is unreachable.
+- Real synced lyrics: a `lyrics` table + forward-only migration, an LRC parser
+  and public `GET /lyrics/:songId` plus role-restricted `PUT`/`DELETE`, an
+  admin `.lrc` upload page at `/admin/lyrics`, and the player reading real
+  lines instead of the old placeholder provider.
+- Theme Studio (`/theme-studio`): author a five-color palette with live
+  preview, export/import JSON, share it with a `?p=` link, and apply it
+  without a flash on reload (inline CSS variables + no-flash script).
+- "Listen together" rooms: an authenticated Socket.io namespace with
+  in-memory rooms, host-only transport control, presence, and a player panel
+  that follows the host's play/pause/seek/track.
+- Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
+  roomier, aligned spacing in both READMEs.
 - Repository access guide and a helper script for read-only collaborators.
 
 ### Changed

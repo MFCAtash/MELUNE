@@ -45,6 +45,21 @@ export class ApiError extends Error {
   }
 }
 
+// ---- Synced lyrics (LRC) ----
+
+export interface LyricLineDto {
+  timeSeconds: number;
+  text: string;
+}
+
+export interface LyricsResponse {
+  songId: string;
+  lines: LyricLineDto[];
+  language: string;
+  content: string;
+  updatedAt: string;
+}
+
 // ---- Catalog write payloads (Phase 3 read, Phase 8.2 admin write) ----
 
 export interface SongWritePayload {
@@ -494,6 +509,27 @@ export class ApiClient {
 
   async clearSearchHistory(): Promise<void> {
     await this.request<void>("/search/history", { method: "DELETE" });
+  }
+
+  // ---- Synced lyrics (LRC) ----
+
+  /** `null` means "no lyrics uploaded for this song" — a normal state,
+   *  not an error, so the player can show an empty lyrics tab calmly. */
+  async getLyrics(songId: string): Promise<LyricsResponse | null> {
+    try {
+      return await this.request<LyricsResponse>(`/lyrics/${encodeURIComponent(songId)}`, { method: "GET" });
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 404) return null;
+      throw error;
+    }
+  }
+
+  /** Upload/replace a `.lrc` document (ARTIST/ADMIN only). */
+  async uploadLyrics(songId: string, content: string, language = "und"): Promise<LyricsResponse> {
+    return this.request<LyricsResponse>(`/lyrics/${encodeURIComponent(songId)}`, {
+      method: "PUT",
+      body: JSON.stringify({ content, language }),
+    });
   }
 
   // ---- Push notifications (Phase 8) ----

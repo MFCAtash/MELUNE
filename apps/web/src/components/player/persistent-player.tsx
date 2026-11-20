@@ -38,6 +38,7 @@ import { VinylCover } from "./vinyl-cover";
 import { SonicCanvas } from "./sonic-canvas";
 import { SleepTimerMenu } from "./sleep-timer-menu";
 import { EqualizerPopover } from "./equalizer-popover";
+import { RoomPanel } from "./room-panel";
 import { Cover } from "@/components/ui/cover";
 
 export function PersistentPlayer() {
@@ -269,6 +270,7 @@ export function PersistentPlayer() {
           </div>
 
           <div className="flex items-center justify-end gap-3">
+            <RoomPanel />
             <SleepTimerMenu />
             <EqualizerPopover />
             <button

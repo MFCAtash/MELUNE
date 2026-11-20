@@ -1,9 +1,8 @@
-// Contract only. No song in the catalog has real synced lyrics yet —
-// that needs a `lyrics` table/field and an upload path, which belongs
-// to a future catalog-enrichment phase, not Phase 4. FullScreenPlayer
-// depends only on this shape, so wiring up a real provider later means
-// implementing this interface and swapping `mockLyricsProvider` for
-// it — zero changes to any component that renders lyrics.
+// Lyrics provider contract. `apiLyricsProvider` is the real one (backed by
+// the `lyrics` table and the LRC upload endpoint); `mockLyricsProvider` is
+// kept only for component tests that need deterministic lines.
+// FullScreenPlayer depends solely on this shape, so swapping providers
+// never changes a component that renders lyrics.
 
 export interface LyricLine {
   timeSeconds: number;
@@ -14,10 +13,25 @@ export interface LyricsProvider {
   getLyrics(songId: string): Promise<LyricLine[] | null>;
 }
 
+import { apiClient } from "@/lib/api-client";
+
+/** Real provider: reads the uploaded `.lrc` document for this song from
+ *  the API. `null` (404 / network failure) is a normal "no lyrics yet"
+ *  state — the player just shows an empty tab instead of inventing text. */
+export const apiLyricsProvider: LyricsProvider = {
+  async getLyrics(songId: string): Promise<LyricLine[] | null> {
+    try {
+      const response = await apiClient.getLyrics(songId);
+      return response?.lines ?? null;
+    } catch {
+      return null;
+    }
+  },
+};
+
 /**
- * Clearly-labeled placeholder — returns the same few generic lines for
- * every song so the karaoke-style UI can be built and tested now. This
- * is UI scaffolding, not a claim that these are a song's real lyrics.
+ * Deterministic placeholder used by component tests only — never by the
+ * running app. Kept here so the rendering contract stays stable.
  */
 export const mockLyricsProvider: LyricsProvider = {
   async getLyrics(_songId: string): Promise<LyricLine[] | null> {

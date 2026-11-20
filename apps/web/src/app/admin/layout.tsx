@@ -7,6 +7,7 @@ import {
   BarChart3,
   ChevronLeft,
   Disc3,
+  FileText,
   LayoutDashboard,
   ListMusic,
   Mic2,
@@ -23,6 +24,7 @@ const NAV: { href: string; labelKey: TranslationKey; icon: typeof LayoutDashboar
   { href: "/admin/albums", labelKey: "admin.nav.albums", icon: Disc3 },
   { href: "/admin/catalog", labelKey: "admin.nav.catalog", icon: Mic2 },
   { href: "/admin/analytics", labelKey: "admin.nav.analytics", icon: BarChart3 },
+  { href: "/admin/lyrics", labelKey: "admin.nav.lyrics", icon: FileText },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {

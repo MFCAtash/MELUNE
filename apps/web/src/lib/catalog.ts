@@ -1,4 +1,4 @@
-import type { Album, Artist, Genre, Paginated, Song } from "@melune/types";
+import type { Album, Artist, Genre, Paginated, Playlist, Song } from "@melune/types";
 
 /**
  * Server-side catalog fetches (React Server Components).
@@ -41,6 +41,7 @@ export const catalog = {
   getSong: (idOrSlug: string) => getJson<Song>(`/songs/${idOrSlug}`),
   getAlbum: (idOrSlug: string) => getJson<Album>(`/albums/${idOrSlug}`),
   getArtist: (idOrSlug: string) => getJson<Artist>(`/artists/${idOrSlug}`),
+  getPlaylist: (idOrSlug: string) => getJson<Playlist>(`/playlists/${idOrSlug}`),
   getGenre: (idOrSlug: string) => getJson<Genre>(`/genres/${idOrSlug}`),
   // GET /genres is @Public() on the API and unpaginated (genres are a
   // small, fixed-ish list) — used by the onboarding genre picker.

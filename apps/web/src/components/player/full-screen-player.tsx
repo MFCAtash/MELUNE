@@ -24,7 +24,7 @@ import { useTranslation } from "@/hooks/use-translation";
 import { useAmbientTheme } from "@/hooks/use-ambient-theme";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { seekBy } from "@/lib/player-utils";
-import { mockLyricsProvider, type LyricLine } from "@/lib/contracts/lyrics";
+import { apiLyricsProvider, type LyricLine } from "@/lib/contracts/lyrics";
 import { WaveformSeekBar } from "./waveform-seek-bar";
 import { VinylCover } from "./vinyl-cover";
 import { SonicCanvas } from "./sonic-canvas";
@@ -112,7 +112,7 @@ export function FullScreenPlayer({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     if (!track) return;
     let cancelled = false;
-    mockLyricsProvider.getLyrics(track.id).then((lines) => {
+    apiLyricsProvider.getLyrics(track.id).then((lines) => {
       if (!cancelled) setLyrics(lines);
     });
     return () => {
@@ -125,7 +125,7 @@ export function FullScreenPlayer({ onClose }: { onClose: () => void }) {
     : -1;
 
   // Phase 10.2 — Player Polish: smooth auto-scroll to the active lyric line
-  // instead of leaving the reader to scroll manually. `mockLyricsProvider`
+  // instead of leaving the reader to scroll manually. `apiLyricsProvider`
   // is still a placeholder (see lib/contracts/lyrics.ts) — only the
   // rendering improves here, so swapping in a real synced-lyrics source
   // later is a drop-in. Must run before the `!track` early return below

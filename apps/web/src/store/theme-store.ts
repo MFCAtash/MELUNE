@@ -23,11 +23,23 @@ export type Theme =
   | "golden-hour"
   | "emerald-velvet"
   | "rose-quartz"
-  | "cyber-lime";
+  | "cyber-lime"
+  // Theme Studio: a user-authored palette written as inline CSS variables.
+  | "custom";
+
+export interface CustomThemePalette {
+  background: string;
+  surface: string;
+  foreground: string;
+  brandA: string;
+  brandB: string;
+}
 
 interface ThemeState {
   theme: Theme;
+  customTheme: CustomThemePalette | null;
   setTheme: (theme: Theme) => void;
+  setCustomTheme: (palette: CustomThemePalette | null) => void;
   toggleTheme: () => void;
 }
 
@@ -43,11 +55,16 @@ export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
       theme: "dark",
+      customTheme: null,
       setTheme: (theme) => {
         set({ theme });
         if (typeof document !== "undefined") {
           document.documentElement.dataset.theme = theme;
         }
+      },
+      setCustomTheme: (palette) => {
+        set({ customTheme: palette });
+        if (palette) get().setTheme("custom");
       },
       toggleTheme: () => get().setTheme(get().theme === "dark" ? "light" : "dark"),
     }),

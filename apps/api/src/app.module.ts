@@ -20,6 +20,7 @@ import { SearchModule } from "./search/search.module";
 import { RecommendationsModule } from "./recommendations/recommendations.module";
 import { AdminModule } from "./admin/admin.module";
 import { AnalyticsModule } from "./analytics/analytics.module";
+import { RoomsModule } from "./rooms/rooms.module";
 import { validateEnv } from "./config/env.validation";
 
 @Module({
@@ -57,6 +58,7 @@ import { validateEnv } from "./config/env.validation";
     RecommendationsModule,
     AdminModule,
     AnalyticsModule,
+    RoomsModule,
   ],
   providers: [
     // Applies the default limit above (100 req/min) to every route.

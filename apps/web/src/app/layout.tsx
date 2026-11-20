@@ -6,6 +6,7 @@ import { PersistentPlayer } from "@/components/player/persistent-player";
 import { KeyboardShortcutsProvider } from "@/components/keyboard/keyboard-shortcuts-provider";
 import { Providers } from "@/components/providers";
 import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
+import { CustomThemeApplier } from "@/components/shell/custom-theme-applier";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -231,6 +232,39 @@ const NO_FLASH_AMOLED_SCRIPT = `
 })();
 `;
 
+// Theme Studio palette. Lives in the same persisted store as `theme`, so
+// reading `melune-theme` is enough. Written as inline CSS variables before
+// paint — otherwise a custom theme would flash the built-in dark shell on
+// every reload (same reasoning as NO_FLASH_THEME_SCRIPT above).
+const NO_FLASH_CUSTOM_SCRIPT = `
+(function () {
+  try {
+    var raw = localStorage.getItem("melune-theme");
+    if (!raw) return;
+    var state = JSON.parse(raw).state || {};
+    if (state.theme !== "custom" || !state.customTheme) return;
+    var p = state.customTheme;
+    var rgb = function (hex) {
+      var v = String(hex).replace("#", "");
+      var n = parseInt(v, 16);
+      return ((n >> 16) & 255) + " " + ((n >> 8) & 255) + " " + (n & 255);
+    };
+    var vars = {
+      "--color-background": rgb(p.background),
+      "--color-surface": rgb(p.surface),
+      "--color-foreground": rgb(p.foreground),
+      "--color-primary": rgb(p.brandA),
+      "--color-accent": rgb(p.brandB),
+      "--brand-a": rgb(p.brandA),
+      "--brand-b": rgb(p.brandB),
+      "--halo-1": rgb(p.brandA),
+      "--halo-2": rgb(p.brandB)
+    };
+    for (var k in vars) document.documentElement.style.setProperty(k, vars[k]);
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -248,6 +282,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_LOCALE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_AMOLED_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: NO_FLASH_CUSTOM_SCRIPT }} />
         <script
           type="application/ld+json"
           // JSON.stringify output is safe: none of these values come from
@@ -262,6 +297,7 @@ export default function RootLayout({
           <PersistentPlayer />
           <KeyboardShortcutsProvider />
           <ServiceWorkerRegister />
+          <CustomThemeApplier />
         </Providers>
       </body>
     </html>

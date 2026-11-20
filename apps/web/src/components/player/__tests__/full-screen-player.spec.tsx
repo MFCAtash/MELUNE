@@ -18,6 +18,20 @@ vi.mock("@/lib/api-client", () => ({
     unlikeSong: vi.fn().mockResolvedValue(undefined),
     listMyPlaylists: vi.fn().mockResolvedValue({ items: [], page: 1, limit: 20, total: 0, totalPages: 1 }),
     addSongToPlaylist: vi.fn().mockResolvedValue(undefined),
+    // Real lyrics provider reads through apiClient now — keep the same
+    // deterministic lines the lyrics-tab assertions expect.
+    getLyrics: vi.fn().mockResolvedValue({
+      songId: "song-1",
+      language: "en",
+      content: "",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      lines: [
+        { timeSeconds: 0, text: "♪ Instrumental intro ♪" },
+        { timeSeconds: 8, text: "Lyrics aren't available for this track yet" },
+        { timeSeconds: 16, text: "This view is wired up and ready" },
+        { timeSeconds: 24, text: "for real synced lyrics in a future phase" },
+      ],
+    }),
   },
 }));
 

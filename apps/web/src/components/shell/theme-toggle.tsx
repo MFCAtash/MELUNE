@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Palette } from "lucide-react";
+import { Palette, SlidersHorizontal } from "lucide-react";
+import Link from "next/link";
 import { useThemeStore, type Theme } from "@/store/theme-store";
 import { useTranslation } from "@/hooks/use-translation";
 
@@ -157,6 +158,18 @@ export function ThemeToggle() {
           <p className="px-3 py-2 text-xs font-medium uppercase tracking-wide text-muted">
             {t("common.theme")}
           </p>
+          <Link
+            href="/theme-studio"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="mb-1 flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-start text-sm text-foreground hover:bg-surface"
+          >
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-melune-gradient text-white">
+              <SlidersHorizontal size={11} />
+            </span>
+            <span className="flex-1 truncate">{t("common.themeStudio")}</span>
+            <span className="text-xs text-muted">↗</span>
+          </Link>
           {SIGNATURE_THEMES.map((x) => (
             <ThemeOption
               key={x.id}

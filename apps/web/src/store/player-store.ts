@@ -34,6 +34,9 @@ interface PlayerState {
   next: () => void;
   previous: () => void;
   seek: (time: number) => void;
+  /** Directly select a queue position — used by "listen together" to
+   *  follow the host's track without rebuilding the whole queue. */
+  setCurrentIndex: (index: number) => void;
   setVolume: (volume: number) => void;
   toggleMute: () => void;
   toggleShuffle: () => void;
@@ -160,6 +163,12 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   seek: (time) => set((s) => ({ currentTime: time, seekVersion: s.seekVersion + 1 })),
+  setCurrentIndex: (index) =>
+    set((s) => ({
+      currentIndex: s.queue.length === 0 ? -1 : Math.max(0, Math.min(index, s.queue.length - 1)),
+      currentTime: 0,
+      seekVersion: s.seekVersion + 1,
+    })),
 
   setVolume: (volume) => set({ volume, muted: volume === 0 }),
 
