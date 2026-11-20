@@ -52,6 +52,11 @@ First public release of MELUNE as an open-source repository.
   that follows the host's play/pause/seek/track.
 - Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
   roomier, aligned spacing in both READMEs.
+- Auth: `@Public()` routes now still resolve `@CurrentUser()` when a valid
+  bearer token is present (an invalid one stays anonymous instead of 401).
+  Previously the guard short-circuited before passport ran, so the signed-in
+  home feed never received `recentlyPlayed` or `madeForYou` — the discover
+  E2E test was catching a real product bug, not a test flake.
 - API E2E: `discover.e2e-spec.ts` now proves the history row was written and
   polls the home feed briefly before asserting, removing a flaky single-frame
   snapshot failure that was reproducible only on CI.

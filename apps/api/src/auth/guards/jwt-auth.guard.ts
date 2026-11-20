@@ -32,7 +32,31 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
     );
 
     if (isPublic) {
-      return true;
+      // A public route must stay reachable WITHOUT a token — but when a
+      // valid token IS present we still want to resolve the user, because
+      // controllers like DiscoverController use `@CurrentUser()` to add
+      // personalized data on top of the public payload. Short-circuiting
+      // unconditionally (the old behaviour) left `request.user` undefined
+      // even for signed-in callers, so "Recently played" was always empty
+      // and the discover E2E suite correctly failed.
+      const request = this.getRequest(context) as { headers?: Record<string, unknown> };
+      const authorization = request?.headers?.authorization;
+      if (typeof authorization !== "string" || authorization.length === 0) {
+        return true;
+      }
+
+      try {
+        const result = super.canActivate(context);
+        // Passport's HTTP guard returns a Promise. A malformed/expired
+        // token must not turn a public route into a 401: allow the
+        // anonymous response instead, just without a user attached.
+        if (result && typeof (result as Promise<boolean>).then === "function") {
+          return (result as Promise<boolean>).catch(() => true);
+        }
+        return result;
+      } catch {
+        return true;
+      }
     }
 
     return super.canActivate(context);
