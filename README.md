@@ -1,17 +1,21 @@
 ﻿<div align="center">
 
-![MELUNE — Your Music. Smarter.](docs/assets/melune-social-cover.png)
+<img src="docs/assets/melune-project-hero.png" alt="MELUNE — real album and artist cover art in the Cover Flow" width="100%" />
 
 </div>
 
 # MELUNE
 
-**MELUNE — A full-stack music streaming platform built with Next.js, NestJS, PostgreSQL, Redis & HLS.**
+**MELUNE — Your Music. Smarter.**
 
-Persian-first web player with 21 themes, realtime features, an offline PWA and a
-hybrid recommendation engine — all in one TypeScript monorepo.
+A Persian-first, full-stack music streaming and discovery platform: a Next.js
+web player, a NestJS REST/WebSocket API, PostgreSQL + Prisma, Redis, an ffmpeg
+HLS transcode worker, an Expo mobile client and an optional FastAPI recommender
+— all in one typed TypeScript monorepo.
 
-> **Your Music. Smarter.**
+The artwork above is the **real catalogue shipped with the project** (Googoosh,
+Ebi, Shadmehr Aghili, Hayedeh…), arranged exactly like the app's Cover Flow.
+The screenshots below are from the running product — not mockups.
 
 [![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
@@ -21,16 +25,25 @@ hybrid recommendation engine — all in one TypeScript monorepo.
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#tech-stack)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#tech-stack)
 
-## 🎨 Visuals
+## 🖼 MELUNE in pictures
 
-**All 21 themes (rendered from the real `theme-previews.html`):**
+Before the technical details, here is what the product actually looks like.
+**Twenty-one themes** repaint the entire shell — surfaces, brand gradient,
+halos and glows — while the per-track ambient color follows the artwork being
+played. The full-screen player adds an audio-reactive Sonic Canvas, synced
+lyrics, a real waveform seek bar, focus mode, sleep timer and a share card.
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
-[20 generated theme cover cards (editable SVG, one palette each) →](docs/assets/themes/index.html)
-— regenerated from `globals.css` with `npm run covers:themes`.
+[Open the 20 generated theme cover cards →](docs/assets/themes/index.html)
+(editable SVG, generated from `globals.css` tokens with `npm run covers:themes`).
 
-### Cover concepts (click to open full size)
+## 🎨 Cover gallery
+
+MELUNE's public face is a set of twelve 1280×640 cover concepts. The hero uses
+**Emerald Editorial**; **Persian Miniature** is the culturally-specific
+direction; **Analog Cassette** matches the era of the demo catalogue. Every
+card is an editable SVG with embedded fonts plus a PNG render.
 
 | | | | |
 |---|---|---|---|
@@ -38,17 +51,12 @@ hybrid recommendation engine — all in one TypeScript monorepo.
 | [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
 | [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
 
-**Feature strip** (drop into any README or slide deck) and **story card**
-(1080×1920, for Instagram/Telegram):
+**Feature strip** and **1080×1920 story card** for reuse in slides and social
+posts:
 
 [![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
-<img src="docs/assets/melune-story.png" alt="MELUNE story card" width="270" />
-
-All covers are 1280×640 SVG (vector, editable, fonts embedded as base64 so
-they render identically everywhere) + PNG renders in
-[`docs/assets/`](docs/assets). The hero above uses **Emerald Editorial**;
-**Persian Miniature** is the culturally-specific direction, and
-**Analog Cassette** matches the demo catalogue's era.
+&nbsp;
+<a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="220" /></a>
 
 ---
 

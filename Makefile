@@ -2,7 +2,7 @@
 # Run `make help` (GNU Make) or `task --list` (Taskfile).
 
 .DEFAULT_GOAL := help
-.PHONY: help install dev dev-web dev-api build lint typecheck test test-api test-web test-e2e db-generate db-migrate db-deploy lockfile-check docker-up docker-down cover
+.PHONY: help install dev dev-web dev-api build lint typecheck test test-api test-web test-e2e db-generate db-migrate db-deploy lockfile-check covers-themes docker-up docker-down cover
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
@@ -51,6 +51,9 @@ db-deploy: ## Apply migrations in production/CI (forward only)
 
 lockfile-check: ## Validate package-lock.json without network
 	npm run lockfile:check
+
+covers-themes: ## Regenerate one cover card per theme from globals.css
+	npm run covers:themes
 
 docker-up: ## Build and start the development Compose stack
 	npm run docker:up

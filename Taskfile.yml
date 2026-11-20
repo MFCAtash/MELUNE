@@ -83,3 +83,8 @@ tasks:
     desc: Validate package-lock.json
     cmds:
       - npm run lockfile:check
+
+  covers:themes:
+    desc: Regenerate one cover card per theme from globals.css
+    cmds:
+      - npm run covers:themes

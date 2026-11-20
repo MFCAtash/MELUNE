@@ -1,17 +1,20 @@
-# MELUNE — موسیقی شما، هوشمندتر
-
 <div align="center">
 
-![MELUNE — Your Music. Smarter.](docs/assets/melune-social-cover.png)
+<img src="docs/assets/melune-project-hero.png" alt="MELUNE — کاور آلبومها و خوانندگان واقعی در Cover Flow" width="100%" />
 
 </div>
 
-**MELUNE — پلتفرم فولاستک پخش موسیقی با Next.js، NestJS، PostgreSQL، Redis و HLS.**
+# MELUNE — موسیقی شما، هوشمندتر
 
-پخشکنندهٔ وب فارسیمحور با ۲۱ تم، قابلیتهای بلادرنگ، PWA آفلاین و موتور پیشنهاددهی ترکیبی؛
-همه در یک مونوریپوی TypeScript. همه در یک مونوریپوی TypeScript.
+**MELUNE — پلتفرم فولاستک پخش و کشف موسیقی، فارسیمحور و RTL.**
 
-> **ملون — موسیقی شما، هوشمندتر.**
+پخشکنندهٔ Next.js، API نوشتهشده با NestJS (REST + WebSocket)، PostgreSQL و Prisma،
+Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک سرویس پیشنهاددهی FastAPI —
+همه در یک مونوریپوی TypeScript نوشتهشده.
+
+تصویر بالا از **کاتالوگ واقعی پروژه** ساخته شده (گوگوش، ابی، شادمهر عقیلی، هایده…)
+و دقیقاً همان Cover Flow را نشان میدهد که در اپلیکیشن در حال اجرا است. تصاویر پایین هم
+از خود نرمافزارند، نه ماکت.
 
 [![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
@@ -21,30 +24,35 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#پشتهٔ-فناوری)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#پشتهٔ-فناوری)
 
-## 🎨 نمایی از رابط کاربری
+## 🖼 MELUNE تصویر به تصویر
 
-**همهٔ ۲۱ تم (رندرشده از `theme-previews.html` واقعی پروژه):**
+پیش از جزئیات فنی، ببینید محصول واقعاً چگونه است. **۲۱ تم** تمام پوسته را رنگ میکنند —
+سطوح، گرادیان برند، هاله و درخشش — و رنگ محیطی هر آهنگ از روی کاور آن استخراج میشود.
+پلیر تمامصفحه دارای Sonic Canvas واکنشپذیر به صوت، متن آهنگ، نوار جستجوی موجی واقعی،
+حالت تمرکز، تایمر خواب و کارت اشتراک است.
 
 ![MELUNE — all 21 themes](docs/assets/melune-themes-all.png)
 
-[۲۰ جلد تم تولیدشده (SVG قابلویر، هر کدام یک پالت) →](docs/assets/themes/index.html)
-— با `npm run covers:themes` از روی `globals.css` بازتولید میشوند.
+[۲۰ جلد تم تولیدشده را ببینید →](docs/assets/themes/index.html)
+(SVG قابلویر، تولیدشده از توکنهای `globals.css` با `npm run covers:themes`).
 
-| جلدها (برای دیدن کامل کلیک کنید) | | | |
+## 🎨 گالری جلدها
+
+چهرهٔ عمومی MELUNE مجموعهای از ۱۲ جلد ۱۲۸۰×۶۴۰ است. جلد بالا **Emerald Editorial**،
+**Persian Miniature** جهت فرهنگی ایرانی و **Analog Cassette** همخوان با دورهٔ کاتالوگ
+دموست. هر جلد هم SVG قابلویر (با فونت جاسازیشده) و هم رندر PNG دارد.
+
+| | | | |
 |---|---|---|---|
 | [![Emerald Editorial](docs/assets/melune-social-cover.png)](docs/assets/melune-social-cover.svg) | [![Persian Miniature](docs/assets/melune-cover-persian-miniature.png)](docs/assets/melune-cover-persian-miniature.svg) | [![Analog Cassette](docs/assets/melune-cover-analog-cassette.png)](docs/assets/melune-cover-analog-cassette.svg) | [![Spectrum Glass](docs/assets/melune-cover-spectrum-glass.png)](docs/assets/melune-cover-spectrum-glass.svg) |
 | [![Brutalist Grid](docs/assets/melune-cover-brutalist-grid.png)](docs/assets/melune-cover-brutalist-grid.svg) | [![Neon Vinyl](docs/assets/melune-cover-neon-vinyl.png)](docs/assets/melune-cover-neon-vinyl.png) | [![Aurora Glass](docs/assets/melune-cover-aurora-glass.png)](docs/assets/melune-cover-aurora-glass.png) | [![Persian Noir](docs/assets/melune-cover-persian-noir.png)](docs/assets/melune-cover-persian-noir.png) |
 | [![Golden Hour](docs/assets/melune-cover-golden-hour.png)](docs/assets/melune-cover-golden-hour.svg) | [![Cyber Lime](docs/assets/melune-cover-cyber-lime.png)](docs/assets/melune-cover-cyber-lime.svg) | [![Sonic Canvas](docs/assets/melune-cover-sonic-canvas.png)](docs/assets/melune-cover-sonic-canvas.svg) | [![Type Stack](docs/assets/melune-cover-type-stack.png)](docs/assets/melune-cover-type-stack.svg) |
 
-**نوار ویژگی‌ها** (مناسب README و اسلاید) و **کارت استوری** (۱۰۸۰×۱۹۲۰ برای اینستاگرام/تلگرام):
+**نوار ویژگیها** و **کارت استوری ۱۰۸۰×۱۹۲۰** برای اسلاید و شبکههای اجتماعی:
 
 [![Feature strip](docs/assets/melune-feature-strip.png)](docs/assets/melune-feature-strip.svg)
-<img src="docs/assets/melune-story.png" alt="MELUNE story card" width="270" />
-
-همهٔ جلدها ۱۲۸۰×۶۴۰ و برداری (SVG قابلویر با فونت جاسازی‌شده) همراه با رندر PNG در
-[`docs/assets/`](docs/assets) قرار دارند. جلد بالای صفحه **Emerald Editorial** است،
-**Persian Miniature** جهت فرهنگی ایرانی و **Analog Cassette** هم‌خوان با دورهٔ
-کاتالوگ دموست.
+&nbsp;
+<a href="docs/assets/melune-story.png"><img src="docs/assets/melune-story.png" alt="MELUNE story card" width="220" /></a>
 
 ---
 

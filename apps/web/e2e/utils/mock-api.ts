@@ -223,6 +223,23 @@ async function json(route: Route, status: number, body?: unknown) {
  * navigation's GET finds it).
  */
 export async function installApiMocks(page: Page, initial: Partial<MockApiState> = {}) {
+  // The fixture audio URLs are not real files — a real browser rejects
+  // `play()` on a failed load, which makes PlayerEngine call `pause()`
+  // and flip the control back to "Play" mid-test (this was flaky across
+  // engines: it passed on Edge locally but failed on CI Chromium).
+  // Stub only the two transport methods *before* the app loads; every
+  // other media behaviour (currentTime, duration seeding, timeupdate)
+  // remains the browser's own.
+  await page.addInitScript(() => {
+    HTMLMediaElement.prototype.play = function stubPlay() {
+      this.dispatchEvent(new Event("playing"));
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function stubPause() {
+      this.dispatchEvent(new Event("pause"));
+    };
+  });
+
   const state: MockApiState = { ...defaultState(), ...initial };
   for (const p of initial.myPlaylists ?? []) {
     if (!state.playlistDetails.has(p.id)) indexPlaylist(state, { ...p, items: [] });
