@@ -37,6 +37,7 @@ installation and a feature tour.
 
 ## Repository-wide policies
 
+- [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [SECURITY.md](../SECURITY.md)
 - [LICENSE](../LICENSE) (MIT)

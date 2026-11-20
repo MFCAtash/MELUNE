@@ -380,7 +380,8 @@ A detailed history of shipped phases is in
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) first. The short version:
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) first. The short version:
 
 1. Fork and branch from `main`.
 2. `npm ci`, then make your change with `npm run typecheck` and `npm run lint` clean.
