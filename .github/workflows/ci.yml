@@ -254,6 +254,10 @@ jobs:
     env:
       # Must match e2e/utils/mock-api.ts's API_ORIGIN default exactly.
       NEXT_PUBLIC_API_URL: http://localhost:4310
+      # The workflow-level PORT=4000 is for the API job; `next start`
+      # honours PORT too, so without this override the web server would
+      # listen on 4000 while Playwright and the health check poll 3000.
+      PORT: 3000
     steps:
       - uses: actions/checkout@v4
 
