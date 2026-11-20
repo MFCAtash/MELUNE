@@ -382,7 +382,8 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --bui
 
 ## مشارکت
 
-پیش از ارسال Pull Request، [CONTRIBUTING.md](CONTRIBUTING.md) را بخوانید. خلاصه:
+پیش از ارسال Pull Request، [CONTRIBUTING.md](CONTRIBUTING.md) و
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) را بخوانید. خلاصه:
 
 1. یک branch از `main` بسازید.
 2. `npm run lint && npm run typecheck && npm run test` را اجرا کنید.
