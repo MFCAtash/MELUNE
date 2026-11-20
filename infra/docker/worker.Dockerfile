@@ -6,7 +6,7 @@
 # --- Dependencies -------------------------------------------------------
 # All workspace manifests are copied so npm can validate the lockfile
 # (npm ci fails if a workspace listed in the root package.json is missing).
-FROM node:20-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /repo
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
@@ -24,7 +24,7 @@ RUN npm run prisma:generate --workspace=apps/api \
  && npm run build --workspace=apps/api
 
 # --- Runtime ------------------------------------------------------------
-FROM node:20-alpine AS runtime
+FROM node:26-alpine AS runtime
 # The only container in the stack that needs ffmpeg — see
 # apps/api/src/queue/workers/audio-transcode.worker.ts.
 RUN apk add --no-cache ffmpeg

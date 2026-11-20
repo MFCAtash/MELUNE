@@ -5,7 +5,7 @@
 # apps/web depends on the @codex-music/* workspace packages, so they must be
 # present (previously they were not copied, so npm tried to download
 # non-existent "@codex-music/types" from the public registry).
-FROM node:20-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /repo
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
@@ -32,7 +32,7 @@ COPY apps/web apps/web
 RUN npm run build --workspace=apps/web
 
 # --- Runtime ------------------------------------------------------------
-FROM node:20-alpine AS runtime
+FROM node:26-alpine AS runtime
 WORKDIR /repo
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

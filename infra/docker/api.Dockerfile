@@ -4,7 +4,7 @@
 # --- Dependencies -------------------------------------------------------
 # All workspace manifests are copied so npm can validate the lockfile
 # (npm ci fails if a workspace listed in the root package.json is missing).
-FROM node:20-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /repo
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
@@ -24,7 +24,7 @@ RUN npm run prisma:generate --workspace=apps/api \
 # --- Runtime ------------------------------------------------------------
 # npm workspaces hoist dependencies to /repo/node_modules, so that is what
 # must be shipped (copying only apps/api/node_modules leaves no packages).
-FROM node:20-alpine AS runtime
+FROM node:26-alpine AS runtime
 WORKDIR /repo
 ENV NODE_ENV=production
 COPY --from=build /repo/node_modules node_modules
