@@ -5,6 +5,12 @@ import request from "supertest";
 import { AppModule } from "../src/app.module";
 import { PrismaService } from "../src/prisma/prisma.service";
 
+/** Only the two fields this test asserts on — avoids `any` in lint. */
+interface HomeResponse {
+  recentlyPlayed: Array<{ id: string }>;
+  madeForYou: unknown;
+}
+
 describe("Discover (e2e)", () => {
   let app: INestApplication;
   let prisma: PrismaService;
@@ -104,14 +110,14 @@ describe("Discover (e2e)", () => {
     // of asserting on the very first frame — the API is eventually
     // consistent across its cache/history layers in CI, and a single
     // snapshot made this suite flaky.
-    let home: any = null;
+    let home: HomeResponse | null = null;
     let recent: Array<{ id: string }> = [];
     for (let attempt = 0; attempt < 10; attempt += 1) {
       const res = await request(http)
         .get("/api/discover/home")
         .set("Authorization", `Bearer ${listenerToken}`)
         .expect(200);
-      home = res.body;
+      home = res.body as HomeResponse;
       recent = home.recentlyPlayed;
       if (recent.some((s) => s.id === songId)) break;
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -121,6 +127,7 @@ describe("Discover (e2e)", () => {
     // madeForYou excludes songs already played, and there's only one song
     // in this genre (the one just played), so it correctly comes back empty
     // rather than null — the user *does* have genre signal now.
-    expect(home.madeForYou).not.toBeNull();
+    expect(home).not.toBeNull();
+    expect(home!.madeForYou).not.toBeNull();
   });
 });
