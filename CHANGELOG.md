@@ -2,12 +2,49 @@
 
 All notable changes to MELUNE are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and the project uses
-[Semantic Versioning](https://semver.org/).
-
-The repository is pre-1.0, so minor releases may introduce breaking changes; each
-phase note below lists them explicitly. Detailed engineering notes for each phase
-live in the `CHANGES-*.md` files at the repository root — this file summarises
+[Semantic Versioning](https://semver.org/). Detailed engineering notes for each
+phase live in [`docs/changelog/`](docs/changelog/README.md) — this file summarises
 them so you can read the history without opening twenty documents.
+
+---
+
+## [1.0.0] — 2026-11-20
+
+First public release of MELUNE as an open-source repository.
+
+### Added
+- Public GitHub repository with a complete, self-contained monorepo: web, API,
+  mobile, shared packages, AI service, infrastructure and documentation.
+- Root README in English and Persian, plus a README for every workspace.
+- MIT license, contributing guide, security policy, changelog, issue templates
+  and a pull-request template.
+- Social preview artwork (`docs/assets/melune-preview.png`) generated from the
+  real hero covers.
+- Repository access guide and a helper script for read-only collaborators.
+
+### Changed
+- Documentation reorganised: phase notes moved to `docs/changelog/`, README
+  encoding normalised to UTF-8, stale links and duplicate `.gitignore` rules
+  cleaned up.
+- `package.json` now carries repository, homepage, bugs, license and keyword
+  metadata, and the version is `1.0.0`.
+- Added the full Persian deployment guide (`docs/deploy-oracle-cloudflare-fa.md`),
+  the technical analysis (`docs/project-analysis-fa.md`) and a central
+  [documentation index](docs/README.md); both root READMEs link to them.
+
+### Fixed
+- Web unit tests: Vitest now uses the automatic JSX runtime (matching Next.js),
+  `isEditableTarget()` always returns a boolean, and the clip-button test seeds
+  its mocked stream and flushes React state updates. All 184 tests pass.
+- API lint: waived the framework-mandated `Record<string, any>` override
+  signature in `ClientIpThrottlerGuard` and removed two unused imports.
+- Prisma schema drift: removed the `extensions = [pg_trgm]` datasource entry
+  (`pg_trgm` is still created by the initial migration). Prisma cannot derive
+  extension declarations from migration history, so CI's fresh shadow database
+  reported a false drift; the check now passes with no difference.
+- Root README stated the repository was private although it is public; the
+  access section now describes the actual public status.
+- Pull-request template link to `CONTRIBUTING.md` is now repo-relative.
 
 ---
 
@@ -55,16 +92,11 @@ Phases 1–10 of the build, condensed:
 - **HLS streaming & queue/strip focus mode.** ffmpeg transcode worker producing
   adaptive renditions; focus mode removes decorative UI while playing.
 
-Full detail: `CHANGES-phase6_7.md`, `CHANGES-phase8.md`, `CHANGES-phase8_1.md`,
-`CHANGES-phase8_2-ui-review.md`, `CHANGES-phase9-hybrid-recommendations.md`,
-`CHANGES-phase10-sonic-canvas.md`, `CHANGES-phase10_1-design-system-ambient-theme.md`,
-`CHANGES-phase10_2-player-polish.md`, `CHANGES-phase10_3-home-redesign.md`,
-`CHANGES-hls-streaming.md`, `CHANGES-queue-strip-focus-mode.md`,
-`CHANGES-sonic-canvas-clip-export.md`, `CHANGES-tempo-amoled-onboarding.md`,
-`CHANGES-security-hardening.md`, `CHANGES-test-coverage.md`,
-`CHANGES-lockfile-and-ci-hardening-2026-09-28.md`,
-`CHANGES-ci-and-verification-2026-09-27.md`, `CHANGES-ci-audit-2026-09-27.md`,
-`CHANGES-critical-hardening-2026-09-28.md`, `CHANGES-frontend-polish-2026-09-27.md`.
+Full detail: [`docs/changelog/`](docs/changelog/README.md) — the phase notes for
+foundation, product UI, UI review, recommendations, Sonic Canvas, design system,
+player polish, home redesign, HLS streaming, queue/focus mode, clip export,
+tempo/AMOLED/onboarding, security hardening, test coverage, lockfile/CI and
+pre-release hardening.
 
 ---
 
@@ -84,5 +116,4 @@ None yet.
 ## Security fixes
 
 See [SECURITY.md](SECURITY.md) for the reporting process. Historical hardening is
-documented in `CHANGES-security-hardening.md` and
-`CHANGES-critical-hardening-2026-09-28.md`.
+documented in [`docs/changelog/`](docs/changelog/README.md).

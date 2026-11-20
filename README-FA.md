@@ -119,7 +119,9 @@ infra/
   caddy/               Caddyfile (Let's Encrypt)، Caddyfile.origin (گواهی Cloudflare) و site.caddy
 docs/                  architecture.md، api.md، database.md، design-system.md،
                        development.md، deployment.md، deploy-oracle-cloudflare.md،
-                       ai.md، lockfile.md و آرشیو تغییرات
+                       deploy-oracle-cloudflare-fa.md (راهنمای کامل فارسی)،
+                       project-analysis-fa.md (تحلیل فنی)، ai.md، lockfile.md،
+                       changelog/ (یادداشت‌های فازها)
 scripts/               ابزار مخزن + اسکریپت‌های استقرار (scripts/deploy/)
 .env.example           قالب پیکربندی توسعه
 .env.production.example قالب پیکربندی تولید
@@ -335,6 +337,7 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --bui
 ```
 
 توضیح کامل: [docs/architecture.md](docs/architecture.md).
+فهرست کامل اسناد: [docs/README.md](docs/README.md).
 
 ---
 
@@ -355,6 +358,7 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --bui
   `DEPLOY_SSH_KEY`، `DEPLOY_USER`، `DEPLOY_PATH` و `DEPLOY_PORT` کار می‌کند.
 - راهنمای گام‌به‌گام: [docs/deployment.md](docs/deployment.md) و
   [docs/deploy-oracle-cloudflare.md](docs/deploy-oracle-cloudflare.md).
+- [راهنمای کامل فارسی استقرار](docs/deploy-oracle-cloudflare-fa.md) — چکلیست مستقل از ساخت VM تا بکاپ و عیبیابی.
 
 ---
 
@@ -369,6 +373,10 @@ docker compose --env-file .env.production -f docker-compose.prod.yml up -d --bui
 
 تاریخچهٔ تغییرات: [CHANGELOG.md](CHANGELOG.md) و
 [آرشیو تغییرات](docs/changelog/README.md).
+
+اسناد تکمیلی: [معماری](docs/architecture.md)، [پایگاه داده](docs/database.md)،
+[طراحی رابط](docs/design-system.md)، [تحلیل فنی جامع](docs/project-analysis-fa.md) و
+[راهنمای دسترسی به مخزن](docs/github-access.md).
 
 ---
 
