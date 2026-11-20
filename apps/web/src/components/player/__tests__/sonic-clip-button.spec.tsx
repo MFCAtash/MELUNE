@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { useRef } from "react";
 import { SonicClipButton } from "../sonic-clip-button";
 
@@ -36,6 +36,10 @@ const captureStream = vi.fn().mockReturnValue({ getTracks: () => [{ stop: stopTr
  *  below can remove it and the "unsupported" test keeps working across
  *  the whole file, not just when it happens to run first. */
 function mockCaptureSupport() {
+  // `afterEach` calls vi.restoreAllMocks(), which can clear the return value
+  // of module-level vi.fn() mocks between tests — re-seed it every time so
+  // each test is self-contained.
+  captureStream.mockReturnValue({ getTracks: () => [{ stop: stopTrack }] });
   Object.defineProperty(HTMLCanvasElement.prototype, "captureStream", {
     value: captureStream,
     configurable: true,
@@ -97,7 +101,9 @@ describe("SonicClipButton", () => {
     expect(captureStream).toHaveBeenCalledWith(30);
     expect(button).toBeDisabled(); // now recording — the same button, not a second state
 
-    vi.advanceTimersByTime(5000);
+    act(() => {
+      vi.advanceTimersByTime(5000);
+    });
 
     expect(clickSpy).toHaveBeenCalledTimes(1);
     expect(stopTrack).toHaveBeenCalled(); // captured MediaStream tracks are released, not left open
