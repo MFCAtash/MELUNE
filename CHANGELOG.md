@@ -36,20 +36,29 @@ product video, and the media-storage documentation matches reality.
 
 ### Added
 - Project demo video at `docs/assets/melune-demo.mp4` (contributed by Mohammad
-  Atash) with a purpose-built 1280×720 player cover
-  (`docs/assets/melune-demo-cover.png`: play button, progress bar, duration and
-  version), a poster frame and a lightweight animated GIF tour. The cover is
-  linked to the MP4 at the top of both root READMEs, so the video is never a
-  bare text link.
+  Atash): a 34 MB, H.264/AAC recording of the real app. It ships as
+  `docs/assets/melune-demo.mp4`, plays through **GitHub Pages**
+  (`https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4`, enabled via the
+  API and verified to play in Edge/Chrome) and as a GitHub Release asset
+  (`releases/download/v1.0.1/melune-demo.mp4`). With a purpose-built 1280×720
+  player cover (`docs/assets/melune-demo-cover.png`: play button, progress bar,
+  duration and version), a poster frame and a lightweight animated GIF tour,
+  the video is never a bare text link — the READMEs link the Pages URL, the
+  repo file and the release download side by side. (GitHub does not render
+  videos on blob pages, so Pages is the playable home of the video.)
 - Guest browsing: the public home feed renders for signed-out visitors instead
   of redirecting to `/login`; personalised rows still require an account.
 
 ### Fixed
+- The demo video was 34 MB: re-encoded to a 4.6 MB H.264/AAC MP4 with
+  `moov` optimized for web (`+faststart`), verified playable with
+  `ffprobe` and headless Edge (readyState, duration, seek, and `play()`
+  all confirmed).
 - `docs/media.md` claimed media was tracked with Git LFS. The LFS migration was
   reverted (upload authentication failed), so the guide now states that media
   is committed directly to git and positions R2 as the production path.
-- `docs/README.md` now indexes the demo video, cover, poster and teaser next to
-  the rest of the visual assets.
+- `docs/README.md` now indexes the demo video, cover, poster, teaser and Pages
+  URL next to the rest of the visual assets.
 
 ---
 

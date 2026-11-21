@@ -29,11 +29,14 @@ All covers, screenshots and the social preview live in
 [`assets/`](assets). Each cover ships as an editable SVG plus a PNG render at
 1280×640. The hero cover used in both READMEs is **Emerald Editorial**.
 
-The 1:53 [project demo video](assets/melune-demo.mp4) is embedded at the top of
-both root READMEs through a purpose-built 1280×720
-[cover](assets/melune-demo-cover.png) with player chrome and a play button, plus
-a [poster frame](assets/melune-demo-poster.png) and a lightweight
-[animated GIF teaser](assets/melune-demo-teaser.gif).
+The 1:53 [project demo video](assets/melune-demo.mp4) (4.6 MB, H.264/AAC) is
+embedded at the top of both root READMEs through a purpose-built 1280×720
+[cover](assets/melune-demo-cover.png) with player chrome and a play button.
+Because GitHub blob pages don't play videos, the READMEs link it via GitHub
+Pages at [mfcatash.github.io/MELUNE/assets/melune-demo.mp4](https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4)
+(verified to play in Chrome/Edge), and the repo file
+[`assets/melune-demo-poster.png`](assets/melune-demo-poster.png) and the
+[animated GIF teaser](assets/melune-demo-teaser.gif) are kept alongside it.
 
 ## Release history
 

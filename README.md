@@ -28,26 +28,16 @@ The screenshots below are from the running product — not mockups.
 ## 🎬 Demo video
 
 <p align="center">
-  <a href="docs/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="MELUNE product demo — 1:53 walkthrough. Click to play." width="860" /></a>
+  <a href="https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="MELUNE — the real product with the demo player on screen. Click the cover to watch the 1:53 walkthrough." width="860" /></a>
 </p>
 <p align="center">
   <sub>1:53 walkthrough of the real app ·
-  <a href="docs/assets/melune-demo.mp4">watch / download the MP4</a> ·
-  <a href="docs/assets/melune-demo-teaser.gif">animated preview</a></sub>
+  <a href="https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4">play on GitHub Pages</a>
+  · <a href="docs/assets/melune-demo.mp4">repo file</a>
+  · <a href="https://github.com/MFCAtash/MELUNE/releases/download/v1.0.1/melune-demo.mp4">download MP4 (4.6 MB)</a></sub>
 </p>
-
-<br />
-
 <p align="center">
-
-[![CI](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml/badge.svg)](https://github.com/MFCAtash/MELUNE/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/MFCAtash/MELUNE?include_prereleases&color=3ddc97)](https://github.com/MFCAtash/MELUNE/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-76%25-brightgreen)](apps/api/coverage/lcov-report/index.html)
-[![Node >= 20](https://img.shields.io/badge/Node-%3E%3D20-green.svg)](package.json)
-[![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](#tech-stack)
-[![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](#tech-stack)
-
+  <sub><em>Note: GitHub does not render videos on blob pages, so the video plays through <a href="https://mfcatash.github.io/MELUNE/">GitHub Pages</a>. A compact animated tour is also available <a href="docs/assets/melune-demo-teaser.gif">here</a>.</em></sub>
 </p>
 
 <br />

@@ -27,12 +27,18 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 ## 🎬 ویدیو معرفی پروژه
 
 <p align="center">
-  <a href="docs/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="ویدیو معرفی MELUNE — ویدیوی ۱:۵۳ از اپلیکیشن. برای پخش کلیک کنید." width="860" /></a>
+  <a href="https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="MELUNE — نمایش جلد با پلیکر و دکمهٔ پخش: دقیقاً جدای محصول واقعی است. برای دیدن ویدیوی ۱:۵۳ روی جلد کلیک کنید." width="860" /></a>
 </p>
 <p align="center">
   <sub>ویدیوی ۱:۵۳ از اپلیکیشن واقعی ·
-  <a href="docs/assets/melune-demo.mp4">پخش / دانلود MP4</a> ·
-  <a href="docs/assets/melune-demo-teaser.gif">پیش‌نمایش کوتاه (GIF)</a></sub>
+  <a href="https://mfcatash.github.io/MELUNE/assets/melune-demo.mp4">پخش در GitHub Pages</a>
+  · <a href="docs/assets/melune-demo.mp4">فایل موجود در نسخهٔ انجام‌شده</a>
+  · <a href="https://github.com/MFCAtash/MELUNE/releases/download/v1.0.1/melune-demo.mp4">دانلود MP4 (۴.۶ مگابایت)</a></sub>
+</p>
+<p align="center">
+  <sub><em>نکتهٔ فنی: گیت‌هاب جعبهٔ ویدیوی گرد (blob) را پخش نمی‌کند، پس پیش‌نمایش بصورتی از طریق
+  <a href="https://mfcatash.github.io/MELUNE/">GitHub Pages</a> لینک‌شده است. پیش‌نمایش متحرک
+  <a href="docs/assets/melune-demo-teaser.gif">اینجا</a> قرار دارد.</em></sub>
 </p>
 
 <br />
