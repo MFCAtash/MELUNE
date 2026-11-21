@@ -10,18 +10,6 @@
 
 <br />
 
-## 🎬 Demo video
-
-<p align="center">
-  <video src="docs/assets/melune-demo.mp4" poster="docs/assets/melune-demo-poster.png" controls width="960"></video>
-</p>
-<p align="center">
-  <sub>1:53 walkthrough of the real app ·
-  <a href="docs/assets/melune-demo.mp4">Download the MP4</a></sub>
-</p>
-
-<br />
-
 # MELUNE
 
 **MELUNE — Your Music. Smarter.**
@@ -34,6 +22,19 @@ HLS transcode worker, an Expo mobile client and an optional FastAPI recommender
 The artwork above is the **real catalogue shipped with the project** (Googoosh,
 Ebi, Shadmehr Aghili, Hayedeh…), arranged exactly like the app's Cover Flow.
 The screenshots below are from the running product — not mockups.
+
+<br />
+
+## 🎬 Demo video
+
+<p align="center">
+  <a href="docs/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="MELUNE product demo — 1:53 walkthrough. Click to play." width="860" /></a>
+</p>
+<p align="center">
+  <sub>1:53 walkthrough of the real app ·
+  <a href="docs/assets/melune-demo.mp4">watch / download the MP4</a> ·
+  <a href="docs/assets/melune-demo-teaser.gif">animated preview</a></sub>
+</p>
 
 <br />
 

@@ -10,18 +10,6 @@
 
 <br />
 
-## 🎬 ویدیو معرفی پروژه
-
-<p align="center">
-  <video src="docs/assets/melune-demo.mp4" poster="docs/assets/melune-demo-poster.png" controls width="960"></video>
-</p>
-<p align="center">
-  <sub>ویدیوی ۱:۵۳ دقیقهای از اپلیکیشن واقعی ·
-  <a href="docs/assets/melune-demo.mp4">دانلود MP4</a></sub>
-</p>
-
-<br />
-
 # MELUNE — موسیقی شما، هوشمندتر
 
 **MELUNE — پلتفرم فولاستک پخش و کشف موسیقی، فارسیمحور و RTL.**
@@ -33,6 +21,19 @@ Redis، کارگر ترنسکود HLS با ffmpeg، کلاینت Expo و یک س
 تصویر بالا از **کاتالوگ واقعی پروژه** ساخته شده (گوگوش، ابی، شادمهر عقیلی، هایده…)
 و دقیقاً همان Cover Flow را نشان میدهد که در اپلیکیشن در حال اجرا است. تصاویر پایین هم
 از خود نرمافزارند، نه ماکت.
+
+<br />
+
+## 🎬 ویدیو معرفی پروژه
+
+<p align="center">
+  <a href="docs/assets/melune-demo.mp4"><img src="docs/assets/melune-demo-cover.png" alt="ویدیو معرفی MELUNE — ویدیوی ۱:۵۳ از اپلیکیشن. برای پخش کلیک کنید." width="860" /></a>
+</p>
+<p align="center">
+  <sub>ویدیوی ۱:۵۳ از اپلیکیشن واقعی ·
+  <a href="docs/assets/melune-demo.mp4">پخش / دانلود MP4</a> ·
+  <a href="docs/assets/melune-demo-teaser.gif">پیش‌نمایش کوتاه (GIF)</a></sub>
+</p>
 
 <br />
 

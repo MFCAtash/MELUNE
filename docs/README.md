@@ -19,7 +19,7 @@ installation and a feature tour.
 | [ai.md](ai.md) | Optional FastAPI recommendation service |
 | [lockfile.md](lockfile.md) | Why `package-lock.json` is committed and how CI guards it |
 | [github-access.md](github-access.md) | Repository roles and read-only collaborator script |
-| [media.md](media.md) | Git LFS migration and moving demo media to R2 |
+| [media.md](media.md) | Demo media storage: direct-in-git trade-offs and moving to R2 |
 | [project-analysis-fa.md](project-analysis-fa.md) | تحلیل فنی جامع مونوریپو (سند تاریخی ۲۰۲۶-۱۱-۱۸) |
 | [roadmap-visuals-fa.md](roadmap-visuals-fa.md) | نقشهٔ راه جلدها، هویت بصری و قابلیت‌های نمایشی |
 
@@ -29,9 +29,11 @@ All covers, screenshots and the social preview live in
 [`assets/`](assets). Each cover ships as an editable SVG plus a PNG render at
 1280×640. The hero cover used in both READMEs is **Emerald Editorial**.
 
-The 1:53 [project demo video](assets/melune-demo.mp4) (with its
-[poster frame](assets/melune-demo-poster.png)) is embedded at the top of both
-root READMEs.
+The 1:53 [project demo video](assets/melune-demo.mp4) is embedded at the top of
+both root READMEs through a purpose-built 1280×720
+[cover](assets/melune-demo-cover.png) with player chrome and a play button, plus
+a [poster frame](assets/melune-demo-poster.png) and a lightweight
+[animated GIF teaser](assets/melune-demo-teaser.gif).
 
 ## Release history
 

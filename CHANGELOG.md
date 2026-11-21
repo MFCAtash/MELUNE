@@ -8,6 +8,51 @@ them so you can read the history without opening twenty documents.
 
 ---
 
+## [Unreleased]
+
+### Added
+- Production deployment stack: `docker-compose.prod.yml`, Caddy edge with two TLS
+  modes (Let's Encrypt / Cloudflare Origin Certificate), and `.env.production.example`.
+- `scripts/deploy/configure-domain.sh` — generates `.env.production` with random
+  secrets, derives the media host and picks the right Caddyfile.
+- `scripts/deploy/oracle-bootstrap.sh` — first-boot VM setup (Docker, swap,
+  UFW/iptables, fail2ban, Docker log rotation).
+- CI/CD: GitHub Actions deploy workflow over SSH with health waits and smoke tests.
+- SEO surface: dynamic `sitemap.xml`, `robots.txt`, OpenGraph image and JSON-LD metadata.
+- Media host decoupled from the app host (`MEDIA_DOMAIN`) so deployments under an
+  existing subdomain stay inside the free Universal SSL certificate.
+
+### Changed
+- Same-origin production topology: `/api/*` and `/socket.io/*` proxied by Caddy,
+  removing CORS, cross-site cookie and WebSocket configuration from the client.
+- Server-side `trust proxy = 1` plus `ClientIpThrottlerGuard`.
+
+---
+
+## [1.0.1] — 2026-11-21
+
+Documentation and presentation release: both READMEs now open with a real
+product video, and the media-storage documentation matches reality.
+
+### Added
+- Project demo video at `docs/assets/melune-demo.mp4` (contributed by Mohammad
+  Atash) with a purpose-built 1280×720 player cover
+  (`docs/assets/melune-demo-cover.png`: play button, progress bar, duration and
+  version), a poster frame and a lightweight animated GIF tour. The cover is
+  linked to the MP4 at the top of both root READMEs, so the video is never a
+  bare text link.
+- Guest browsing: the public home feed renders for signed-out visitors instead
+  of redirecting to `/login`; personalised rows still require an account.
+
+### Fixed
+- `docs/media.md` claimed media was tracked with Git LFS. The LFS migration was
+  reverted (upload authentication failed), so the guide now states that media
+  is committed directly to git and positions R2 as the production path.
+- `docs/README.md` now indexes the demo video, cover, poster and teaser next to
+  the rest of the visual assets.
+
+---
+
 ## [1.0.0] — 2026-11-20
 
 First public release of MELUNE as an open-source repository.
@@ -52,9 +97,6 @@ First public release of MELUNE as an open-source repository.
   that follows the host's play/pause/seek/track.
 - Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
   roomier, aligned spacing in both READMEs.
-- Project demo video at `docs/assets/melune-demo.mp4` (contributed by
-  Mohammad Atash) with a generated poster frame, embedded with a player and a
-  direct download link at the top of both READMEs.
 - Auth: `@Public()` routes now still resolve `@CurrentUser()` when a valid
   bearer token is present (an invalid one stays anonymous instead of 401).
   Previously the guard short-circuited before passport ran, so the signed-in
@@ -107,27 +149,6 @@ First public release of MELUNE as an open-source repository.
 - Root README stated the repository was private although it is public; the
   access section now describes the actual public status.
 - Pull-request template link to `CONTRIBUTING.md` is now repo-relative.
-
----
-
-## [Unreleased]
-
-### Added
-- Production deployment stack: `docker-compose.prod.yml`, Caddy edge with two TLS
-  modes (Let's Encrypt / Cloudflare Origin Certificate), and `.env.production.example`.
-- `scripts/deploy/configure-domain.sh` — generates `.env.production` with random
-  secrets, derives the media host and picks the right Caddyfile.
-- `scripts/deploy/oracle-bootstrap.sh` — first-boot VM setup (Docker, swap,
-  UFW/iptables, fail2ban, Docker log rotation).
-- CI/CD: GitHub Actions deploy workflow over SSH with health waits and smoke tests.
-- SEO surface: dynamic `sitemap.xml`, `robots.txt`, OpenGraph image and JSON-LD metadata.
-- Media host decoupled from the app host (`MEDIA_DOMAIN`) so deployments under an
-  existing subdomain stay inside the free Universal SSL certificate.
-
-### Changed
-- Same-origin production topology: `/api/*` and `/socket.io/*` proxied by Caddy,
-  removing CORS, cross-site cookie and WebSocket configuration from the client.
-- Server-side `trust proxy = 1` plus `ClientIpThrottlerGuard`.
 
 ---
 
