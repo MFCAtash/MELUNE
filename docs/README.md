@@ -29,6 +29,10 @@ All covers, screenshots and the social preview live in
 [`assets/`](assets). Each cover ships as an editable SVG plus a PNG render at
 1280×640. The hero cover used in both READMEs is **Emerald Editorial**.
 
+The 1:53 [project demo video](assets/melune-demo.mp4) (with its
+[poster frame](assets/melune-demo-poster.png)) is embedded at the top of both
+root READMEs.
+
 ## Release history
 
 - [CHANGELOG.md](../CHANGELOG.md) — versioned summary, starting with 1.0.0.

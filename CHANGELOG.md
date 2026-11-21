@@ -52,6 +52,9 @@ First public release of MELUNE as an open-source repository.
   that follows the host's play/pause/seek/track.
 - Compact 1280×660 theme grid and a real album-art Cover Flow hero, with
   roomier, aligned spacing in both READMEs.
+- Project demo video at `docs/assets/melune-demo.mp4` (contributed by
+  Mohammad Atash) with a generated poster frame, embedded with a player and a
+  direct download link at the top of both READMEs.
 - Auth: `@Public()` routes now still resolve `@CurrentUser()` when a valid
   bearer token is present (an invalid one stays anonymous instead of 401).
   Previously the guard short-circuited before passport ran, so the signed-in

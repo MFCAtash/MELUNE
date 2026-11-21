@@ -10,6 +10,18 @@
 
 <br />
 
+## 🎬 Demo video
+
+<p align="center">
+  <video src="docs/assets/melune-demo.mp4" poster="docs/assets/melune-demo-poster.png" controls width="960"></video>
+</p>
+<p align="center">
+  <sub>1:53 walkthrough of the real app ·
+  <a href="docs/assets/melune-demo.mp4">Download the MP4</a></sub>
+</p>
+
+<br />
+
 # MELUNE
 
 **MELUNE — Your Music. Smarter.**

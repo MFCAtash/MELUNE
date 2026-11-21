@@ -10,6 +10,18 @@
 
 <br />
 
+## 🎬 ویدیو معرفی پروژه
+
+<p align="center">
+  <video src="docs/assets/melune-demo.mp4" poster="docs/assets/melune-demo-poster.png" controls width="960"></video>
+</p>
+<p align="center">
+  <sub>ویدیوی ۱:۵۳ دقیقهای از اپلیکیشن واقعی ·
+  <a href="docs/assets/melune-demo.mp4">دانلود MP4</a></sub>
+</p>
+
+<br />
+
 # MELUNE — موسیقی شما، هوشمندتر
 
 **MELUNE — پلتفرم فولاستک پخش و کشف موسیقی، فارسیمحور و RTL.**
